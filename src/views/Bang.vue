@@ -49,6 +49,11 @@ div#seed(style='padding:20px;')
 
   br
 
+  .randomClick(@click='randomShow') click
+  .randomBang
+
+  br
+
   .eventBang(v-for="(b, idx) in bang")
 
     span {{ bang.length - idx }}. {{ b.name ? b.name + ' /' : '' }} {{ b.insta ? b.insta + ' /' : '' }} {{ b.job ? b.job + ' /' : '' }}
@@ -128,6 +133,16 @@ async function upload(f) {
     }
   }
 }
+
+function randomShow() {
+  let randomClick = document.querySelector('.randomClick');
+  let randomBang = document.querySelector('.randomBang');
+  let random = Math.floor(Math.random() * 45 + 1);
+
+  randomClick.classList.add("hide");
+  randomBang.classList.add("show");
+  randomBang.innerText(random)
+}
 </script>
 
 <style lang="less">
@@ -147,6 +162,51 @@ async function upload(f) {
   border: 2px solid black;
   border-radius: none;
   width: 100%;
+}
+
+.randomClick {
+  width:100%;
+  height:40px;
+  background-color:#fff;
+  box-shadow:inset 0 0 2px #333;
+  margin-top:12px;
+  border-radius:3px;
+  border: 2px solid;
+  box-sizing: border-box;
+  text-align: center;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    // background-color: rgba(255,255,255,0.7);
+    background-color: transparent;
+    color: rgb(2, 74, 0);
+    transform: translateY(1px);
+  }
+
+  &.hide {
+    display: none;
+  }
+}
+
+.randomBang {
+  width:100%;
+  height:40px;
+  background-color:#fff;
+  margin-top:12px;
+  border-radius:3px;
+  border: 2px solid;
+  box-sizing: border-box;
+  text-align: center;
+  display: none;
+
+  &.show {
+    display: block;
+  }
 }
 
 .eventBang {
