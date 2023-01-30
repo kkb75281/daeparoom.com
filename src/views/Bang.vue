@@ -38,6 +38,22 @@ div(style='padding:20px;')
 
 hr
 
+div#lucky(style='padding:20px;')
+  .title
+    h1 행운의 주인공은?
+
+  div(style='display: flex; justify-content: center;')
+    .randomBang
+
+  br
+
+  div(style='text-align:center;')
+    .randomClick(@click="randomShow") 돌려라
+
+  br
+
+hr
+
 div#seed(style='padding:20px;')
   .title
     h1 씨앗을 누가 뿌렸냐
@@ -46,11 +62,6 @@ div#seed(style='padding:20px;')
 
   sui-select.eventTitle(v-if='events.length' @change='e=>eventIdx=e.target.value')
     option(v-for='(e, idx) in events' :value="idx" :selected='eventIdx === idx') {{ e.data.date }}/{{ e.data.time }} {{ e.data.name }}
-
-  br
-
-  .randomClick(@click='randomShow') click
-  .randomBang
 
   br
 
@@ -99,6 +110,7 @@ if (events.value?.[eventIdx.value]?.record_id) {
       refresh: true
     })
     .then(res => {
+      console.log(skapi.getRecords)
       for (let r of res.list) {
         bang.value.push(r.data);
       }
@@ -135,14 +147,21 @@ async function upload(f) {
 }
 
 function randomShow() {
-  let randomClick = document.querySelector('.randomClick');
   let randomBang = document.querySelector('.randomBang');
-  let random = Math.floor(Math.random() * 45 + 1);
+  let random = Math.floor(Math.random() * (bang.value.length - 1) + 1);
+  // let counter = 1234567890;
 
-  randomClick.classList.add("hide");
-  randomBang.classList.add("show");
-  randomBang.innerText(random)
+  let interval = setInterval(() => {
+    randomBang.innerHTML = Math.floor(Math.random() * 99);
+  }, 30)
+
+  setTimeout(() => {
+    clearInterval(interval)
+    randomBang.innerText = '';
+    randomBang.append(random)
+  }, 4000);
 }
+
 </script>
 
 <style lang="less">
@@ -164,48 +183,46 @@ function randomShow() {
   width: 100%;
 }
 
-.randomClick {
-  width:100%;
-  height:40px;
-  background-color:#fff;
-  box-shadow:inset 0 0 2px #333;
-  margin-top:12px;
-  border-radius:3px;
-  border: 2px solid;
+.randomBang {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 4px solid #00C80D;
   box-sizing: border-box;
   text-align: center;
-  font-weight: 700;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  font-size: 80px;
+  color: #00C80D;
+  background-color: #fff;
+  font-weight: 700;
+
+  &.active {
+
+  }
+}
+
+.randomClick {
+  box-shadow:inset 0 0 2px #333;
+  background-color: #00b100;
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 0.5em 1.2em;
+  margin: 30px 0 60px 0;
+  border-radius:3px;
+  box-sizing: border-box;
+  text-align: center;
+  display: inline-block;
   cursor: pointer;
   transition: all 0.2s;
 
   &:hover {
-    // background-color: rgba(255,255,255,0.7);
-    background-color: transparent;
-    color: rgb(2, 74, 0);
-    transform: translateY(1px);
-  }
-
-  &.hide {
-    display: none;
-  }
-}
-
-.randomBang {
-  width:100%;
-  height:40px;
-  background-color:#fff;
-  margin-top:12px;
-  border-radius:3px;
-  border: 2px solid;
-  box-sizing: border-box;
-  text-align: center;
-  display: none;
-
-  &.show {
-    display: block;
+    // background-color: transparent;
+    // color: rgb(2, 74, 0);
+    // transform: translateY(1px);
+    opacity: 0.9;
   }
 }
 
