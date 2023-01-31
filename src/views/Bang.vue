@@ -39,6 +39,8 @@ div(style='padding:20px;')
 hr
 
 div#lucky(style='padding:20px;')
+  .fallicon
+
   .title
     h1 행운의 주인공은?
 
@@ -159,7 +161,7 @@ function randomShow() {
     clearInterval(interval)
     randomBang.innerText = '';
     randomBang.append(random)
-  }, 4000);
+  }, 4000)
 }
 
 </script>
@@ -198,20 +200,38 @@ function randomShow() {
   background-color: #fff;
   font-weight: 700;
 
-  &.active {
+  &.active {}
+}
 
+.fallicon {
+
+  &.active {
+    animation: fall linear forwards;
+    font-size: 30px;
+    position: absolute;
+    content: '🫑';
+    top: -20px;
+    z-index: 9999;
+
+    @keyframes fall {
+      to {
+        transform: translateY(105vh);
+      }
+    }
   }
 }
 
+
+
 .randomClick {
-  box-shadow:inset 0 0 2px #333;
+  box-shadow: inset 0 0 2px #333;
   background-color: #00b100;
   color: white;
   font-size: 28px;
   font-weight: bold;
   padding: 0.5em 1.2em;
   margin: 30px 0 60px 0;
-  border-radius:3px;
+  border-radius: 3px;
   box-sizing: border-box;
   text-align: center;
   display: inline-block;
