@@ -1,32 +1,32 @@
 <template lang="pug">
 #wrap
     div
-        #header 
+        #title 
             img(src="@/assets/folder_open.svg")
             h2 Cultivation
 
         form.form
             label 이메일
             br
-            sui-input#email(placeholder='Email Adress' name='email')
+            sui-input#email(placeholder='이메일 계정' name='email')
 
             br
 
             label 비밀번호
             br
-            sui-input#password(placeholder='Password' name='password')
+            sui-input#password(placeholder='비밀번호' name='password')
 
-            a(href="/login") Forgot Email &amp; Password?
+            a(href="/login") 이메일 / 비밀번호 찾기
 
             br
             br
 
             div(style="text-align:center;")
-                sui-input(type='submit' value='Log in')
+                sui-input(type='submit' value='로그인')
 
-        #footer 
-            p Not registered yet?
-                a(href="/login") Sign up
+        #bottom 
+            p 아직 계정이 없으신가요? 
+                a(href="/signup1") 계정 만들기
             img(src="@/assets/daepa_logo.svg")
 </template>
 
@@ -34,7 +34,7 @@
 
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 #wrap {
     width: 100vw;
     height: 100vh;
@@ -47,7 +47,7 @@
         width: 320px;
     }
 }
-#header {
+#title {
     width: 100%;
     line-height: 0.1;
 
@@ -83,6 +83,7 @@
   sui-input {
     width: 100%;
     font-size: 16px;
+    font-weight: 700;
     background-color: #00C80D;
   }
 
@@ -92,7 +93,7 @@
     background-color: white;
   }
 }
-#footer {
+#bottom {
     text-align: center;
     margin-top: 50px;
     
@@ -102,7 +103,7 @@
 
         a {
             font-weight: 700;
-            color: #fff;
+            color: #000;
             text-decoration: none;
         }
     }

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -5,12 +8,17 @@ body {
   position: relative;
   color: black;
   line-height: 1.6;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  /* font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
+  font-family: 'Archivo', 'Noto Sans KR', sans-serif;
   font-size: 16px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(0deg, rgba(0, 177, 0, 1) 16%, rgba(255, 255, 255, 1) 76%);
+  background: linear-gradient(0deg, rgba(255, 255, 255, 1) 16%, rgba(0, 177, 0, 1) 76%);
   background-attachment: fixed;
+}
+
+sui-input {
+  font-family: 'Noto Sans KR' !important;
 }

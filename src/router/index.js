@@ -34,6 +34,30 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded w../views/MainView.vuevisited.
       component: () => import('../views/LoginView.vue')
+    },
+    {
+      path: '/signup1',
+      name: 'signup1',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded w../views/MainView.vuevisited.
+      component: () => import('../views/SignUpView.vue')
+    },
+    {
+      path: '/signup2',
+      name: 'signup2',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded w../views/MainView.vuevisited.
+      component: () => import('../views/SignUpEmailView.vue')
+    },
+    {
+      path: '/signup3',
+      name: 'signup3',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded w../views/MainView.vuevisited.
+      component: () => import('../views/SignUpFinView.vue')
     }
   ],
   scrollBehavior() {

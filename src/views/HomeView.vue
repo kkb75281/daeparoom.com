@@ -1,23 +1,22 @@
 <template lang="pug">
-div
-  img(src="@/assets/Daepa.png")
-  h2(style='font-weight:normal') This is
-  h2(style="font-weight:bold") Daepa Room Bangmyoengrok
+#wrap
+    div
+        #title 
+            img(src="@/assets/pencil.svg")
+            h2 Community
 
-  br
+        form.form(@submit.prevent='()=>{getEvent();return false;}')
+            sui-input(placeholder='시크릿 코드' :value='secretCode' @input='e=>secretCode = e.target.value')
+            
+            br
+            br
+            
+            sui-input(type='submit' value='입장')
 
-  form(@submit.prevent='()=>{getEvent();return false;}')
-    sui-input(placeholder='Secret Code' :value='secretCode' @input='e=>secretCode = e.target.value')
-
-    p(style='margin:0;color:red;font-weight:bold;padding:8px;') {{ invalid }}&nbsp;
-    sui-input(type='submit') Enter
-
-  br
-  br
-
-  br
-  br
-
+        #bottom 
+            p 코드가 없으신가요? 
+                a(href="/login") 호스트 찔러보기
+            img(src="@/assets/daepa_logo.svg")
 </template>
 <script setup>
 import { skapi } from '@/main';
@@ -30,61 +29,112 @@ let refId = inject('refId');
 let invalid = ref('');
 
 async function getEvent() {
-  let secret = secretCode.value;
-  let res = await skapi.getRecords({
-    access_group: 0,
-    table: 'event',
-    index: {
-      name: 'code',
-      value: secret
-    },
-  }, {
-    ascending: false,
-    refresh: true
-  });
-
-  if (res?.list.length) {
-    refId.value = res.list[0].record_id;
-    events.value = res.list;
-
-    let r = await skapi.getRecords({
-      access_group: 0,
-      table: 'event'
+    let secret = secretCode.value;
+    let res = await skapi.getRecords({
+        access_group: 0,
+        table: 'event',
+        index: {
+            name: 'code',
+            value: secret
+        },
     }, {
-      ascending: false,
-      refresh: true
+        ascending: false,
+        refresh: true
     });
 
-    for (let e of r.list) {
-      if (e.index.value !== secret) {
-        events.value.push(e);
-      }
+    if (res?.list.length) {
+        refId.value = res.list[0].record_id;
+        events.value = res.list;
+
+        let r = await skapi.getRecords({
+            access_group: 0,
+            table: 'event'
+        }, {
+            ascending: false,
+            refresh: true
+        });
+
+        for (let e of r.list) {
+            if (e.index.value !== secret) {
+                events.value.push(e);
+            }
+        }
+
+        router.push({ name: 'bang' });
     }
 
-    router.push({ name: 'bang' });
-  }
-
-  else {
-    invalid.value = '!! Invalid code !!';
-  }
+    else {
+        invalid.value = '!! Invalid code !!';
+    }
 }
 
 </script>
 
 <style scoped lang="less">
-div {
-  text-align: center;
-  color: black;
+#wrap {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 
-  img {
+    &>div {
+        width: 320px;
+    }
+}
+
+#title {
     width: 100%;
-    display: block;
-  }
+    line-height: 0.1;
 
-  sui-input:not([type='submit']) {
-    font-size: 20px;
-    background-color: white;
-    max-width: 100%;
-  }
+    img {
+        width: 60px;
+        height: 60px;
+    }
+
+    h2 {
+        font-size: 36px;
+        font-weight: 700;
+    }
+}
+
+.form {
+    width: 100%;
+    padding: 60px 0;
+
+    sui-input {
+        width: 100%;
+        font-size: 16px;
+        font-weight: 700;
+        background-color: #00C80D;
+    }
+
+    sui-input:not([type='submit']) {
+        width: 100%;
+        font-size: 16px;
+        background-color: white;
+    }
+}
+
+#bottom {
+    text-align: center;
+    margin-top: 50px;
+
+    p {
+        font-size: 14px;
+        font-weight: 400;
+
+        a {
+            font-weight: 700;
+            color: #000;
+            text-decoration: none;
+        }
+    }
+
+    img {
+        width: 90px;
+        margin-top: 30px;
+    }
 }
 </style>

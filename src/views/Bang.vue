@@ -151,11 +151,22 @@ async function upload(f) {
 function randomShow() {
   let randomBang = document.querySelector('.randomBang');
   let random = Math.floor(Math.random() * (bang.value.length - 1) + 1);
+  let time = 30;
   // let counter = 1234567890;
+
+  // function func(t) {
+  //   if(t = 300) {
+  //     return;
+  //   }
+
+  //   return  
+  // }
 
   let interval = setInterval(() => {
     randomBang.innerHTML = Math.floor(Math.random() * 99);
-  }, 30)
+    time += 3;
+    // console.log(time);
+  }, time)
 
   setTimeout(() => {
     clearInterval(interval)

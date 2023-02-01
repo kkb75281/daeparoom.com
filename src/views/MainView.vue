@@ -18,20 +18,30 @@ div#main
     .right
         img(src="@/assets/daepa_logo.svg")
         h3 Archive and Research-based<br>Art Movement
+    
+    p Built with skapi
 </template>
 
 <script setup>
 
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 #main {
     width: 100vw;
     height: 100vh;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    justify-content: center;
+    position: relative;
+
+    p {
+        position: absolute;
+        right: 6vw;
+        bottom: 3vw;
+        font-size: 20px;
+        font-weight: 500;
+    }
 }
 
 .left {
@@ -97,7 +107,6 @@ div#main
     padding: 0 6vw;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     box-sizing: border-box;
 
     img {
@@ -113,12 +122,21 @@ div#main
 @media (max-width: 780px) {
     #main {
         flex-wrap: wrap;
+        align-items: flex-start;
+        flex-direction: column;
+
+        p {
+            font-size: 14px;
+            font-weight: 300;
+            bottom: 0;
+        }
     }
     .left {
         width: 100%;
-        height: 66.666%;
+        height: 360px;
 
         & > div {
+            height: 180px;
             text-align: bottom;
             padding: 20px;
 
@@ -131,7 +149,7 @@ div#main
                 height: 60px;
             
                 &.goto {
-                    right: 20px;
+                    right: 100px;
                     bottom: 20px;
                     width: 60px;
                     height: 60px;
@@ -151,9 +169,8 @@ div#main
     }
     .right {
         width: 100%;
-        height: 33.333%;
-        padding: 10vw 6vw;
-
+        height: 180px;
+        padding-top: 45px;
 
         h3 {
             font-size: 16px;
