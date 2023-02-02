@@ -13,7 +13,10 @@ provide('refId', refId);
 <style lang="less">
 #shell {
   width: 100%;
-  min-height: calc(100vh - 2em);
+  // min-height: calc(100vh - 2em);
+  height: 100px;
+  margin: 0;
+  padding: 0;
 }
 
 sui-input[type='submit'] {

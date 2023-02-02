@@ -2,7 +2,7 @@
 #wrap
     div
         #title 
-            img(src="@/assets/pencil.svg")
+            img(src="@/assets/image/pencil.svg")
             h2 Community
 
         form.form(@submit.prevent='()=>{getEvent();return false;}')
@@ -13,10 +13,14 @@
             
             sui-input(type='submit' value='입장')
 
+            .warning 
+                img(src="@/assets/image/warning.svg")
+                p {{ invalid }}
+
         #bottom 
             p 코드가 없으신가요? 
                 a(href="/login") 호스트 찔러보기
-            img(src="@/assets/daepa_logo.svg")
+            img(src="@/assets/image/daepa_logo.svg")
 </template>
 <script setup>
 import { skapi } from '@/main';
@@ -30,6 +34,7 @@ let invalid = ref('');
 
 async function getEvent() {
     let secret = secretCode.value;
+    let warning = document.querySelector('.warning');
     let res = await skapi.getRecords({
         access_group: 0,
         table: 'event',
@@ -64,7 +69,8 @@ async function getEvent() {
     }
 
     else {
-        invalid.value = '!! Invalid code !!';
+        warning.classList.add('active');
+        invalid.value = '코드를 다시 한 번 확인해 주세요.';
     }
 }
 
@@ -102,6 +108,34 @@ async function getEvent() {
 .form {
     width: 100%;
     padding: 60px 0;
+
+    .warning {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        display: none;
+        margin-top: 12px;
+
+        &.active {
+            display: flex;
+        }
+
+        img {
+            width: 20px;
+            height: 20px;
+            fill: red;
+        }
+
+        p {
+            margin: 0;
+            color: red;
+            font-weight: 400;
+            font-size: 14px;
+            padding: 8px;
+        }
+    }
+
 
     sui-input {
         width: 100%;

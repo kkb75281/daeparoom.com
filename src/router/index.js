@@ -58,6 +58,14 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded w../views/MainView.vuevisited.
       component: () => import('../views/SignUpFinView.vue')
+    },
+    {
+      path: '/cultivation',
+      name: 'cultivation',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded w../views/MainView.vuevisited.
+      component: () => import('../views/CultivationView.vue')
     }
   ],
   scrollBehavior() {

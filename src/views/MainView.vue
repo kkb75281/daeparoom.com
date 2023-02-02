@@ -3,20 +3,20 @@ div#main
     .left
         .archive 
             div
-                img(src="@/assets/folder_open.svg")
+                img(src="@/assets/image/folder_open.svg")
                 h2 Cultivation
             a(href="/login")
-                img.goto(src="@/assets/arrow_right.svg")
+                img.goto(src="@/assets/image/arrow_right.svg")
 
         .visitor
             div
-                img(src="@/assets/pencil.svg")
+                img(src="@/assets/image/pencil.svg")
                 h2 Community
             a(href="/community")
-                img.goto(src="@/assets/arrow_right.svg")
+                img.goto(src="@/assets/image/arrow_right.svg")
 
     .right
-        img(src="@/assets/daepa_logo.svg")
+        img(src="@/assets/image/daepa_logo.svg")
         h3 Archive and Research-based<br>Art Movement
     
     p Built with skapi
@@ -96,6 +96,7 @@ div#main
 
         h2 {
             font-size: 7vw;
+            font-size: clamp(16px, 7vw, 110px);
             font-weight: 700;
         }
     }

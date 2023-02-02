@@ -2,7 +2,7 @@
 #wrap
     div
         #title 
-            img(src="@/assets/folder_open.svg")
+            img(src="@/assets/image/folder_open.svg")
             h2 Sign up
 
         form.form
@@ -37,7 +37,7 @@
 <style scoped lang="less">
 #wrap {
     width: 100vw;
-    height: calc(100vh - 2em);
+    height: 100vh;
     display: flex;
     flex-wrap: wrap;
     align-items: center;

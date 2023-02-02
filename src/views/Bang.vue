@@ -151,28 +151,52 @@ async function upload(f) {
 function randomShow() {
   let randomBang = document.querySelector('.randomBang');
   let random = Math.floor(Math.random() * (bang.value.length - 1) + 1);
-  let time = 30;
-  // let counter = 1234567890;
+  let sound = [
+    './src/assets/audio/yay1.mp3',
+    './src/assets/audio/yay2.mp3',
+    './src/assets/audio/yay3.mp3',
+    './src/assets/audio/yay4.mp3',
+  ]
+  let soundBang = new Audio('./src/assets/audio/bang.mp3');
+  let randomIndex = Math.floor(Math.random() * sound.length);
+  let soundRandom = new Audio(sound[randomIndex]);
 
-  // function func(t) {
-  //   if(t = 300) {
-  //     return;
-  //   }
+  soundBang.play();
 
-  //   return  
-  // }
-
-  let interval = setInterval(() => {
+  let interval1 = setInterval(() => {
     randomBang.innerHTML = Math.floor(Math.random() * 99);
-    time += 3;
-    // console.log(time);
-  }, time)
+  }, 30)
+
+  let interval2 = setInterval(() => {
+    randomBang.innerHTML = Math.floor(Math.random() * 99);
+  }, 150)
+
+  let interval3 = setInterval(() => {
+    randomBang.innerHTML = Math.floor(Math.random() * 99);
+  }, 300)
 
   setTimeout(() => {
-    clearInterval(interval)
+    clearInterval(interval1);
+  }, 2000)
+
+  setTimeout(() => {
+    clearInterval(interval2);
+  }, 3100)
+
+  setTimeout(() => {
+    clearInterval(interval3);
+  }, 3700)
+
+  setTimeout(() => {
+    soundRandom.play();
     randomBang.innerText = '';
-    randomBang.append(random)
+    randomBang.append(random);
+    randomBang.classList.add('active');
   }, 4000)
+
+  setTimeout(() => {
+    randomBang.classList.remove('active');
+  }, 5000)
 }
 
 </script>
@@ -210,27 +234,36 @@ function randomShow() {
   color: #00C80D;
   background-color: #fff;
   font-weight: 700;
-
-  &.active {}
-}
-
-.fallicon {
+  transition: all 0.3s;
 
   &.active {
-    animation: fall linear forwards;
-    font-size: 30px;
-    position: absolute;
-    content: '🫑';
-    top: -20px;
-    z-index: 9999;
+    animation: big 1s ease;
 
-    @keyframes fall {
-      to {
-        transform: translateY(105vh);
-      }
+    @keyframes big {
+      0% {scale: 1;}
+      50% {scale: 1.5;}
+      100% {scale: 1;}
     }
   }
 }
+
+// .fallicon {
+
+//   &.active {
+//     animation: fall linear forwards;
+//     font-size: 30px;
+//     position: absolute;
+//     content: '🫑';
+//     top: -20px;
+//     z-index: 9999;
+
+//     @keyframes fall {
+//       to {
+//         transform: translateY(105vh);
+//       }
+//     }
+//   }
+// }
 
 
 

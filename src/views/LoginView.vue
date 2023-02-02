@@ -2,7 +2,7 @@
 #wrap
     div
         #title 
-            img(src="@/assets/folder_open.svg")
+            img(src="@/assets/image/folder_open.svg")
             h2 Cultivation
 
         form.form
@@ -27,7 +27,7 @@
         #bottom 
             p 아직 계정이 없으신가요? 
                 a(href="/signup1") 계정 만들기
-            img(src="@/assets/daepa_logo.svg")
+            img(src="@/assets/image/daepa_logo.svg")
 </template>
 
 <script setup>
