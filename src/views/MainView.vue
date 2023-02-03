@@ -56,24 +56,13 @@ div#main
         height: 50%;
         padding: 40px;
         box-sizing: border-box;
+        transition: all 0.3s;
 
         &:first-child {
             border-bottom: 1px solid #000;
         }
 
-        &::before {
-            position: absolute;
-            content: '';
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255,255,255,0);
-            transition: all 0.3s;
-            z-index: -1;
-        }
-
-        &:hover::before {
+        &:hover {
             background-color: rgba(255,255,255,0.5);
         }
 
