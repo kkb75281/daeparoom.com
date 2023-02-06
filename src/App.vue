@@ -14,7 +14,7 @@ provide('refId', refId);
 #shell {
   width: 100%;
   // min-height: calc(100vh - 2em);
-  height: 100%;
+  height: 100vh;
   margin: 0;
   padding: 0;
 }
