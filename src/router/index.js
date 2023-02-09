@@ -41,7 +41,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded w../views/MainView.vuevisited.
-      component: () => import('../views/SignUpView.vue')
+      component: () => import('../views/signup/SignUpView.vue')
     },
     {
       path: '/signup2',
@@ -49,7 +49,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded w../views/MainView.vuevisited.
-      component: () => import('../views/SignUpEmailView.vue')
+      component: () => import('../views/signup/SignUpEmailView.vue')
     },
     {
       path: '/signup3',
@@ -57,7 +57,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded w../views/MainView.vuevisited.
-      component: () => import('../views/SignUpFinView.vue')
+      component: () => import('../views/signup/SignUpFinView.vue')
     },
     {
       path: '/cultivation',
@@ -68,13 +68,13 @@ const router = createRouter({
       component: () => import('../views/CultivationView.vue')
     },
     {
-      path: '/cultivation1',
-      name: 'cultivation1',
+      path: '/meditcolor',
+      name: 'meditcolor',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded w../views/MainView.vuevisited.
-      component: () => import('../views/CultivationView_23.02.08.vue')
-    }
+      component: () => import('../views/MEditColor.vue')
+    },
   ],
   scrollBehavior() {
     // always scroll to top

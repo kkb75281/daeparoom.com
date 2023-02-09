@@ -1,34 +1,12 @@
 <template lang="pug">
 .header
     .title 
-        .icon
-            svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                g
-                    g
-                        path(d="M3.78,19.61c-0.47,0-0.88-0.18-1.24-0.54C2.18,18.71,2,18.29,2,17.83V6.19c0-0.48,0.18-0.9,0.54-1.26s0.77-0.54,1.24-0.54h6.09l1.49,1.49h7.53c0.48,0,0.9,0.18,1.26,0.54c0.36,0.36,0.54,0.78,0.54,1.26H3.78v10.19l2.3-8.84H22l-2.34,8.97c-0.17,0.57-0.43,0.98-0.79,1.23c-0.36,0.25-0.84,0.37-1.44,0.37H3.78z")
+        img(src="@/assets/image/folder_open.svg")
         h2 Cultivation
-    .ec
-        .ecBtn Edit Color
-        .ecColor
-            ul
-                li Color1
-                    input.bgColor.bgColor1(type="color")
-                li Color2
-                    input.bgColor.bgColor2(type="color")
-                li Text
-                    input.bgColor.bgColor3(type="color")
-                input.sInput(type='submit' value='Save')
-    .info User Name
-    .mi
-        .miBtn U
-        .miMenu
-            ul
-                li
-                    a(href="/accountsetting") Account Setting
-                li
-                    a(href="/logout") Log Out
-                li
-                    a(href="/meditcolor") Edit Color
+    .info 
+        h2 User Name
+    .minfo 
+        h2 U
 .tableWrap
     table#resizeMe.table
         thead
@@ -61,18 +39,10 @@
                                 .slider.image-column
                                     img(src="@/assets/image/image1111.svg")
                         .slider__btn
-                            .icon.prev
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
-                            .icon.next
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
-                img.icon.close(src="@/assets/image/up.svg")
-                img.icon.mclose(src="@/assets/image/up1.svg")
+                            img.prev(src="@/assets/image/arrow_left.svg" alt="이전")
+                            img.next(src="@/assets/image/arrow_right.svg" alt="다음")
+                img.close(src="@/assets/image/up.svg")
+                img.mclose(src="@/assets/image/up1.svg")
             tr.tit(@click='()=>changeActive(1)')
                 td NIKE
                 td “{{ titleArray[1] }}”
@@ -96,18 +66,10 @@
                                 .slider.image-column
                                     img(src="@/assets/image/image1111.svg")
                         .slider__btn
-                            .icon.prev
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
-                            .icon.next
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
-                img.icon.close(src="@/assets/image/up.svg")
-                img.icon.mclose(src="@/assets/image/up1.svg")
+                            img.prev(src="@/assets/image/arrow_left.svg" alt="이전")
+                            img.next(src="@/assets/image/arrow_right.svg" alt="다음")
+                img.close(src="@/assets/image/up.svg")
+                img.mclose(src="@/assets/image/up1.svg")
             tr.tit(@click='()=>changeActive(2)')
                 td NIKE
                 td “{{ titleArray[2] }}”
@@ -131,37 +93,19 @@
                                 .slider.image-column
                                     img(src="@/assets/image/image1111.svg")
                         .slider__btn
-                            .icon.prev
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
-                            .icon.next
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
-                .icon.close
-                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                        g
-                            g
-                                g
-                                    polygon(points="18.45,16.78 20,15.22 13.55,8.78 13.55,8.78 12,7.22 12,7.22 12,7.22 10.45,8.78 10.45,8.78 4,15.22 5.55,16.78 12,10.33 			")
-                .icon.mclose
-                    svg(width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg")
-                        path(fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0457 40 40 31.0459 40 20C40 8.9541 31.0457 0 20 0C8.95435 0 0 8.9541 0 20C0 31.0459 8.95435 40 20 40ZM33.3333 24.3662L30.75 26.9668L20 16.2168L9.25 26.9668L6.66663 24.3662L17.4166 13.6328L20 11.0332L22.5833 13.6328L33.3333 24.3662Z" fill="black")
+                            img.prev(src="@/assets/image/arrow_left.svg" alt="이전")
+                            img.next(src="@/assets/image/arrow_right.svg" alt="다음")
+                img.close(src="@/assets/image/up.svg")
+                img.mclose(src="@/assets/image/up1.svg")
 .footer 
-    .icon
-        svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-            g
-                g
-                    path(d="M10.9,20v-6.9H4V10.9h6.9V4h2.21v6.9H20v2.21h-6.9V20H10.9z")
+    img(src="@/assets/image/plus2.svg")
 .mfooter 
-    .icon
-        svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-            g
-                g
-                    path(d="M19.07,4.93c-3.91-3.91-10.24-3.91-14.14,0s-3.91,10.24,0,14.14s10.24,3.91,14.14,0S22.98,8.83,19.07,4.93z M12.99,17.14h-2l0-4.15H6.83l0-2h4.15l0-4.15l2,0v4.15l4.15,0v2h-4.15L12.99,17.14z")
+    img(src="@/assets/image/plus.svg")
+button.chBtn(style="background-color: transparent; border: 0; cursor: pointer; font-size: 24px; font-weight: 400;") Change Color
+.chColor(style="display: none;")
+    input.bgColor1(type="color")
+    input.bgColor2(type="color")
+    input.bgColor3(type="color")
 </template>
 
 <script setup>
@@ -250,7 +194,11 @@ onMounted(() => {
 
     // for(let i = 1; i<tr.length; i++) {
     //     tr[i].addEventListener('click', () => {
-    //         tr[i+1].classList.toggle('active');
+    //         if(!tr[i+1].classList.contains('active')){
+    //             tr[i+1].classList.add('active');
+    //         } else {
+    //             tr[i+1].classList.remove('active');
+    //         }
     //     })
     // }
 
@@ -266,7 +214,7 @@ onMounted(() => {
             sliderInner[i].style.transition = "all 400ms";
             sliderInner[i].style.transform = "translateX("+ 0 +"px)";
         });
-    
+    ql
         sliderBtnNext[i].addEventListener("click", () => {
             sliderInner[i].style.transition = "all 400ms";
             sliderInner[i].style.transform = "translateX("+ -(sliderInner[i].clientWidth - sliderImg[i].clientWidth) +"px)";
@@ -295,72 +243,33 @@ onMounted(() => {
 
 
     ////////// change backgroud-color
-    let bodyId = document.getElementById('shell');
-    let ecBtn = document.querySelector('.ecBtn');
-    let ecColor = document.querySelector('.ecColor');
+    let bodyColorChange = document.getElementById('shell');
+    let chBtn = document.querySelector('.chBtn');
+    let chColor = document.querySelector('.chColor');
     let bgColor1 = document.querySelector('.bgColor1');
     let bgColor2 = document.querySelector('.bgColor2');
     let bgColor3 = document.querySelector('.bgColor3');
-    let miBtn = document.querySelector('.miBtn');
-    let miMenu = document.querySelector('.miMenu');
+    let linearDirection = document.getElementsByName("toDirection")[0]
 
-    // 색상 바꾸기
+    chBtn.addEventListener('click', () => {
+        chColor.style.display = 'block';
+    })
+
     function returnColor(){
-        bodyId.style.background =
+        bodyColorChange.style.background =
             "linear-gradient("
             + "180deg, "
             + bgColor1.value
             + ","
             + bgColor2.value
             + ")";
-        bodyId.style.color = bgColor3.value;
+        bodyColorChange.style.color = bgColor3.value;
     }
 
+    // document.querySelector('select[name="toDirection"]').onchange = returnColor;
     bgColor1.addEventListener("input", returnColor)
     bgColor2.addEventListener("input", returnColor)
     bgColor3.addEventListener("input", returnColor)
-
-
-    // click > 'block' or 'none'
-    miBtn.addEventListener('click', () => {
-        if(miMenu.style.display === 'none'){
-            miMenu.style.display = 'block';
-        } else {
-            miMenu.style.display = 'none';
-        }
-    })
-
-    ecBtn.addEventListener('click', () => {
-        if(ecColor.style.display === 'none'){
-            ecColor.style.display = 'block';
-        } else {
-            ecColor.style.display = 'none';
-        }
-    })
-
-
-
-    // icon contrast
-    let plus = document.querySelector('.footer .icon');
-    let mplus = document.querySelector('.mfooter .icon');
-    let icon = document.querySelectorAll('.icon');
-    let tableWidth = document.querySelectorAll('th > .resizer');
-
-    plus.addEventListener('click', function(){
-        icon.forEach((e) => {
-            e.classList.toggle('contrast');
-        })
-    });
-
-    mplus.addEventListener('click', function(){
-        icon.forEach((e) => {
-            e.classList.toggle('contrast');
-        })
-        miBtn.classList.toggle('contrast');
-        tableWidth.forEach((e) => {
-            e.classList.toggle('contrast');
-        })
-    });
 
 })
 
@@ -373,8 +282,9 @@ onMounted(() => {
 <style scoped lang="less">
 .header {
     width: 100%;
-    // height: 168px;
-    padding: 40px 100px 100px;
+    height: 168px;
+    padding: 0 100px;
+    padding-top: 40px;
     box-sizing: border-box;
     display: flex;
     flex-wrap: nowrap;
@@ -386,156 +296,42 @@ onMounted(() => {
     }
 
     .title {
-        margin-right: 40px;
         line-height: 0.1;
         display: flex;
 
-        .icon {
+        img {
             width: 40px;
             height: 40px;
             margin-right: 4px;
         }
     }
 
-    .ec {
-        position: relative;
-
-        .ecBtn {
-            cursor: pointer;
-            font-size: 24px;
-            font-weight: 400;
-            margin-top: auto;
-        }
-    
-        .ecColor {
-            position: absolute;
-            content: '';
-            left: 0;
-            bottom: -230px;
-            background-color: #fff;
-            border-radius: 4px;
-            box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25), inset -1px -1px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.65);
-            z-index: 999;
-            display: none;
-    
-            ul {
-                width: 153px;
-                box-sizing: border-box;
-                list-style: none;
-                margin: 0;
-                padding: 20px; 
-    
-                li {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    font-size: 20px;
-                    font-weight: 400;
-                    line-height: 22px;
-                    margin-bottom: 20px;
-    
-                    .bgColor {
-                        width: 28px;
-                        height: 28px;
-                        padding: 0;
-                        border: 0;
-                        background-color: transparent;
-    
-                    }
-                }
-                .sInput {
-                    width: 100%;
-                    height: 40px;
-                    font-size: 16px;
-                    font-weight: 400;
-                    line-height: 17px;
-                    background: #FFFFFF;
-                    border: 0.5px solid #595959;        
-                    box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.65);
-                    border-radius: 4px;
-                }
-            }
-        }
-    }
-
     .info {
+        line-height: 0.1;
+    }
+
+    .minfo {
+        width: 40px;
+        height: 40px;
         font-size: 24px;
-        font-weight: 400;
-        margin-left: auto;
-        margin-top: auto;
-    }
-
-    .mi {
-        position: relative;
+        background: #000;
+        color: #fff;
+        border-radius: 50%;
+        line-height: 0.1;
+        text-align: center;
         display: none;
-
-        .miBtn {
-            position: relative;
-            margin-top: auto;
-            width: 40px;
-            height: 40px;
-            text-align: center;
-            font-size: 24px;
-            color: #fff;
-            border-radius: 50%;
-            background-color: #000;
-
-            &.contrast {
-                background-color: #fff;
-                color: #000;
-            }
-        }
-
-        .miMenu {
-            position: absolute;
-            content: '';
-            right: 0;
-            bottom: -200px;
-            background-color: #fff;
-            border-radius: 4px;
-            box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25), inset -1px -1px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.65);
-            z-index: 999;
-            display: none;
-    
-            ul {
-                width: 212px;
-                box-sizing: border-box;
-                list-style: none;
-                margin: 0;
-                padding: 20px 12px; 
-    
-                li {
-                    padding: 10px 0 10px 10px;
-                    margin-bottom: 8px;
-
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                    &:hover {
-                        background-color: rgba(0,0,0,0.04);
-                        border-radius: 4px;
-                    }
-
-                    a {
-                        text-align: center;
-                        font-size: 20px;
-                        font-weight: 400;
-                        line-height: 22px;
-                        text-decoration: none;
-                        color: #000;
-                    }
-                }
-            }
-        }
     }
-
 }
 
 .tableWrap {
     width: 100vw;
+    display: flex;
+    align-items: center;
+    padding: 0 calc((100vw - 1400px)/2);
 
     .table {
-        width: 100%;
+        width: 1440px;
+        // width: 100%;
         border-collapse: collapse;
 
         thead {
@@ -554,8 +350,8 @@ onMounted(() => {
                     }
 
                     &:nth-child(2) {
-                        width: calc(100vw - 860px);
-                        // width: 580px;
+                        // width: calc(100vw - 860px);
+                        width: 580px;
                     }
 
                     &:nth-child(3) {
@@ -565,10 +361,6 @@ onMounted(() => {
                     &:last-child {
                         width: 160px;
                         padding-right: 100px;
-                    }
-
-                    .resizer.contrast {
-                        background-color: #fff;
                     }
 
                     .resizable {
@@ -646,7 +438,7 @@ onMounted(() => {
 
                 &.con {
                     position: relative;
-                    // width: 1440px;
+                    width: 1440px;
                     height: 595px;
                     box-sizing: border-box;
                     display: none;
@@ -688,7 +480,8 @@ onMounted(() => {
                         }
                         .slider__img {
                             position: relative;
-                            width: calc(100vw - 200px);
+                            // width: calc(100vw - 200px);
+                            width: 1220px;
                             height: 460px;
                             overflow: hidden;
 
@@ -721,7 +514,7 @@ onMounted(() => {
                             .slider__inner {
                                 display: flex;
                                 flex-wrap: nowrap;
-                                width: 120%;
+                                width: 200%;
                                 height: 460px;
 
                                 .slider {
@@ -732,7 +525,7 @@ onMounted(() => {
                                         column-width: 460px;
                                         column-gap: 40px;
 
-                                        .icon {
+                                        img{
                                             width: 460px;   
                                             height: 460px;
                                             object-fit: cover;
@@ -754,7 +547,7 @@ onMounted(() => {
                             }
                         }
                         .slider__btn {
-                            .icon {
+                            img {
                                 position: absolute;
                                 transform: translate(-50%, -50%);
                                 width: 52px;
@@ -793,8 +586,7 @@ onMounted(() => {
         background: #000;
     }
 
-    .icon {
-        display: inline-block;
+    img {
         width: 60px;
         height: 60px;
         cursor: pointer;
@@ -804,7 +596,7 @@ onMounted(() => {
 .mfooter {
     position: relative;
     text-align: right;
-    padding: 20px 20px 40px 20px;
+    padding: 20px 40px;
     display: none;
 
     &::after {
@@ -818,8 +610,7 @@ onMounted(() => {
         background: #000;
     }
 
-    .icon {
-        display: inline-block;
+    img {
         width: 48px;
         height: 48px;
     }
@@ -830,13 +621,10 @@ onMounted(() => {
         padding: 0 20px;
         padding-top: 40px;
 
-        .ec {
-            display: none;
-        }
         .info {
             display: none;
         }
-        .mi {
+        .minfo {
             display: block;
         }
     }
@@ -934,7 +722,7 @@ onMounted(() => {
                                         column-width: 350px;
                                         column-gap: 20px;
 
-                                        .icon {
+                                        img{
                                             width: 350px;   
                                             height: 350px;
                                             object-fit: cover;

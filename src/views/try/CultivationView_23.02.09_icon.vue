@@ -1,6 +1,7 @@
 <template lang="pug">
 .header
     .title 
+        //- img.icon(src="@/assets/image/folder_open.svg")
         .icon
             svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
                 g
@@ -52,25 +53,17 @@
                         .slider__img
                             .slider__inner
                                 .slider.image-column
-                                    img(src="@/assets/image/image1111.svg")
+                                    img.icon(src="@/assets/image/image1111.svg")
                                 .slider.text-column
                                     | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
                                     | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
                                     | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
                                     | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
                                 .slider.image-column
-                                    img(src="@/assets/image/image1111.svg")
+                                    img.icon(src="@/assets/image/image1111.svg")
                         .slider__btn
-                            .icon.prev
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
-                            .icon.next
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
+                            img.icon.prev(src="@/assets/image/arrow_left.svg" alt="이전")
+                            img.icon.next(src="@/assets/image/arrow_right.svg" alt="다음")
                 img.icon.close(src="@/assets/image/up.svg")
                 img.icon.mclose(src="@/assets/image/up1.svg")
             tr.tit(@click='()=>changeActive(1)')
@@ -87,25 +80,17 @@
                         .slider__img
                             .slider__inner
                                 .slider.image-column
-                                    img(src="@/assets/image/image1111.svg")
+                                    img.icon(src="@/assets/image/image1111.svg")
                                 .slider.text-column
                                     | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
                                     | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
                                     | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
                                     | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
                                 .slider.image-column
-                                    img(src="@/assets/image/image1111.svg")
+                                    img.icon(src="@/assets/image/image1111.svg")
                         .slider__btn
-                            .icon.prev
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
-                            .icon.next
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
+                            img.icon.prev(src="@/assets/image/arrow_left.svg" alt="이전")
+                            img.icon.next(src="@/assets/image/arrow_right.svg" alt="다음")
                 img.icon.close(src="@/assets/image/up.svg")
                 img.icon.mclose(src="@/assets/image/up1.svg")
             tr.tit(@click='()=>changeActive(2)')
@@ -122,46 +107,23 @@
                         .slider__img
                             .slider__inner
                                 .slider.image-column
-                                    img(src="@/assets/image/image1111.svg")
+                                    img.icon(src="@/assets/image/image1111.svg")
                                 .slider.text-column
                                     | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
                                     | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
                                     | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
                                     | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
                                 .slider.image-column
-                                    img(src="@/assets/image/image1111.svg")
+                                    img.icon(src="@/assets/image/image1111.svg")
                         .slider__btn
-                            .icon.prev
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
-                            .icon.next
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
-                .icon.close
-                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                        g
-                            g
-                                g
-                                    polygon(points="18.45,16.78 20,15.22 13.55,8.78 13.55,8.78 12,7.22 12,7.22 12,7.22 10.45,8.78 10.45,8.78 4,15.22 5.55,16.78 12,10.33 			")
-                .icon.mclose
-                    svg(width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg")
-                        path(fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0457 40 40 31.0459 40 20C40 8.9541 31.0457 0 20 0C8.95435 0 0 8.9541 0 20C0 31.0459 8.95435 40 20 40ZM33.3333 24.3662L30.75 26.9668L20 16.2168L9.25 26.9668L6.66663 24.3662L17.4166 13.6328L20 11.0332L22.5833 13.6328L33.3333 24.3662Z" fill="black")
+                            img.icon.prev(src="@/assets/image/arrow_left.svg" alt="이전")
+                            img.icon.next(src="@/assets/image/arrow_right.svg" alt="다음")
+                img.icon.close(src="@/assets/image/up.svg")
+                img.icon.mclose(src="@/assets/image/up1.svg")
 .footer 
-    .icon
-        svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-            g
-                g
-                    path(d="M10.9,20v-6.9H4V10.9h6.9V4h2.21v6.9H20v2.21h-6.9V20H10.9z")
+    img.icon(src="@/assets/image/plus2.svg")
 .mfooter 
-    .icon
-        svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-            g
-                g
-                    path(d="M19.07,4.93c-3.91-3.91-10.24-3.91-14.14,0s-3.91,10.24,0,14.14s10.24,3.91,14.14,0S22.98,8.83,19.07,4.93z M12.99,17.14h-2l0-4.15H6.83l0-2h4.15l0-4.15l2,0v4.15l4.15,0v2h-4.15L12.99,17.14z")
+    img.icon(src="@/assets/image/plus.svg")
 </template>
 
 <script setup>
@@ -341,23 +303,11 @@ onMounted(() => {
 
 
     // icon contrast
-    let plus = document.querySelector('.footer .icon');
-    let mplus = document.querySelector('.mfooter .icon');
+    let plus = document.querySelector('.footer img');
     let icon = document.querySelectorAll('.icon');
-    let tableWidth = document.querySelectorAll('th > .resizer');
 
     plus.addEventListener('click', function(){
         icon.forEach((e) => {
-            e.classList.toggle('contrast');
-        })
-    });
-
-    mplus.addEventListener('click', function(){
-        icon.forEach((e) => {
-            e.classList.toggle('contrast');
-        })
-        miBtn.classList.toggle('contrast');
-        tableWidth.forEach((e) => {
             e.classList.toggle('contrast');
         })
     });
@@ -389,6 +339,12 @@ onMounted(() => {
         margin-right: 40px;
         line-height: 0.1;
         display: flex;
+
+        img {
+            width: 40px;
+            height: 40px;
+            margin-right: 4px;
+        }
 
         .icon {
             width: 40px;
@@ -479,11 +435,6 @@ onMounted(() => {
             color: #fff;
             border-radius: 50%;
             background-color: #000;
-
-            &.contrast {
-                background-color: #fff;
-                color: #000;
-            }
         }
 
         .miMenu {
@@ -565,10 +516,6 @@ onMounted(() => {
                     &:last-child {
                         width: 160px;
                         padding-right: 100px;
-                    }
-
-                    .resizer.contrast {
-                        background-color: #fff;
                     }
 
                     .resizable {
@@ -732,7 +679,7 @@ onMounted(() => {
                                         column-width: 460px;
                                         column-gap: 40px;
 
-                                        .icon {
+                                        img{
                                             width: 460px;   
                                             height: 460px;
                                             object-fit: cover;
@@ -754,7 +701,7 @@ onMounted(() => {
                             }
                         }
                         .slider__btn {
-                            .icon {
+                            img {
                                 position: absolute;
                                 transform: translate(-50%, -50%);
                                 width: 52px;
@@ -793,8 +740,7 @@ onMounted(() => {
         background: #000;
     }
 
-    .icon {
-        display: inline-block;
+    img {
         width: 60px;
         height: 60px;
         cursor: pointer;
@@ -818,8 +764,7 @@ onMounted(() => {
         background: #000;
     }
 
-    .icon {
-        display: inline-block;
+    img {
         width: 48px;
         height: 48px;
     }
@@ -934,7 +879,7 @@ onMounted(() => {
                                         column-width: 350px;
                                         column-gap: 20px;
 
-                                        .icon {
+                                        img{
                                             width: 350px;   
                                             height: 350px;
                                             object-fit: cover;

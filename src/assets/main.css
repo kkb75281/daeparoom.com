@@ -20,6 +20,10 @@ body {
   overflow: hidden;
 }
 
+.icon.contrast path {
+    fill: #fff;
+}
+
 sui-input {
   font-family: 'Noto Sans KR' !important;
 }
