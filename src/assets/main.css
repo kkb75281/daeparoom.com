@@ -20,10 +20,16 @@ body {
   overflow: hidden;
 }
 
-.icon.contrast path {
-    fill: #fff;
+input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }
 
 sui-input {
   font-family: 'Noto Sans KR' !important;
+}
+
+.icon.contrast path {
+    fill: #fff;
 }

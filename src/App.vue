@@ -17,6 +17,10 @@ provide('refId', refId);
   height: 100vh;
   margin: 0;
   padding: 0;
+
+  &.contrast {
+    color: white;
+  }
 }
 
 sui-input[type='submit'] {

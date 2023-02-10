@@ -1,7 +1,11 @@
 <template lang="pug">
 .header
     .title 
-        img(src="@/assets/image/folder_open.svg")
+        .icon
+            svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                g
+                    g
+                        path(d="M3.78,19.61c-0.47,0-0.88-0.18-1.24-0.54C2.18,18.71,2,18.29,2,17.83V6.19c0-0.48,0.18-0.9,0.54-1.26s0.77-0.54,1.24-0.54h6.09l1.49,1.49h7.53c0.48,0,0.9,0.18,1.26,0.54c0.36,0.36,0.54,0.78,0.54,1.26H3.78v10.19l2.3-8.84H22l-2.34,8.97c-0.17,0.57-0.43,0.98-0.79,1.23c-0.36,0.25-0.84,0.37-1.44,0.37H3.78z")
         h2 Cultivation
     .mi
         .miBtn U
@@ -17,10 +21,10 @@
     ul
         li Color1
             input.bgColor.bgColor1(type="color")
+        li Text
+            .txColor
         li Color2
             input.bgColor.bgColor2(type="color")
-        li Text
-            input.bgColor.bgColor3(type="color")
         input.sInput(type='submit' value='Save')
 </template>
 
@@ -29,9 +33,7 @@ import { onMounted, ref } from 'vue';
 
 onMounted(() => {
     ////////// change backgroud-color
-    let bodyEditColor = document.getElementById('shell');
-    let mecBtn = document.querySelector('.mecBtn');
-    let mecColor = document.querySelector('.mecColor');
+    let bodyId = document.getElementById('shell');
     let bgColor1 = document.querySelector('.bgColor1');
     let bgColor2 = document.querySelector('.bgColor2');
     let bgColor3 = document.querySelector('.bgColor3');
@@ -40,19 +42,17 @@ onMounted(() => {
 
     // 색상 바꾸기
     function returnColor(){
-        bodyEditColor.style.background =
+        bodyId.style.background =
             "linear-gradient("
             + "180deg, "
             + bgColor1.value
             + ","
             + bgColor2.value
             + ")";
-        bodyEditColor.style.color = bgColor3.value;
     }
 
     bgColor1.addEventListener("input", returnColor)
     bgColor2.addEventListener("input", returnColor)
-    bgColor3.addEventListener("input", returnColor)
 
 
     // click > 'block' or 'none'
@@ -63,6 +63,30 @@ onMounted(() => {
             miMenu.style.display = 'none';
         }
     })
+
+
+    // icon contrast
+    let txColor = document.querySelector('.txColor');
+    let icon = document.querySelectorAll('.icon');
+    let tableWidth = document.querySelectorAll('.resizer');
+    let cnum = 0;
+
+    txColor.addEventListener('click', function(){
+        cnum++;
+        icon.forEach((e) => {
+            e.classList.toggle('contrast');
+        });
+        tableWidth.forEach((e) => {
+            if(cnum%2 == 1) {
+                e.style.backgroundColor = 'white'
+            } else {
+                e.style.backgroundColor = 'black'
+            }
+        });
+        miBtn.classList.toggle('contrast');
+        txColor.classList.toggle('contrast');
+        bodyId.classList.toggle('contrast');
+    });
 
 })
 
@@ -83,7 +107,7 @@ onMounted(() => {
         flex-wrap: nowrap;
         justify-content: space-between;
 
-         h2 {
+        h2 {
             font-size: 24px;
             font-weight: 400;
         }
@@ -93,7 +117,7 @@ onMounted(() => {
             line-height: 0.1;
             display: flex;
 
-            img {
+            .icon {
                 width: 40px;
                 height: 40px;
                 margin-right: 4px;
@@ -113,6 +137,12 @@ onMounted(() => {
                 color: #fff;
                 border-radius: 50%;
                 background-color: #000;
+                cursor: pointer;
+
+                &.contrast {
+                    background-color: #fff;
+                    color: #000;
+                }   
             }
 
             .miMenu {
@@ -137,7 +167,7 @@ onMounted(() => {
                         padding: 10px 0 10px 10px;
                         margin-bottom: 8px;
 
-                        &:last-child {
+                        &:nth-child(2) {
                             margin-bottom: 0;
                         }
                         &:hover {
@@ -184,12 +214,27 @@ onMounted(() => {
                 margin-bottom: 170px;
 
                 .bgColor {
-                    width: 28px;
-                    height: 28px;
+                    width: 35px;
+                    height: 38px;
                     padding: 0;
+                    margin-right: -3px;
                     border: 0;
                     background-color: transparent;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                    cursor: pointer;
+                }
+                .txColor {
+                    width: 28px;
+                    height: 28px;
+                    background-color: #000;
+                    border: 1px solid #000;
+                    cursor: pointer;
 
+                    &.contrast {
+                        background-color: #fff;
+                    }
                 }
             }
             .sInput {

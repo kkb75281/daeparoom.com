@@ -1,167 +1,168 @@
 <template lang="pug">
-.header
-    .title 
+.wrap
+    .header
+        .title 
+            .icon
+                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                    g
+                        g
+                            path(d="M3.78,19.61c-0.47,0-0.88-0.18-1.24-0.54C2.18,18.71,2,18.29,2,17.83V6.19c0-0.48,0.18-0.9,0.54-1.26s0.77-0.54,1.24-0.54h6.09l1.49,1.49h7.53c0.48,0,0.9,0.18,1.26,0.54c0.36,0.36,0.54,0.78,0.54,1.26H3.78v10.19l2.3-8.84H22l-2.34,8.97c-0.17,0.57-0.43,0.98-0.79,1.23c-0.36,0.25-0.84,0.37-1.44,0.37H3.78z")
+            h2 Cultivation
+        .ec
+            .ecBtn Edit Color
+            .ecColor
+                ul
+                    li Color1
+                        input.bgColor.bgColor1(type="color")
+                    li Color2
+                        input.bgColor.bgColor2(type="color")
+                    li Text
+                        .txColor
+                    input.sInput(type='submit' value='Save')
+        .info User Name
+        .mi
+            .miBtn U
+            .miMenu
+                ul
+                    li
+                        a(href="/accountsetting") Account Setting
+                    li
+                        a(href="/logout") Log Out
+                    li
+                        a(href="/meditcolor") Edit Color
+    .tableWrap
+        table#resizeMe.table
+            thead
+                tr
+                    th.th Host
+                    th.th Title
+                    th.th Type
+                    th Date
+            tbody
+                tr.tit(@click='()=>changeActive(0)')
+                    td NIKE
+                    td “{{ titleArray[0] }}”
+                    td(style="font-size:16px;") 
+                        | Illustration,
+                        br
+                        | Interactive Art
+                    td 2022.04
+                tr.con(:class="{ 'active': showArray[0] }")
+                    td(colspan="4" style='overflow: hidden;')
+                        .slider__wrap
+                            .slider__img
+                                .slider__inner
+                                    .slider.image-column
+                                        img(src="@/assets/image/image1111.svg")
+                                    .slider.text-column
+                                        | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+                                        | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+                                        | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+                                        | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+                                    .slider.image-column
+                                        img(src="@/assets/image/image1111.svg")
+                            .slider__btn
+                                .icon.prev
+                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                                        g
+                                            g
+                                                path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
+                                .icon.next
+                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                                        g
+                                            g
+                                                path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
+                    img.icon.close(src="@/assets/image/up.svg")
+                    img.icon.mclose(src="@/assets/image/up1.svg")
+                tr.tit(@click='()=>changeActive(1)')
+                    td NIKE
+                    td “{{ titleArray[1] }}”
+                    td(style="font-size:16px;") 
+                        | Illustration,
+                        br
+                        | Interactive Art
+                    td 2022.04
+                tr.con(:class="{ 'active': showArray[1] }")
+                    td(colspan="4" style='overflow: hidden;')
+                        .slider__wrap
+                            .slider__img
+                                .slider__inner
+                                    .slider.image-column
+                                        img(src="@/assets/image/image1111.svg")
+                                    .slider.text-column
+                                        | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+                                        | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+                                        | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+                                        | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+                                    .slider.image-column
+                                        img(src="@/assets/image/image1111.svg")
+                            .slider__btn
+                                .icon.prev
+                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                                        g
+                                            g
+                                                path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
+                                .icon.next
+                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                                        g
+                                            g
+                                                path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
+                    img.icon.close(src="@/assets/image/up.svg")
+                    img.icon.mclose(src="@/assets/image/up1.svg")
+                tr.tit(@click='()=>changeActive(2)')
+                    td NIKE
+                    td “{{ titleArray[2] }}”
+                    td(style="font-size:16px;") 
+                        | Illustration,
+                        br
+                        | Interactive Art
+                    td 2022.04
+                tr.con(:class="{ 'active': showArray[2] }")
+                    td(colspan="4" style='overflow: hidden;')
+                        .slider__wrap
+                            .slider__img
+                                .slider__inner
+                                    .slider.image-column
+                                        img(src="@/assets/image/image1111.svg")
+                                    .slider.text-column
+                                        | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+                                        | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+                                        | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+                                        | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+                                    .slider.image-column
+                                        img(src="@/assets/image/image1111.svg")
+                            .slider__btn
+                                .icon.prev
+                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                                        g
+                                            g
+                                                path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
+                                .icon.next
+                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                                        g
+                                            g
+                                                path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
+                    .icon.close
+                        svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                            g
+                                g
+                                    g
+                                        polygon(points="18.45,16.78 20,15.22 13.55,8.78 13.55,8.78 12,7.22 12,7.22 12,7.22 10.45,8.78 10.45,8.78 4,15.22 5.55,16.78 12,10.33 			")
+                    .icon.mclose
+                        svg(width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg")
+                            path(fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0457 40 40 31.0459 40 20C40 8.9541 31.0457 0 20 0C8.95435 0 0 8.9541 0 20C0 31.0459 8.95435 40 20 40ZM33.3333 24.3662L30.75 26.9668L20 16.2168L9.25 26.9668L6.66663 24.3662L17.4166 13.6328L20 11.0332L22.5833 13.6328L33.3333 24.3662Z" fill="black")
+    .footer 
         .icon
             svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
                 g
                     g
-                        path(d="M3.78,19.61c-0.47,0-0.88-0.18-1.24-0.54C2.18,18.71,2,18.29,2,17.83V6.19c0-0.48,0.18-0.9,0.54-1.26s0.77-0.54,1.24-0.54h6.09l1.49,1.49h7.53c0.48,0,0.9,0.18,1.26,0.54c0.36,0.36,0.54,0.78,0.54,1.26H3.78v10.19l2.3-8.84H22l-2.34,8.97c-0.17,0.57-0.43,0.98-0.79,1.23c-0.36,0.25-0.84,0.37-1.44,0.37H3.78z")
-        h2 Cultivation
-    .ec
-        .ecBtn Edit Color
-        .ecColor
-            ul
-                li Color1
-                    input.bgColor.bgColor1(type="color")
-                li Color2
-                    input.bgColor.bgColor2(type="color")
-                li Text
-                    input.bgColor.bgColor3(type="color")
-                input.sInput(type='submit' value='Save')
-    .info User Name
-    .mi
-        .miBtn U
-        .miMenu
-            ul
-                li
-                    a(href="/accountsetting") Account Setting
-                li
-                    a(href="/logout") Log Out
-                li
-                    a(href="/meditcolor") Edit Color
-.tableWrap
-    table#resizeMe.table
-        thead
-            tr
-                th.th Host
-                th.th Title
-                th.th Type
-                th Date
-        tbody
-            tr.tit(@click='()=>changeActive(0)')
-                td NIKE
-                td “{{ titleArray[0] }}”
-                td(style="font-size:16px;") 
-                    | Illustration,
-                    br
-                    | Interactive Art
-                td 2022.04
-            tr.con(:class="{ 'active': showArray[0] }")
-                td(colspan="4" style='overflow: hidden;')
-                    .slider__wrap
-                        .slider__img
-                            .slider__inner
-                                .slider.image-column
-                                    img(src="@/assets/image/image1111.svg")
-                                .slider.text-column
-                                    | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-                                    | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-                                    | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-                                    | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-                                .slider.image-column
-                                    img(src="@/assets/image/image1111.svg")
-                        .slider__btn
-                            .icon.prev
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
-                            .icon.next
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
-                img.icon.close(src="@/assets/image/up.svg")
-                img.icon.mclose(src="@/assets/image/up1.svg")
-            tr.tit(@click='()=>changeActive(1)')
-                td NIKE
-                td “{{ titleArray[1] }}”
-                td(style="font-size:16px;") 
-                    | Illustration,
-                    br
-                    | Interactive Art
-                td 2022.04
-            tr.con(:class="{ 'active': showArray[1] }")
-                td(colspan="4" style='overflow: hidden;')
-                    .slider__wrap
-                        .slider__img
-                            .slider__inner
-                                .slider.image-column
-                                    img(src="@/assets/image/image1111.svg")
-                                .slider.text-column
-                                    | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-                                    | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-                                    | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-                                    | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-                                .slider.image-column
-                                    img(src="@/assets/image/image1111.svg")
-                        .slider__btn
-                            .icon.prev
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
-                            .icon.next
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
-                img.icon.close(src="@/assets/image/up.svg")
-                img.icon.mclose(src="@/assets/image/up1.svg")
-            tr.tit(@click='()=>changeActive(2)')
-                td NIKE
-                td “{{ titleArray[2] }}”
-                td(style="font-size:16px;") 
-                    | Illustration,
-                    br
-                    | Interactive Art
-                td 2022.04
-            tr.con(:class="{ 'active': showArray[2] }")
-                td(colspan="4" style='overflow: hidden;')
-                    .slider__wrap
-                        .slider__img
-                            .slider__inner
-                                .slider.image-column
-                                    img(src="@/assets/image/image1111.svg")
-                                .slider.text-column
-                                    | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-                                    | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-                                    | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-                                    | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-                                .slider.image-column
-                                    img(src="@/assets/image/image1111.svg")
-                        .slider__btn
-                            .icon.prev
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
-                            .icon.next
-                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                    g
-                                        g
-                                            path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
-                .icon.close
-                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                        g
-                            g
-                                g
-                                    polygon(points="18.45,16.78 20,15.22 13.55,8.78 13.55,8.78 12,7.22 12,7.22 12,7.22 10.45,8.78 10.45,8.78 4,15.22 5.55,16.78 12,10.33 			")
-                .icon.mclose
-                    svg(width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg")
-                        path(fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0457 40 40 31.0459 40 20C40 8.9541 31.0457 0 20 0C8.95435 0 0 8.9541 0 20C0 31.0459 8.95435 40 20 40ZM33.3333 24.3662L30.75 26.9668L20 16.2168L9.25 26.9668L6.66663 24.3662L17.4166 13.6328L20 11.0332L22.5833 13.6328L33.3333 24.3662Z" fill="black")
-.footer 
-    .icon
-        svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-            g
+                        path(d="M10.9,20v-6.9H4V10.9h6.9V4h2.21v6.9H20v2.21h-6.9V20H10.9z")
+    .mfooter 
+        .icon
+            svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
                 g
-                    path(d="M10.9,20v-6.9H4V10.9h6.9V4h2.21v6.9H20v2.21h-6.9V20H10.9z")
-.mfooter 
-    .icon
-        svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-            g
-                g
-                    path(d="M19.07,4.93c-3.91-3.91-10.24-3.91-14.14,0s-3.91,10.24,0,14.14s10.24,3.91,14.14,0S22.98,8.83,19.07,4.93z M12.99,17.14h-2l0-4.15H6.83l0-2h4.15l0-4.15l2,0v4.15l4.15,0v2h-4.15L12.99,17.14z")
+                    g
+                        path(d="M19.07,4.93c-3.91-3.91-10.24-3.91-14.14,0s-3.91,10.24,0,14.14s10.24,3.91,14.14,0S22.98,8.83,19.07,4.93z M12.99,17.14h-2l0-4.15H6.83l0-2h4.15l0-4.15l2,0v4.15l4.15,0v2h-4.15L12.99,17.14z")
 </template>
 
 <script setup>
@@ -274,25 +275,39 @@ onMounted(() => {
     }
 
 
+    function Mobile() {return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);}
+    if(Mobile()) {
+        console.log('Mobile');
 
-    ////////// close content(pc ver)
-    let close = document.querySelectorAll('.close');
+        ////////// show content
+        let tr = document.querySelectorAll("tbody tr");
 
-    for(let i=0; i<close.length; i++) {
-        close[i].addEventListener('click', () => {
-            showArray.value[i] = !showArray.value[i]
-        })
+        for(let i=0; i<tr.length; i++) {
+            tr[i].addEventListener('click', () => {
+                tr[i+1].classList.toggle('active')
+            })
+        }
+
+        ////////// close content(mobile ver)
+        let mclose = document.querySelectorAll('.mclose');
+
+        for(let i=0; i<mclose.length; i++) {
+            mclose[i].addEventListener('click', () => {
+                showArray.value[i] = !showArray.value[i]
+            })
+        }
+    } else {
+        console.log('PC');
+
+        ////////// close content(pc ver)
+        let close = document.querySelectorAll('.close');
+
+        for(let i=0; i<close.length; i++) {
+            close[i].addEventListener('click', () => {
+                showArray.value[i] = !showArray.value[i]
+            })
+        }
     }
-
-    ////////// close content(mobile ver)
-    let mclose = document.querySelectorAll('.mclose');
-
-    for(let i=0; i<mclose.length; i++) {
-        mclose[i].addEventListener('click', () => {
-            showArray.value[i] = !showArray.value[i]
-        })
-    }
-
 
     ////////// change backgroud-color
     let bodyId = document.getElementById('shell');
@@ -300,7 +315,6 @@ onMounted(() => {
     let ecColor = document.querySelector('.ecColor');
     let bgColor1 = document.querySelector('.bgColor1');
     let bgColor2 = document.querySelector('.bgColor2');
-    let bgColor3 = document.querySelector('.bgColor3');
     let miBtn = document.querySelector('.miBtn');
     let miMenu = document.querySelector('.miMenu');
 
@@ -313,12 +327,10 @@ onMounted(() => {
             + ","
             + bgColor2.value
             + ")";
-        bodyId.style.color = bgColor3.value;
     }
 
     bgColor1.addEventListener("input", returnColor)
     bgColor2.addEventListener("input", returnColor)
-    bgColor3.addEventListener("input", returnColor)
 
 
     // click > 'block' or 'none'
@@ -341,25 +353,27 @@ onMounted(() => {
 
 
     // icon contrast
-    let plus = document.querySelector('.footer .icon');
-    let mplus = document.querySelector('.mfooter .icon');
+    let txColor = document.querySelector('.txColor');
     let icon = document.querySelectorAll('.icon');
-    let tableWidth = document.querySelectorAll('th > .resizer');
+    let tableWidth = document.querySelectorAll('.resizer');
+    let cnum = 0;
 
-    plus.addEventListener('click', function(){
+    txColor.addEventListener('click', function(){
+        cnum++;
         icon.forEach((e) => {
             e.classList.toggle('contrast');
-        })
-    });
-
-    mplus.addEventListener('click', function(){
-        icon.forEach((e) => {
-            e.classList.toggle('contrast');
-        })
-        miBtn.classList.toggle('contrast');
+        });
         tableWidth.forEach((e) => {
-            e.classList.toggle('contrast');
-        })
+            if(cnum%2 == 1) {
+                e.style.backgroundColor = 'white'
+            } else {
+                e.style.backgroundColor = 'black'
+            }
+        });
+        miBtn.classList.toggle('contrast');
+        txColor.classList.toggle('contrast');
+        bodyId.classList.toggle('contrast');
+        ecColor.classList.toggle('contrast');
     });
 
 })
@@ -371,6 +385,12 @@ onMounted(() => {
 </script>
 
 <style scoped lang="less">
+.wrap {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
 .header {
     width: 100%;
     // height: 168px;
@@ -380,20 +400,23 @@ onMounted(() => {
     flex-wrap: nowrap;
     justify-content: space-between;
 
-    h2 {
-        font-size: 24px;
-        font-weight: 400;
-    }
+
 
     .title {
         margin-right: 40px;
         line-height: 0.1;
         display: flex;
+        align-items: center;
+        margin-top: -1px;
 
         .icon {
             width: 40px;
             height: 40px;
             margin-right: 4px;
+        }
+        h2 {
+            font-size: 24px;
+            font-weight: 400;
         }
     }
 
@@ -411,12 +434,16 @@ onMounted(() => {
             position: absolute;
             content: '';
             left: 0;
-            bottom: -230px;
+            bottom: -250px;
             background-color: #fff;
             border-radius: 4px;
             box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25), inset -1px -1px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.65);
             z-index: 999;
             display: none;
+
+            &.contrast {
+                background-color: #000;
+            }
     
             ul {
                 width: 153px;
@@ -433,14 +460,29 @@ onMounted(() => {
                     font-weight: 400;
                     line-height: 22px;
                     margin-bottom: 20px;
-    
+
                     .bgColor {
-                        width: 28px;
-                        height: 28px;
+                        width: 35px;
+                        height: 38px;
                         padding: 0;
+                        margin-right: -3px;
                         border: 0;
                         background-color: transparent;
-    
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        appearance: none;
+                        cursor: pointer;
+                    }
+                    .txColor {
+                        width: 28px;
+                        height: 28px;
+                        background-color: #000;
+                        border: 1px solid #000;
+                        cursor: pointer;
+
+                        &.contrast {
+                            background-color: #fff;
+                        }
                     }
                 }
                 .sInput {
@@ -541,6 +583,8 @@ onMounted(() => {
         thead {
             tr {
                 height: 80px;
+                // border-bottom: 1px solid #000;
+
                 th {
                     font-size: 24px;
                     font-weight: 400;
@@ -567,8 +611,19 @@ onMounted(() => {
                         padding-right: 100px;
                     }
 
-                    .resizer.contrast {
-                        background-color: #fff;
+                    .resizer {
+                        position: absolute;
+                        top: -8px;
+                        right: -16px;
+                        width: 16px;
+                        height: 8px;
+                        background-color: black;
+                        cursor: col-resize;
+                        user-select: none;
+
+                        &.contrast {
+                            background-color: #fff !important;
+                        }
                     }
 
                     .resizable {
@@ -610,6 +665,10 @@ onMounted(() => {
 
                     &:hover::after {
                         opacity: 1;
+                    }
+
+                    &.hide {
+                        display: none;
                     }
 
                     td {
@@ -919,25 +978,25 @@ onMounted(() => {
                                 &::after {
                                     display: none;
                                 }
-                            }
-                            .slider__inner {
-                                flex-wrap: wrap;
-                                width: 100%;
-                                height: 100%;
-
-                                .slider {
+                                .slider__inner {
+                                    flex-wrap: wrap;
+                                    width: 100%;
                                     height: 100%;
-                                    margin-right: 0;
-                                    margin-bottom: 20px;
 
-                                    &.image-column {
-                                        column-width: 350px;
-                                        column-gap: 20px;
+                                    .slider {
+                                        height: 100%;
+                                        margin-right: 0;
+                                        margin-bottom: 20px;
 
-                                        .icon {
-                                            width: 350px;   
-                                            height: 350px;
-                                            object-fit: cover;
+                                        &.image-column {
+                                            column-width: 350px;
+                                            column-gap: 20px;
+
+                                            img {
+                                                width: 350px;   
+                                                height: 350px;
+                                                object-fit: cover;
+                                            }
                                         }
                                     }
                                 }
