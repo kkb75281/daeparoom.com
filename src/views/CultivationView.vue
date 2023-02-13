@@ -39,7 +39,7 @@
                     th.th Type
                     th Date
             tbody
-                tr.tit(@click='()=>changeActive(0)')
+                tr.tit
                     td NIKE
                     td “{{ titleArray[0] }}”
                     td(style="font-size:16px;") 
@@ -47,77 +47,7 @@
                         br
                         | Interactive Art
                     td 2022.04
-                tr.con(:class="{ 'active': showArray[0] }")
-                    td(colspan="4" style='overflow: hidden;')
-                        .slider__wrap
-                            .slider__img
-                                .slider__inner
-                                    .slider.image-column
-                                        img(src="@/assets/image/image1111.svg")
-                                    .slider.text-column
-                                        | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-                                        | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-                                        | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-                                        | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-                                    .slider.image-column
-                                        img(src="@/assets/image/image1111.svg")
-                            .slider__btn
-                                .icon.prev
-                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                        g
-                                            g
-                                                path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
-                                .icon.next
-                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                        g
-                                            g
-                                                path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
-                    img.icon.close(src="@/assets/image/up.svg")
-                    img.icon.mclose(src="@/assets/image/up1.svg")
-                tr.tit(@click='()=>changeActive(1)')
-                    td NIKE
-                    td “{{ titleArray[1] }}”
-                    td(style="font-size:16px;") 
-                        | Illustration,
-                        br
-                        | Interactive Art
-                    td 2022.04
-                tr.con(:class="{ 'active': showArray[1] }")
-                    td(colspan="4" style='overflow: hidden;')
-                        .slider__wrap
-                            .slider__img
-                                .slider__inner
-                                    .slider.image-column
-                                        img(src="@/assets/image/image1111.svg")
-                                    .slider.text-column
-                                        | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-                                        | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-                                        | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-                                        | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-                                    .slider.image-column
-                                        img(src="@/assets/image/image1111.svg")
-                            .slider__btn
-                                .icon.prev
-                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                        g
-                                            g
-                                                path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
-                                .icon.next
-                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                        g
-                                            g
-                                                path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
-                    img.icon.close(src="@/assets/image/up.svg")
-                    img.icon.mclose(src="@/assets/image/up1.svg")
-                tr.tit(@click='()=>changeActive(2)')
-                    td NIKE
-                    td “{{ titleArray[2] }}”
-                    td(style="font-size:16px;") 
-                        | Illustration,
-                        br
-                        | Interactive Art
-                    td 2022.04
-                tr.con(:class="{ 'active': showArray[2] }")
+                tr.con
                     td(colspan="4" style='overflow: hidden;')
                         .slider__wrap
                             .slider__img
@@ -148,9 +78,93 @@
                                 g
                                     g
                                         polygon(points="18.45,16.78 20,15.22 13.55,8.78 13.55,8.78 12,7.22 12,7.22 12,7.22 10.45,8.78 10.45,8.78 4,15.22 5.55,16.78 12,10.33 			")
-                    .icon.mclose
-                        svg(width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg")
-                            path(fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0457 40 40 31.0459 40 20C40 8.9541 31.0457 0 20 0C8.95435 0 0 8.9541 0 20C0 31.0459 8.95435 40 20 40ZM33.3333 24.3662L30.75 26.9668L20 16.2168L9.25 26.9668L6.66663 24.3662L17.4166 13.6328L20 11.0332L22.5833 13.6328L33.3333 24.3662Z" fill="black")
+                    //- .icon.mclose
+                    //-     svg(width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg")
+                    //-         path(fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0457 40 40 31.0459 40 20C40 8.9541 31.0457 0 20 0C8.95435 0 0 8.9541 0 20C0 31.0459 8.95435 40 20 40ZM33.3333 24.3662L30.75 26.9668L20 16.2168L9.25 26.9668L6.66663 24.3662L17.4166 13.6328L20 11.0332L22.5833 13.6328L33.3333 24.3662Z" fill="black")
+                tr.tit
+                    td NIKE
+                    td “{{ titleArray[1] }}”
+                    td(style="font-size:16px;") 
+                        | Illustration,
+                        br
+                        | Interactive Art
+                    td 2022.04
+                tr.con
+                    td(colspan="4" style='overflow: hidden;')
+                        .slider__wrap
+                            .slider__img
+                                .slider__inner
+                                    .slider.image-column
+                                        img(src="@/assets/image/image1111.svg")
+                                    .slider.text-column
+                                        | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+                                        | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+                                        | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+                                        | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+                                    .slider.image-column
+                                        img(src="@/assets/image/image1111.svg")
+                            .slider__btn
+                                .icon.prev
+                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                                        g
+                                            g
+                                                path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
+                                .icon.next
+                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                                        g
+                                            g
+                                                path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
+                    .icon.close
+                        svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                            g
+                                g
+                                    g
+                                        polygon(points="18.45,16.78 20,15.22 13.55,8.78 13.55,8.78 12,7.22 12,7.22 12,7.22 10.45,8.78 10.45,8.78 4,15.22 5.55,16.78 12,10.33 			")
+                    //- .icon.mclose
+                    //-     svg(width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg")
+                    //-         path(fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0457 40 40 31.0459 40 20C40 8.9541 31.0457 0 20 0C8.95435 0 0 8.9541 0 20C0 31.0459 8.95435 40 20 40ZM33.3333 24.3662L30.75 26.9668L20 16.2168L9.25 26.9668L6.66663 24.3662L17.4166 13.6328L20 11.0332L22.5833 13.6328L33.3333 24.3662Z" fill="black")
+                tr.tit
+                    td NIKE
+                    td “{{ titleArray[2] }}”
+                    td(style="font-size:16px;") 
+                        | Illustration,
+                        br
+                        | Interactive Art
+                    td 2022.04
+                tr.con
+                    td(colspan="4" style='overflow: hidden;')
+                        .slider__wrap
+                            .slider__img
+                                .slider__inner
+                                    .slider.image-column
+                                        img(src="@/assets/image/image1111.svg")
+                                    .slider.text-column
+                                        | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+                                        | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+                                        | Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+                                        | Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+                                    .slider.image-column
+                                        img(src="@/assets/image/image1111.svg")
+                            .slider__btn
+                                .icon.prev
+                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                                        g
+                                            g
+                                                path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
+                                .icon.next
+                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                                        g
+                                            g
+                                                path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")
+                    .icon.close
+                        svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                            g
+                                g
+                                    g
+                                        polygon(points="18.45,16.78 20,15.22 13.55,8.78 13.55,8.78 12,7.22 12,7.22 12,7.22 10.45,8.78 10.45,8.78 4,15.22 5.55,16.78 12,10.33 			")
+    .icon.mclose
+        svg(width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg")
+            path(fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0457 40 40 31.0459 40 20C40 8.9541 31.0457 0 20 0C8.95435 0 0 8.9541 0 20C0 31.0459 8.95435 40 20 40ZM33.3333 24.3662L30.75 26.9668L20 16.2168L9.25 26.9668L6.66663 24.3662L17.4166 13.6328L20 11.0332L22.5833 13.6328L33.3333 24.3662Z" fill="black")
     .footer 
         .icon
             svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
@@ -174,30 +188,14 @@ let titleArray = [
     'hahahahahah'
 ]
 
-let showArray = ref([
-    false,
-    false,
-    false
-])
-
-function changeActive(idx) {
-    showArray.value[idx] = !showArray.value[idx]
-    // if(showArray[idx]) {
-    //     showArray[idx] = false
-    // }
-    // else {
-    //     showArray[idx] = true
-    // }
-}
-
 onMounted(() => {
     ////////// column width
     const createResizableTable = function (table) {
         const cols = table.querySelectorAll('.th');
-        [].forEach.call(cols, function (col) {
+        console.log(table)
+        Array.from(cols).forEach(function (col) {
             const resizer = document.createElement('div');
             resizer.classList.add('resizer');
-
             resizer.style.position = 'absolute';
             resizer.style.top = '-8px';
             resizer.style.right = '-16px';
@@ -232,6 +230,9 @@ onMounted(() => {
         const mouseMoveHandler = function (e) {
             const dx = e.clientX - x;
             col.style.width = `${w + dx}px`;
+            col.style.minWidth = '160px'
+
+            console.log({col, x, w, dx})
         };
 
         const mouseUpHandler = function () {
@@ -246,14 +247,6 @@ onMounted(() => {
     createResizableTable(document.getElementById('resizeMe'));
 
 
-    ////////// show content
-    // let tr = document.querySelectorAll("tbody tr");
-
-    // for(let i = 1; i<tr.length; i++) {
-    //     tr[i].addEventListener('click', () => {
-    //         tr[i+1].classList.toggle('active');
-    //     })
-    // }
 
 
     ////////// slider
@@ -275,36 +268,90 @@ onMounted(() => {
     }
 
 
+    ////////// mobile & pc ver
     function Mobile() {return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);}
     if(Mobile()) {
         console.log('Mobile');
 
-        ////////// show content
-        let tr = document.querySelectorAll("tbody tr");
+        let table = document.getElementById("resizeMe");
+        let rows = table.getElementsByTagName("tr");
+        let trTit = table.querySelectorAll('.tit');
+        let trCon = table.querySelectorAll('.con');
+        let mclose = document.querySelector('.mclose');  
+        let mfooter = document.querySelector('.mfooter');  
 
-        for(let i=0; i<tr.length; i++) {
-            tr[i].addEventListener('click', () => {
-                tr[i+1].classList.toggle('active')
-            })
+        for (let i = 1; i < rows.length; i+=2) {
+            let currentRow = rows[i];
+
+            currentRow.addEventListener("click", function() {
+                let row = this;
+                let siblings = row.parentNode.children;
+                let currentIndex = -1;
+
+                mclose.style.display = "block";
+                mfooter.style.display = "none";
+                for (let j = 0; j < siblings.length; j++) {
+                    let sibling = siblings[j];
+                    if (sibling === row) {
+                        currentIndex = j;
+                        break;
+                    }
+                }
+                for (let j = 0; j < siblings.length; j++) {
+                    let sibling = siblings[j];
+                    if (j === currentIndex || j === currentIndex + 1) {
+                        if(sibling.classList.contains('hide')){
+                            sibling.classList.remove('hide')
+                            sibling.classList.add('active')
+                        } else {
+                            sibling.classList.add('active')
+                        }
+                    } else {
+                        if(sibling.classList.contains('active')){
+                            sibling.classList.remove('active')
+                            sibling.classList.add('hide')
+                        } else {
+                            sibling.classList.add('hide')
+                        }
+                    }
+                }
+            });
         }
 
-        ////////// close content(mobile ver)
-        let mclose = document.querySelectorAll('.mclose');
-
-        for(let i=0; i<mclose.length; i++) {
-            mclose[i].addEventListener('click', () => {
-                showArray.value[i] = !showArray.value[i]
+        mclose.addEventListener("click", function() {
+            mclose.style.display = "none";
+            mfooter.style.display = "block";
+            trTit.forEach((el) => {
+                if(el.classList.contains('hide')){
+                    el.classList.remove('hide')
+                    el.classList.add('active')
+                }
             })
-        }
+            trCon.forEach((el) => {
+                if(el.classList.contains('active')){
+                    el.classList.remove('active')
+                    el.classList.add('hide')
+                }
+            })
+        });
+        
     } else {
         console.log('PC');
 
-        ////////// close content(pc ver)
+        ////////// show content
+        let trTit = document.querySelectorAll('.tit');
+        let trCon = document.querySelectorAll('.con');
         let close = document.querySelectorAll('.close');
+
+        for(let i = 0; i<trTit.length; i++) {
+            trTit[i].addEventListener('click', () => {
+                trCon[i].classList.toggle('active');
+            })
+        }
 
         for(let i=0; i<close.length; i++) {
             close[i].addEventListener('click', () => {
-                showArray.value[i] = !showArray.value[i]
+                trCon[i].classList.remove('active');
             })
         }
     }
@@ -349,8 +396,6 @@ onMounted(() => {
             ecColor.style.display = 'none';
         }
     })
-
-
 
     // icon contrast
     let txColor = document.querySelector('.txColor');
@@ -573,12 +618,25 @@ onMounted(() => {
 
 }
 
+.mclose {
+    position: fixed;
+    right: 40px;
+    bottom: 30px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 99;
+    display: none;
+}
+
 .tableWrap {
     width: 100vw;
 
     .table {
         width: 100%;
+        // min-width: 100vw;
         border-collapse: collapse;
+        // table-layout: fixed;
 
         thead {
             tr {
@@ -667,6 +725,10 @@ onMounted(() => {
                         opacity: 1;
                     }
 
+                    &.active {
+                        display: table-row;
+                    }
+
                     &.hide {
                         display: none;
                     }
@@ -675,6 +737,11 @@ onMounted(() => {
                         font-size: 36px;
                         font-weight: 700;
                         line-height: 39px;
+                        // width: 160px;
+                        // white-space: nowrap;
+                        // overflow: hidden;
+                        // text-overflow: ellipsis;
+                        display:table-cell; overflow:hidden; text-overflow: ellipsis;
                         user-select: none;
 
                         &::after {
@@ -716,6 +783,10 @@ onMounted(() => {
                         display: table-row;
                     }
 
+                    &.hide {
+                        display: none;
+                    }
+
                     .close {
                         position: absolute;
                         content: '';
@@ -726,16 +797,16 @@ onMounted(() => {
                         cursor: pointer;
                     }
                     
-                    .mclose {
-                        position: absolute;
-                        content: '';
-                        right: 40px;
-                        bottom: 30px;
-                        width: 40px;
-                        height: 40px;
-                        cursor: pointer;
-                        display: none;
-                    }
+                    // .mclose {
+                    //     position: fixed;
+                    //     right: 40px;
+                    //     bottom: 30px;
+                    //     width: 40px;
+                    //     height: 40px;
+                    //     cursor: pointer;
+                    //     z-index: 99;
+                    //     display: none;
+                    // }
 
                     td {
                         .slider__wrap {
