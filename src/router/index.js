@@ -75,6 +75,14 @@ const router = createRouter({
       // which is lazy-loaded w../views/MainView.vuevisited.
       component: () => import('../views/MEditColor.vue')
     },
+    {
+      path: '/booking',
+      name: 'booking',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded w../views/MainView.vuevisited.
+      component: () => import('../views/BookingView.vue')
+    },
   ],
   scrollBehavior() {
     // always scroll to top

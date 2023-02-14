@@ -190,36 +190,30 @@ let titleArray = [
 
 onMounted(() => {
     ////////// column width
-    const createResizableTable = function (table) {
-        const cols = table.querySelectorAll('.th');
-        console.log(table)
+    let createResizableTable = function (table) {
+        let cols = table.querySelectorAll('.th');
+
         Array.from(cols).forEach(function (col) {
-            const resizer = document.createElement('div');
+            let resizer = document.createElement('div');
             resizer.classList.add('resizer');
-            resizer.style.position = 'absolute';
-            resizer.style.top = '-8px';
-            resizer.style.right = '-16px';
-            resizer.style.width = `16px`;
-            resizer.style.height = `8px`;
-            resizer.style.backgroundColor = 'black';
-            resizer.style.cursor = 'col-resize';
-            resizer.style.userSelect = 'none';
-
             col.appendChild(resizer);
-
             createResizableColumn(col, resizer);
         });
     };
 
-    const createResizableColumn = function (col, resizer) {
+    
+
+    let createResizableColumn = function (col, resizer) {
         let x = 0;
         let w = 0;
 
-        const mouseDownHandler = function (e) {
+        let mouseDownHandler = function (e) {
             x = e.clientX;
 
-            const styles = window.getComputedStyle(col);
+            let styles = window.getComputedStyle(col);
+            // console.log(col.clientWidth)
             w = parseInt(styles.width, 10);
+            // w = col.clientWidth;
 
             document.addEventListener('mousemove', mouseMoveHandler);
             document.addEventListener('mouseup', mouseUpHandler);
@@ -227,15 +221,36 @@ onMounted(() => {
             resizer.classList.add('resizing');
         };
 
-        const mouseMoveHandler = function (e) {
-            const dx = e.clientX - x;
-            col.style.width = `${w + dx}px`;
-            col.style.minWidth = '160px'
+        let mouseMoveHandler = function (e) {
+            let ths = document.getElementsByTagName('th');
+            let thsArr = Array.from(ths)
+            let widthSum = 0;
+            thsArr.forEach((e) => {
+                widthSum += e.offsetWidth;
+            })
 
-            console.log({col, x, w, dx})
+            console.log(widthSum-6, window.innerWidth)
+            let dx = e.clientX - x;
+            if(widthSum-6 < window.innerWidth){
+                // col.style.minWidth = '160px'
+                col.style.width = `${w + dx}px`;
+            } else if(widthSum-6 == window.innerWidth) {
+                resizer.classList.remove('resizing');
+            }
+
+            // while (widthSum-6 < window.innerWidth) {
+            //     col.style.width = `${w + dx}px`;
+            //     if (widthSum-6 == window.innerWidth) {
+            //         break;
+            //     }
+            // }
+            // widthSum -= 10; 
+
+
+
         };
 
-        const mouseUpHandler = function () {
+        let mouseUpHandler = function () {
             resizer.classList.remove('resizing');
             document.removeEventListener('mousemove', mouseMoveHandler);
             document.removeEventListener('mouseup', mouseUpHandler);
@@ -429,7 +444,7 @@ onMounted(() => {
 
 </script>
 
-<style scoped lang="less">
+<style lang="less">
 .wrap {
     width: 100vw;
     height: 100vh;
@@ -636,7 +651,7 @@ onMounted(() => {
         width: 100%;
         // min-width: 100vw;
         border-collapse: collapse;
-        // table-layout: fixed;
+        table-layout: fixed;
 
         thead {
             tr {
@@ -738,10 +753,9 @@ onMounted(() => {
                         font-weight: 700;
                         line-height: 39px;
                         // width: 160px;
-                        // white-space: nowrap;
-                        // overflow: hidden;
-                        // text-overflow: ellipsis;
-                        display:table-cell; overflow:hidden; text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                         user-select: none;
 
                         &::after {
@@ -956,38 +970,62 @@ onMounted(() => {
 }
 
 @media (max-width: 780px) {
-    .header {
-        padding: 0 20px;
-        padding-top: 40px;
+.header {
+    padding: 0 20px;
+    padding-top: 40px;
 
-        .ec {
-            display: none;
-        }
-        .info {
-            display: none;
-        }
-        .mi {
-            display: block;
-        }
+    .ec {
+        display: none;
     }
+    .info {
+        display: none;
+    }
+    .mi {
+        display: block;
+    }
+}
 
-    .tableWrap {
-        .table {
-            thead {
-                tr {
-                    th {
+.tableWrap {
+    .table {
+        thead {
+            tr {
+                th {
+                    &:first-child {
+                        display: none;
+                    }
+
+                    &:nth-child(2) {
+                        width: 100%;
+                        padding: 20px;
+                        font-size: 20px;
+
+                        > div {
+                            display: none !important;
+                        }
+                    }
+
+                    &:nth-child(3) {
+                        display: none;
+                    }
+
+                    &:last-child {
+                        display: none;
+                    }
+                }
+            }
+        }
+        tbody {
+            tr {
+                &.tit {
+                    td {
                         &:first-child {
                             display: none;
                         }
     
                         &:nth-child(2) {
                             width: 100%;
-                            padding: 20px;
-                            font-size: 20px;
-
-                            > div {
-                                display: none !important;
-                            }
+                            padding: 20px !important;
+                            font-size: 24px;
                         }
     
                         &:nth-child(3) {
@@ -999,95 +1037,71 @@ onMounted(() => {
                         }
                     }
                 }
-            }
-            tbody {
-                tr {
-                    &.tit {
-                        td {
-                            &:first-child {
-                                display: none;
-                            }
-        
-                            &:nth-child(2) {
-                                width: 100%;
-                                padding: 20px !important;
-                                font-size: 24px;
-                            }
-        
-                            &:nth-child(3) {
-                                display: none;
-                            }
-        
-                            &:last-child {
-                                display: none;
-                            }
-                        }
+
+                &.con {
+                    .close {
+                        display: none;
                     }
 
-                    &.con {
-                        .close {
-                            display: none;
-                        }
+                    .mclose {
+                        display: block;
+                    }
 
-                        .mclose {
-                            display: block;
+                    td {
+                        .slider__wrap {
+                            padding: 0 20px 80px 20px;
                         }
+                        .slider__img {
+                            position: relative;
+                            width: calc(100vw - 40px);
+                            height: 100%;
 
-                        td {
-                            .slider__wrap {
-                                padding: 0 20px 80px 20px;
+                            &::before {
+                                display: none;
                             }
-                            .slider__img {
-                                position: relative;
-                                width: calc(100vw - 40px);
+
+                            &::after {
+                                display: none;
+                            }
+                            .slider__inner {
+                                flex-wrap: wrap;
+                                width: 100%;
                                 height: 100%;
 
-                                &::before {
-                                    display: none;
-                                }
-
-                                &::after {
-                                    display: none;
-                                }
-                                .slider__inner {
-                                    flex-wrap: wrap;
-                                    width: 100%;
+                                .slider {
                                     height: 100%;
+                                    margin-right: 0;
+                                    margin-bottom: 20px;
 
-                                    .slider {
-                                        height: 100%;
-                                        margin-right: 0;
-                                        margin-bottom: 20px;
+                                    &.image-column {
+                                        column-width: 350px;
+                                        column-gap: 20px;
 
-                                        &.image-column {
-                                            column-width: 350px;
-                                            column-gap: 20px;
-
-                                            img {
-                                                width: 350px;   
-                                                height: 350px;
-                                                object-fit: cover;
-                                            }
+                                        img {
+                                            width: 350px;   
+                                            height: 350px;
+                                            object-fit: cover;
                                         }
                                     }
                                 }
                             }
-                            .slider__btn {
-                                display: none;
-                            }
+                        }
+                        .slider__btn {
+                            display: none;
                         }
                     }
                 }
             }
         }
     }
+}
 
-    .footer {
-        display: none;
-    }
+.footer {
+    display: none;
+}
 
-    .mfooter {
-        display: block;
-    }
+.mfooter {
+    display: block;
+}
 }
 </style>
