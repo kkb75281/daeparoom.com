@@ -78,9 +78,6 @@
                                 g
                                     g
                                         polygon(points="18.45,16.78 20,15.22 13.55,8.78 13.55,8.78 12,7.22 12,7.22 12,7.22 10.45,8.78 10.45,8.78 4,15.22 5.55,16.78 12,10.33 			")
-                    //- .icon.mclose
-                    //-     svg(width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg")
-                    //-         path(fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0457 40 40 31.0459 40 20C40 8.9541 31.0457 0 20 0C8.95435 0 0 8.9541 0 20C0 31.0459 8.95435 40 20 40ZM33.3333 24.3662L30.75 26.9668L20 16.2168L9.25 26.9668L6.66663 24.3662L17.4166 13.6328L20 11.0332L22.5833 13.6328L33.3333 24.3662Z" fill="black")
                 tr.tit
                     td NIKE
                     td “{{ titleArray[1] }}”
@@ -120,9 +117,6 @@
                                 g
                                     g
                                         polygon(points="18.45,16.78 20,15.22 13.55,8.78 13.55,8.78 12,7.22 12,7.22 12,7.22 10.45,8.78 10.45,8.78 4,15.22 5.55,16.78 12,10.33 			")
-                    //- .icon.mclose
-                    //-     svg(width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg")
-                    //-         path(fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0457 40 40 31.0459 40 20C40 8.9541 31.0457 0 20 0C8.95435 0 0 8.9541 0 20C0 31.0459 8.95435 40 20 40ZM33.3333 24.3662L30.75 26.9668L20 16.2168L9.25 26.9668L6.66663 24.3662L17.4166 13.6328L20 11.0332L22.5833 13.6328L33.3333 24.3662Z" fill="black")
                 tr.tit
                     td NIKE
                     td “{{ titleArray[2] }}”
@@ -190,79 +184,45 @@ let titleArray = [
 
 onMounted(() => {
     ////////// column width
-    let createResizableTable = function (table) {
-        let cols = table.querySelectorAll('.th');
 
-        Array.from(cols).forEach(function (col) {
-            let resizer = document.createElement('div');
-            resizer.classList.add('resizer');
-            col.appendChild(resizer);
-            createResizableColumn(col, resizer);
-        });
-    };
+    let cols = document.getElementById('resizeMe').querySelectorAll('.th');
 
-    
+    Array.from(cols).forEach(function (col) {
+        let resizer = document.createElement('div');
+        resizer.classList.add('resizer');
+        col.style.minWidth = '160px'
+        col.appendChild(resizer);
 
-    let createResizableColumn = function (col, resizer) {
         let x = 0;
         let w = 0;
 
-        let mouseDownHandler = function (e) {
-            x = e.clientX;
-
-            let styles = window.getComputedStyle(col);
-            // console.log(col.clientWidth)
-            w = parseInt(styles.width, 10);
-            // w = col.clientWidth;
-
-            document.addEventListener('mousemove', mouseMoveHandler);
-            document.addEventListener('mouseup', mouseUpHandler);
-
-            resizer.classList.add('resizing');
-        };
-
         let mouseMoveHandler = function (e) {
             let ths = document.getElementsByTagName('th');
-            let thsArr = Array.from(ths)
+            let thsArr = Array.from(ths);
+            let dx = e.clientX - x;
             let widthSum = 0;
+
             thsArr.forEach((e) => {
-                widthSum += e.offsetWidth;
+                widthSum += e.offsetWidth - 2;
             })
 
-            console.log(widthSum-6, window.innerWidth)
-            let dx = e.clientX - x;
-            if(widthSum-6 < window.innerWidth){
-                // col.style.minWidth = '160px'
+            if (widthSum < window.innerWidth || dx < 0) {
                 col.style.width = `${w + dx}px`;
-            } else if(widthSum-6 == window.innerWidth) {
-                resizer.classList.remove('resizing');
             }
-
-            // while (widthSum-6 < window.innerWidth) {
-            //     col.style.width = `${w + dx}px`;
-            //     if (widthSum-6 == window.innerWidth) {
-            //         break;
-            //     }
-            // }
-            // widthSum -= 10; 
-
-
-
         };
 
-        let mouseUpHandler = function () {
-            resizer.classList.remove('resizing');
+        resizer.addEventListener('mousedown', function (e) {
+            let styles = window.getComputedStyle(col);
+            x = e.clientX;
+            w = parseInt(styles.width, 10);
+
+            document.addEventListener('mousemove', mouseMoveHandler);
+        });
+
+        document.addEventListener('mouseup', function () {
             document.removeEventListener('mousemove', mouseMoveHandler);
-            document.removeEventListener('mouseup', mouseUpHandler);
-        };
-
-        resizer.addEventListener('mousedown', mouseDownHandler);
-    };
-
-    createResizableTable(document.getElementById('resizeMe'));
-
-
-
+        });
+    });
 
     ////////// slider
     const sliderImg = document.querySelectorAll(".slider__img");       // 보여지는 영역
@@ -270,35 +230,35 @@ onMounted(() => {
     const sliderBtnPrev = document.querySelectorAll(".prev");       //왼쪽버튼
     const sliderBtnNext = document.querySelectorAll(".next");       //오른쪽버튼
 
-    for(let i=0; i<sliderImg.length; i++) {
+    for (let i = 0; i < sliderImg.length; i++) {
         sliderBtnPrev[i].addEventListener("click", () => {
             sliderInner[i].style.transition = "all 400ms";
-            sliderInner[i].style.transform = "translateX("+ 0 +"px)";
+            sliderInner[i].style.transform = "translateX(" + 0 + "px)";
         });
-    
+
         sliderBtnNext[i].addEventListener("click", () => {
             sliderInner[i].style.transition = "all 400ms";
-            sliderInner[i].style.transform = "translateX("+ -(sliderInner[i].clientWidth - sliderImg[i].clientWidth) +"px)";
+            sliderInner[i].style.transform = "translateX(" + -(sliderInner[i].clientWidth - sliderImg[i].clientWidth) + "px)";
         });
     }
 
 
     ////////// mobile & pc ver
-    function Mobile() {return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);}
-    if(Mobile()) {
+    function Mobile() { return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent); }
+    if (Mobile()) {
         console.log('Mobile');
 
         let table = document.getElementById("resizeMe");
         let rows = table.getElementsByTagName("tr");
         let trTit = table.querySelectorAll('.tit');
         let trCon = table.querySelectorAll('.con');
-        let mclose = document.querySelector('.mclose');  
-        let mfooter = document.querySelector('.mfooter');  
+        let mclose = document.querySelector('.mclose');
+        let mfooter = document.querySelector('.mfooter');
 
-        for (let i = 1; i < rows.length; i+=2) {
+        for (let i = 1; i < rows.length; i += 2) {
             let currentRow = rows[i];
 
-            currentRow.addEventListener("click", function() {
+            currentRow.addEventListener("click", function () {
                 let row = this;
                 let siblings = row.parentNode.children;
                 let currentIndex = -1;
@@ -315,14 +275,14 @@ onMounted(() => {
                 for (let j = 0; j < siblings.length; j++) {
                     let sibling = siblings[j];
                     if (j === currentIndex || j === currentIndex + 1) {
-                        if(sibling.classList.contains('hide')){
+                        if (sibling.classList.contains('hide')) {
                             sibling.classList.remove('hide')
                             sibling.classList.add('active')
                         } else {
                             sibling.classList.add('active')
                         }
                     } else {
-                        if(sibling.classList.contains('active')){
+                        if (sibling.classList.contains('active')) {
                             sibling.classList.remove('active')
                             sibling.classList.add('hide')
                         } else {
@@ -333,23 +293,23 @@ onMounted(() => {
             });
         }
 
-        mclose.addEventListener("click", function() {
+        mclose.addEventListener("click", function () {
             mclose.style.display = "none";
             mfooter.style.display = "block";
             trTit.forEach((el) => {
-                if(el.classList.contains('hide')){
+                if (el.classList.contains('hide')) {
                     el.classList.remove('hide')
                     el.classList.add('active')
                 }
             })
             trCon.forEach((el) => {
-                if(el.classList.contains('active')){
+                if (el.classList.contains('active')) {
                     el.classList.remove('active')
                     el.classList.add('hide')
                 }
             })
         });
-        
+
     } else {
         console.log('PC');
 
@@ -358,13 +318,13 @@ onMounted(() => {
         let trCon = document.querySelectorAll('.con');
         let close = document.querySelectorAll('.close');
 
-        for(let i = 0; i<trTit.length; i++) {
+        for (let i = 0; i < trTit.length; i++) {
             trTit[i].addEventListener('click', () => {
                 trCon[i].classList.toggle('active');
             })
         }
 
-        for(let i=0; i<close.length; i++) {
+        for (let i = 0; i < close.length; i++) {
             close[i].addEventListener('click', () => {
                 trCon[i].classList.remove('active');
             })
@@ -381,7 +341,7 @@ onMounted(() => {
     let miMenu = document.querySelector('.miMenu');
 
     // 색상 바꾸기
-    function returnColor(){
+    function returnColor() {
         bodyId.style.background =
             "linear-gradient("
             + "180deg, "
@@ -397,7 +357,7 @@ onMounted(() => {
 
     // click > 'block' or 'none'
     miBtn.addEventListener('click', () => {
-        if(miMenu.style.display === 'none'){
+        if (miMenu.style.display === 'none') {
             miMenu.style.display = 'block';
         } else {
             miMenu.style.display = 'none';
@@ -405,7 +365,7 @@ onMounted(() => {
     })
 
     ecBtn.addEventListener('click', () => {
-        if(ecColor.style.display === 'none'){
+        if (ecColor.style.display === 'none') {
             ecColor.style.display = 'block';
         } else {
             ecColor.style.display = 'none';
@@ -418,13 +378,13 @@ onMounted(() => {
     let tableWidth = document.querySelectorAll('.resizer');
     let cnum = 0;
 
-    txColor.addEventListener('click', function(){
+    txColor.addEventListener('click', function () {
         cnum++;
         icon.forEach((e) => {
             e.classList.toggle('contrast');
         });
         tableWidth.forEach((e) => {
-            if(cnum%2 == 1) {
+            if (cnum % 2 == 1) {
                 e.style.backgroundColor = 'white'
             } else {
                 e.style.backgroundColor = 'black'
@@ -436,12 +396,7 @@ onMounted(() => {
         ecColor.classList.toggle('contrast');
     });
 
-})
-
-
-
-
-
+});
 </script>
 
 <style lang="less">
@@ -451,6 +406,7 @@ onMounted(() => {
     overflow-x: hidden;
     overflow-y: scroll;
 }
+
 .header {
     width: 100%;
     // height: 168px;
@@ -474,6 +430,7 @@ onMounted(() => {
             height: 40px;
             margin-right: 4px;
         }
+
         h2 {
             font-size: 24px;
             font-weight: 400;
@@ -489,7 +446,7 @@ onMounted(() => {
             font-weight: 400;
             margin-top: auto;
         }
-    
+
         .ecColor {
             position: absolute;
             content: '';
@@ -504,14 +461,14 @@ onMounted(() => {
             &.contrast {
                 background-color: #000;
             }
-    
+
             ul {
                 width: 153px;
                 box-sizing: border-box;
                 list-style: none;
                 margin: 0;
-                padding: 20px; 
-    
+                padding: 20px;
+
                 li {
                     display: flex;
                     align-items: center;
@@ -533,6 +490,7 @@ onMounted(() => {
                         appearance: none;
                         cursor: pointer;
                     }
+
                     .txColor {
                         width: 28px;
                         height: 28px;
@@ -545,6 +503,7 @@ onMounted(() => {
                         }
                     }
                 }
+
                 .sInput {
                     width: 100%;
                     height: 40px;
@@ -552,7 +511,7 @@ onMounted(() => {
                     font-weight: 400;
                     line-height: 17px;
                     background: #FFFFFF;
-                    border: 0.5px solid #595959;        
+                    border: 0.5px solid #595959;
                     box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.65);
                     border-radius: 4px;
                 }
@@ -598,14 +557,14 @@ onMounted(() => {
             box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25), inset -1px -1px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.65);
             z-index: 999;
             display: none;
-    
+
             ul {
                 width: 212px;
                 box-sizing: border-box;
                 list-style: none;
                 margin: 0;
-                padding: 20px 12px; 
-    
+                padding: 20px 12px;
+
                 li {
                     padding: 10px 0 10px 10px;
                     margin-bottom: 8px;
@@ -613,8 +572,9 @@ onMounted(() => {
                     &:last-child {
                         margin-bottom: 0;
                     }
+
                     &:hover {
-                        background-color: rgba(0,0,0,0.04);
+                        background-color: rgba(0, 0, 0, 0.04);
                         border-radius: 4px;
                     }
 
@@ -663,7 +623,7 @@ onMounted(() => {
                     font-weight: 400;
                     line-height: 26px;
                     text-align: left;
-                    position: relative;   
+                    position: relative;
 
                     &:first-child {
                         width: 200px;
@@ -726,12 +686,12 @@ onMounted(() => {
                         transform: translateX(-50%);
                         width: 999%;
                         height: 100%;
-                        background-color: rgba(255,255,255,0.5);
+                        background-color: rgba(255, 255, 255, 0.5);
                         opacity: 0;
                         z-index: -999;
                         transition: all 0.3s;
                     }
-                    
+
                     // &:hover {
                     //     background-color: rgba(255,255,255,0.5);
                     // }
@@ -810,7 +770,7 @@ onMounted(() => {
                         height: 52px;
                         cursor: pointer;
                     }
-                    
+
                     // .mclose {
                     //     position: fixed;
                     //     right: 40px;
@@ -830,6 +790,7 @@ onMounted(() => {
                             display: flex;
                             align-items: center;
                         }
+
                         .slider__img {
                             position: relative;
                             width: calc(100vw - 200px);
@@ -843,7 +804,7 @@ onMounted(() => {
                                 right: 0;
                                 width: 100px;
                                 height: 460px;
-                                background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255, 255, 255, 0.7) 100%);
+                                background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7) 100%);
                                 z-index: 9999;
                                 // -webkit-backdrop-filter: blur(5px);
                                 // backdrop-filter: blur(5px);
@@ -856,7 +817,7 @@ onMounted(() => {
                                 left: 0;
                                 width: 100px;
                                 height: 460px;
-                                background: linear-gradient(to left, rgba(255,255,255,0) 0%, rgba(255, 255, 255, 0.7) 100%);
+                                background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7) 100%);
                                 z-index: 9999;
                                 // -webkit-backdrop-filter: blur(5px);
                                 // backdrop-filter: blur(5px);
@@ -877,7 +838,7 @@ onMounted(() => {
                                         column-gap: 40px;
 
                                         .icon {
-                                            width: 460px;   
+                                            width: 460px;
                                             height: 460px;
                                             object-fit: cover;
                                         }
@@ -897,6 +858,7 @@ onMounted(() => {
                                 }
                             }
                         }
+
                         .slider__btn {
                             .icon {
                                 position: absolute;
@@ -970,138 +932,144 @@ onMounted(() => {
 }
 
 @media (max-width: 780px) {
-.header {
-    padding: 0 20px;
-    padding-top: 40px;
+    .header {
+        padding: 0 20px;
+        padding-top: 40px;
 
-    .ec {
-        display: none;
-    }
-    .info {
-        display: none;
-    }
-    .mi {
-        display: block;
-    }
-}
-
-.tableWrap {
-    .table {
-        thead {
-            tr {
-                th {
-                    &:first-child {
-                        display: none;
-                    }
-
-                    &:nth-child(2) {
-                        width: 100%;
-                        padding: 20px;
-                        font-size: 20px;
-
-                        > div {
-                            display: none !important;
-                        }
-                    }
-
-                    &:nth-child(3) {
-                        display: none;
-                    }
-
-                    &:last-child {
-                        display: none;
-                    }
-                }
-            }
+        .ec {
+            display: none;
         }
-        tbody {
-            tr {
-                &.tit {
-                    td {
+
+        .info {
+            display: none;
+        }
+
+        .mi {
+            display: block;
+        }
+    }
+
+    .tableWrap {
+        .table {
+            thead {
+                tr {
+                    th {
                         &:first-child {
                             display: none;
                         }
-    
+
                         &:nth-child(2) {
                             width: 100%;
-                            padding: 20px !important;
-                            font-size: 24px;
+                            padding: 20px;
+                            font-size: 20px;
+
+                            >div {
+                                display: none !important;
+                            }
                         }
-    
+
                         &:nth-child(3) {
                             display: none;
                         }
-    
+
                         &:last-child {
                             display: none;
                         }
                     }
                 }
+            }
 
-                &.con {
-                    .close {
-                        display: none;
-                    }
-
-                    .mclose {
-                        display: block;
-                    }
-
-                    td {
-                        .slider__wrap {
-                            padding: 0 20px 80px 20px;
-                        }
-                        .slider__img {
-                            position: relative;
-                            width: calc(100vw - 40px);
-                            height: 100%;
-
-                            &::before {
+            tbody {
+                tr {
+                    &.tit {
+                        td {
+                            &:first-child {
                                 display: none;
                             }
 
-                            &::after {
-                                display: none;
-                            }
-                            .slider__inner {
-                                flex-wrap: wrap;
+                            &:nth-child(2) {
                                 width: 100%;
+                                padding: 20px !important;
+                                font-size: 24px;
+                            }
+
+                            &:nth-child(3) {
+                                display: none;
+                            }
+
+                            &:last-child {
+                                display: none;
+                            }
+                        }
+                    }
+
+                    &.con {
+                        .close {
+                            display: none;
+                        }
+
+                        .mclose {
+                            display: block;
+                        }
+
+                        td {
+                            .slider__wrap {
+                                padding: 0 20px 80px 20px;
+                            }
+
+                            .slider__img {
+                                position: relative;
+                                width: calc(100vw - 40px);
                                 height: 100%;
 
-                                .slider {
+                                &::before {
+                                    display: none;
+                                }
+
+                                &::after {
+                                    display: none;
+                                }
+
+                                .slider__inner {
+                                    flex-wrap: wrap;
+                                    width: 100%;
                                     height: 100%;
-                                    margin-right: 0;
-                                    margin-bottom: 20px;
 
-                                    &.image-column {
-                                        column-width: 350px;
-                                        column-gap: 20px;
+                                    .slider {
+                                        height: 100%;
+                                        margin-right: 0;
+                                        margin-bottom: 20px;
 
-                                        img {
-                                            width: 350px;   
-                                            height: 350px;
-                                            object-fit: cover;
+                                        &.image-column {
+                                            column-width: 350px;
+                                            column-gap: 20px;
+
+                                            img {
+                                                width: 350px;
+                                                height: 350px;
+                                                object-fit: cover;
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
-                        .slider__btn {
-                            display: none;
+
+                            .slider__btn {
+                                display: none;
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
 
-.footer {
-    display: none;
-}
+    .footer {
+        display: none;
+    }
 
-.mfooter {
-    display: block;
-}
+    .mfooter {
+        display: block;
+    }
 }
 </style>
