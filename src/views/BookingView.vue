@@ -53,14 +53,11 @@
 import { onMounted } from 'vue';
 
 onMounted(() => {
-    calendarInit();
-})
-
-function calendarInit() {
     let date = new Date(); // 현재 날짜
     let utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // utc 표준시
     let kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시
     let today = new Date(utc + kstGap); // 한국 시간 date
+
     let thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     let currentYear = thisMonth.getFullYear();
     let currentMonth = thisMonth.getMonth();
@@ -114,17 +111,23 @@ function calendarInit() {
 
     let prev = document.querySelector('.prev');
     let next = document.querySelector('.next');
+    let y = currentYear;
+    let m = currentMonth+1;
+    let d = currentDate;
+
+    console.log(y, m ,d)
 
     prev.addEventListener('click', () => {
         thisMonth = new Date(currentYear, currentMonth - 1, 1);
         renderCalender(thisMonth);
+        m--;
     });
 
     next.addEventListener('click', () => {
         thisMonth = new Date(currentYear, currentMonth + 1, 1);
         renderCalender(thisMonth); 
+        m++;
     });
-
 
     let allDate = document.querySelectorAll('.date');
 
@@ -135,20 +138,17 @@ function calendarInit() {
             });
             e.classList.add('selected');
             
+            let month = document.querySelector('.month');
+            let whatMonth = [ 'January', 'February', 'March', 'Aprill', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
             let selected = document.querySelector('.selected');
-            console.log(selected.innerHTML)
+            // console.log(month.innerHTML);
             let selectDate = document.querySelector('.selectDate');
-            let selectedDate = currentYear + '. ' + (currentMonth + 1) + '. ' + selected.innerHTML;
+            let selectedDate = currentYear + '. ' + m + '. ' + selected.innerHTML;
+            // console.log(whatMonth.indexOf(whatMonth[currentMonth]));
             selectDate.innerHTML = selectedDate;
         })
     })
-
-
-    
-
-    
-
-}
+})
 </script>
 
 <style lang="less">

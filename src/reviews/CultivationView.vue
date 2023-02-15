@@ -17,7 +17,7 @@
                     li Color2
                         input.bgColor.bgColor2(type="color")
                     li Text
-                        .txColor
+                        .txColor(@click="textColorChange")
                     input.sInput(type='submit' value='Save')
         .info User Name
         .mi
@@ -327,7 +327,7 @@ onMounted(() => {
     let tableWidth = document.querySelectorAll('.resizer');
     let cnum = 0;
 
-    txColor.addEventListener('click', function () {
+    function textColorChange () {
         cnum++;
         icon.forEach((e) => {
             e.classList.toggle('contrast');
@@ -343,7 +343,7 @@ onMounted(() => {
         txColor.classList.toggle('contrast');
         bodyId.classList.toggle('contrast');
         ecColor.classList.toggle('contrast');
-    });
+    };
 
 });
 </script>
