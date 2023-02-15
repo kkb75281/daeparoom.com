@@ -68,6 +68,11 @@ const router = createRouter({
       component: () => import('../views/CultivationView.vue')
     },
     {
+      path: '/reviews/cultivation',
+      name: 'review-cultivation',
+      component: () => import('../reviews/CultivationView.vue')
+    },
+    {
       path: '/meditcolor',
       name: 'meditcolor',
       // route level code-splitting
