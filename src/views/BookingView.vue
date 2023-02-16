@@ -47,6 +47,19 @@
                                         path(d="M8.66,18.71c-1.16-1.15-2.33-2.32-3.49-3.48c2.99-2.99,5.98-5.98,8.96-8.96c1.15,1.15,2.32,2.32,3.48,3.48C14.65,12.72,11.66,15.71,8.66,18.71z")
     .input
         input(type='submit' value='Apply')
+    .modifyTime
+        .close 
+        .setTime 
+            .time
+                .hr 08 
+                .min 03
+                .dn AM
+                    //- ul
+                    //-     li AM
+                    //-     li PM
+        .btn
+            input.cancel(type='submit' value='Cancel')
+            input.save(type='submit' value='Save')
 </template>
 
 <script setup>
@@ -88,15 +101,14 @@ onMounted(() => {
         let calendar = document.querySelector('.dates')
         calendar.innerHTML = '';
         
-        // 지난달
         for (let i = prevDate - prevDay + 1; i <= prevDate; i++) {
             calendar.innerHTML = calendar.innerHTML + '<div class="date prev disable">' + i + '</div>'
         }
-        // 이번달
+        
         for (let i = 1; i <= nextDate; i++) {
             calendar.innerHTML = calendar.innerHTML + '<div class="date current">' + i + '</div>'
         }
-        // 다음달
+        
         for (let i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
             calendar.innerHTML = calendar.innerHTML + '<div class="date next disable">' + i + '</div>'
         }
@@ -107,52 +119,68 @@ onMounted(() => {
             let currentMonthDate = document.querySelectorAll('.dates .current');
             currentMonthDate[todayDate -1].classList.add('today');
         }
+
+        let allDate = document.querySelectorAll('.date');
+
+        allDate.forEach((e) => {
+            e.addEventListener('click', () => {
+                allDate.forEach((el) => {
+                    el.classList.remove('selected');
+                });
+                e.classList.add('selected');
+                
+                let selected = document.querySelector('.selected');
+                let selectDate = document.querySelector('.selectDate');
+                let m;
+                let d = selected.innerHTML;
+
+                if(selected.classList.contains('prev')) {
+                    m = (currentMonth + 12) % 12;
+                } else if(selected.classList.contains('next')) {
+                    m = (currentMonth + 2) % 12;
+                } else {
+                    m = currentMonth + 1;
+                }
+
+                if(m<10){
+                    m = '0' + m;
+                }
+
+                if(d<10){
+                    d = '0' + d;
+                }
+
+                let selectedDate = currentYear + '. ' + m + '. ' + d;
+                selectDate.innerHTML = selectedDate;
+            });
+        });
     }
 
     let prev = document.querySelector('.prev');
     let next = document.querySelector('.next');
-    let y = currentYear;
-    let m = currentMonth+1;
-    let d = currentDate;
-
-    console.log(y, m ,d)
 
     prev.addEventListener('click', () => {
         thisMonth = new Date(currentYear, currentMonth - 1, 1);
         renderCalender(thisMonth);
-        m--;
     });
 
     next.addEventListener('click', () => {
         thisMonth = new Date(currentYear, currentMonth + 1, 1);
         renderCalender(thisMonth); 
-        m++;
     });
+    
+    let modify = document.querySelector('.modify');
+    let modifyTime = document.querySelector('.modifyTime');
 
-    let allDate = document.querySelectorAll('.date');
-
-    allDate.forEach((e) => {
-        e.addEventListener('click', () => {
-            allDate.forEach((el) => {
-                el.classList.remove('selected');
-            });
-            e.classList.add('selected');
-            
-            let month = document.querySelector('.month');
-            let whatMonth = [ 'January', 'February', 'March', 'Aprill', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
-            let selected = document.querySelector('.selected');
-            // console.log(month.innerHTML);
-            let selectDate = document.querySelector('.selectDate');
-            let selectedDate = currentYear + '. ' + m + '. ' + selected.innerHTML;
-            // console.log(whatMonth.indexOf(whatMonth[currentMonth]));
-            selectDate.innerHTML = selectedDate;
-        })
+    modify.addEventListener('click', () => {
+        modifyTime.style.bottom = '0px';
     })
-})
+});
 </script>
 
 <style lang="less">
 .wrap {
+    position: relative;
     width: 100vw;
     height: 100vh;
     box-sizing: border-box;
@@ -239,6 +267,9 @@ onMounted(() => {
                     &:hover::before { 
                         opacity: 1;
                     }
+                    &.prev, &.next {
+                        color: rgba(0,0,0,0.2);
+                    }
                 }
             }
         }
@@ -296,6 +327,121 @@ onMounted(() => {
             border: 0.5px solid #595959;        
             box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.65);
             border-radius: 4px;
+        }
+    }
+    .modifyTime {
+        position: absolute;
+        content: '';
+        left: 0;
+        bottom: -400px;
+        width: 100%;
+        height: 360px;
+        background-color: #fff;
+        border-radius: 8px 8px;
+        transition: all 0.3s;
+        padding: 16px 20px 28px 20px;
+        box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.25);
+        box-sizing: border-box;
+
+        .close {
+            width: 80px;
+            height: 3px;
+            border-radius: 2px;
+            background-color: #d9d9d9;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+        .setTime {
+            position: relative;
+            width: 100%;
+            height: 110px;
+            margin: 80px 0;
+            // background-color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+
+            &::before,
+            &::after {
+            content: "";
+            position: absolute;
+            height: 20%;
+            left: 0;
+            right: 0;
+            }
+
+            &::before {
+                top: 0;
+                background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+            }
+
+            &::after {
+                bottom: 0;
+                background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+            }
+
+            .time {
+                width: 100%;
+                height: 64px;
+                position: relative;
+                font-size: 36px;
+                font-weight: 700;
+                display: flex;
+                line-height: 64px;
+                text-align: center;
+
+                &::before, 
+                &::after {
+                    position: absolute;
+                    content: '';
+                    width: 100%;
+                    height: 1px;
+                    background-color: rgba(0,0,0,0.08);
+                }
+                &::before {
+                    top: 0;
+                }
+
+                &::after {
+                    bottom: 0;
+                }
+                ul {
+                    list-style: none;
+
+                    li {
+                        height: 64px;
+                    }
+                }
+                .hr {
+                    width: calc(100%/3);
+                }
+                .min {
+                    width: calc(100%/3);
+                }
+                .dn {
+                    width: calc(100%/3);
+                }
+            }
+
+        }
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+
+            input {
+                width: 113px;
+                height: 40px;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 17px;
+                background: #FFFFFF;
+                border: 0.5px solid #595959;        
+                box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.65);
+                border-radius: 4px;
+            }
         }
     }
 }

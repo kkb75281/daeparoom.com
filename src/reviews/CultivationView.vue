@@ -172,7 +172,34 @@ document.addEventListener('mouseup', function () {
     document.removeEventListener('mousemove', mouseMoveHandler);
 });
 
-onMounted(() => {
+let cnum = 0;
+
+let textColorChange = function () {
+    let bodyId = document.getElementById('shell');
+    let txColor = document.querySelector('.txColor');
+    let icon = document.querySelectorAll('.icon');
+    let tableWidth = document.querySelectorAll('.resizer');
+    let miBtn = document.querySelector('.miBtn');
+    let ecColor = document.querySelector('.ecColor');
+
+    cnum++;
+    icon.forEach((e) => {
+        e.classList.toggle('contrast');
+    });
+    tableWidth.forEach((e) => {
+        if (cnum % 2 == 1) {
+            e.style.backgroundColor = 'white';
+        } else {
+            e.style.backgroundColor = 'black';
+        }
+    });
+    miBtn.classList.toggle('contrast');
+    txColor.classList.toggle('contrast');
+    bodyId.classList.toggle('contrast');
+    ecColor.classList.toggle('contrast');
+};
+
+onMounted(function() {
     ////////// slider
     const sliderImg = document.querySelectorAll(".slider__img");       // 보여지는 영역
     const sliderInner = document.querySelectorAll(".slider__inner");   // 움직이는 영역
@@ -321,29 +348,31 @@ onMounted(() => {
         }
     });
 
-    // icon contrast
-    let txColor = document.querySelector('.txColor');
-    let icon = document.querySelectorAll('.icon');
-    let tableWidth = document.querySelectorAll('.resizer');
-    let cnum = 0;
+    // // icon contrast
+    // let txColor = document.querySelector('.txColor');
+    // let icon = document.querySelectorAll('.icon');
+    // let tableWidth = document.querySelectorAll('.resizer');
+    // let cnum = 0;
 
-    function textColorChange () {
-        cnum++;
-        icon.forEach((e) => {
-            e.classList.toggle('contrast');
-        });
-        tableWidth.forEach((e) => {
-            if (cnum % 2 == 1) {
-                e.style.backgroundColor = 'white';
-            } else {
-                e.style.backgroundColor = 'black';
-            }
-        });
-        miBtn.classList.toggle('contrast');
-        txColor.classList.toggle('contrast');
-        bodyId.classList.toggle('contrast');
-        ecColor.classList.toggle('contrast');
-    };
+    // let textColorChange = function() {
+    //     console.log('dsds')
+    //     cnum++;
+    //     console.log(cnum,icon)
+    //     icon.forEach((e) => {
+    //         e.classList.toggle('contrast');
+    //     });
+    //     tableWidth.forEach((e) => {
+    //         if (cnum % 2 == 1) {
+    //             e.style.backgroundColor = 'white';
+    //         } else {
+    //             e.style.backgroundColor = 'black';
+    //         }
+    //     });
+    //     miBtn.classList.toggle('contrast');
+    //     txColor.classList.toggle('contrast');
+    //     bodyId.classList.toggle('contrast');
+    //     ecColor.classList.toggle('contrast');
+    // };
 
 });
 </script>
