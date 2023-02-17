@@ -51,12 +51,16 @@
         .close 
         .setTime 
             .time
-                .hr 08 
-                .min 03
-                .dn AM
-                    //- ul
-                    //-     li AM
-                    //-     li PM
+                .hr
+                    ul
+                        li(v-for="i in 12") {{ ('0' + i).slice(-2) }}
+                .min
+                    ul
+                        li(v-for="i in 60") {{ ('0' + (i - 1)).slice(-2) }}
+                .dn 
+                    ul.updown
+                        li.pick AM
+                        li PM
         .btn
             input.cancel(type='submit' value='Cancel')
             input.save(type='submit' value='Save')
@@ -171,10 +175,36 @@ onMounted(() => {
     
     let modify = document.querySelector('.modify');
     let modifyTime = document.querySelector('.modifyTime');
+    let hr = modifyTime.querySelector('.hr');
+    let min = modifyTime.querySelector('.min');
 
     modify.addEventListener('click', () => {
         modifyTime.style.bottom = '0px';
-    })
+    });
+
+    // function renderTime(which, min, max) {
+    //     var reference = 0;
+        
+    //     if (which == 'h') {
+    //         reference = this.hour - ((this.selectedPattern == 12) ? 1 : 0);
+    //     } else if (which == 'm') {
+    //         reference = this.minute;
+    //     } else if (which == 'p') {
+    //         reference = this.pattern;
+    //     } else {
+    //         throw 'Invalid time reference';
+    //     }
+        
+    //     this.transformStyle[which] = 'translateY(-' + (reference * 100) + '%)';
+        
+    //     if (which == 'h' && this.selectedPattern == 12) {
+    //         reference += 1;
+    //     }
+    // }
+
+    let ul = document.getElementsByTagName('ul');
+
+
 });
 </script>
 
@@ -354,8 +384,8 @@ onMounted(() => {
         .setTime {
             position: relative;
             width: 100%;
-            height: 110px;
-            margin: 80px 0;
+            height: 130px;
+            margin: 70px 0;
             // background-color: #ddd;
             display: flex;
             justify-content: center;
@@ -374,6 +404,7 @@ onMounted(() => {
             &::before {
                 top: 0;
                 background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+                z-index: 99;
             }
 
             &::after {
@@ -406,21 +437,37 @@ onMounted(() => {
                 &::after {
                     bottom: 0;
                 }
-                ul {
-                    list-style: none;
 
-                    li {
-                        height: 64px;
+                > div {
+                    position: relative;
+
+                    ul {
+                        position: absolute;
+                        left: 50%;
+                        top: -64px;
+                        transform: translateX(-50%);
+                        list-style: none;
+                        padding: 0;
+                        margin: 0;
+                        list-style: none;
+
+                        &.updown {
+                            top: 0;
+                        }
+    
+                        li {
+                            height: 64px;
+                        }
                     }
-                }
-                .hr {
-                    width: calc(100%/3);
-                }
-                .min {
-                    width: calc(100%/3);
-                }
-                .dn {
-                    width: calc(100%/3);
+                    &.hr {
+                        width: calc(100%/3);
+                    }
+                    &.min {
+                        width: calc(100%/3);
+                    }
+                    &.dn {
+                        width: calc(100%/3);
+                    }
                 }
             }
 
