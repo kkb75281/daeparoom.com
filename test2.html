@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .timepicker {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 200px;
+            height: 50px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+        }
+
+        .timepicker__hour,
+        .timepicker__minute,
+        .timepicker__ampm {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80px;
+            height: 100%;
+            font-size: 24px;
+            overflow: hidden;
+        }
+
+        .timepicker__indicator {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .timepicker__indicator:before,
+        .timepicker__indicator:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 20%;
+            background: linear-gradient(to bottom, transparent 0%, #ccc 50%, transparent 100%);
+        }
+
+        .timepicker__indicator:before {
+            top: 0;
+        }
+
+        .timepicker__indicator:after {
+            bottom: 0;
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="timepicker">
+        <div class="timepicker__hour" id="timepicker-hour"></div>
+        <div class="timepicker__minute" id="timepicker-minute"></div>
+        <div class="timepicker__ampm" id="timepicker-ampm"></div>
+    </div>
+    <input type="text" id="timepicker-output" readonly>
+</body>
+
+<script>
+    const hours = Array.from({ length: 12 }, (_, i) => i + 1);
+    const minutes = Array.from({ length: 60 }, (_, i) => i);
+    const ampm = ["AM", "PM"];
+
+    const timepickerHour = document.getElementById("timepicker-hour");
+    const timepickerMinute = document.getElementById("timepicker-minute");
+    const timepickerAmPm = document.getElementById("timepicker-ampm");
+    const timepickerOutput = document.getElementById("timepicker-output");
+
+    timepickerHour.addEventListener("scroll", updateTimepicker);
+    timepickerMinute.addEventListener("scroll", updateTimepicker);
+    timepickerAmPm.addEventListener("scroll", updateTimepicker);
+
+    initTimepicker();
+
+    function initTimepicker() {
+        setTimepickerValues(hours, timepickerHour);
+        setTimepickerValues(minutes, timepickerMinute);
+        setTimepickerValues(ampm, timepickerAmPm);
+        updateTimepicker();
+    }
+
+    function setTimepickerValues(values, container) {
+        const fragment = document.createDocumentFragment();
+        values.forEach(value => {
+            const el = document.createElement("div");
+            el.innerText = value;
+            fragment.appendChild(el);
+        });
+        container.innerHTML = "";
+        container.appendChild(fragment);
+    }
+
+    function updateTimepicker() {
+        const selectedHour = getSelectedValue(timepickerHour);
+        const selectedMinute = getSelectedValue(timepickerMinute);
+        const selectedAmPm = getSelectedValue(timepickerAmPm);
+        timepickerOutput.value = `${selectedHour}:${selectedMinute.toString().padStart(2, "0")} ${selectedAmPm}`;
+    }
+
+    function getSelectedValue(container) {
+        const indicator = container.querySelector(".timepicker__indicator");
+        const options = container.querySelectorAll("div");
+        const index = Math.round(indicator.scrollTop / (container.offsetHeight / options.length));
+        return options[index].innerText;
+    }
+
+</script>
+
+</html>

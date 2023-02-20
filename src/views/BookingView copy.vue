@@ -1,5 +1,6 @@
 <template lang="pug">
 .wrap
+    input(type="time")
     a.back(href="/")
         svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
             g
@@ -52,8 +53,15 @@
         .setTime 
             .time
                 .hr
+                    ul
+                        li(v-for="i in 12") {{ ('0' + i).slice(-2) }}
                 .min
+                    ul
+                        li(v-for="i in 60") {{ ('0' + (i - 1)).slice(-2) }}
                 .dn 
+                    ul.updown
+                        li.pick AM
+                        li PM
         .btn
             input.cancel(type='submit' value='Cancel')
             input.save(type='submit' value='Save')
@@ -168,10 +176,8 @@ onMounted(() => {
     
     let modify = document.querySelector('.modify');
     let modifyTime = document.querySelector('.modifyTime');
-    let times = document.querySelector('.time').childNodes;
     let hr = modifyTime.querySelector('.hr');
     let min = modifyTime.querySelector('.min');
-    let dn = modifyTime.querySelector('.dn');
     let close = modifyTime.querySelector('.close');
 
     modify.addEventListener('click', () => {
@@ -182,75 +188,28 @@ onMounted(() => {
         modifyTime.style.bottom = '-400px';
     })
 
-    hr.innerHTML, min.innerHTML='';
-
-    for (let i = 1; i <= 12; i++) {
-        if(i<10) {
-            i = '0' + i;
-        }
-        hr.innerHTML = hr.innerHTML + '<div class="hr disable">' + i + '</div>'
-    }
-
-    for (let i = 1; i <= 59; i++) {
-        if(i<10) {
-            i = '0' + i;
-        }
-        min.innerHTML = min.innerHTML + '<div class="min disable">' + i + '</div>'
-    }
-
-    dn.innerHTML = '<div class="ampm">AM</div><div class="ampm">PM</div>'
-
-    // console.log(hr.childNodes)
-    // console.log(min.childNodes)
-    // console.log(dn.childNodes)
-    let last = Array.from(min.childNodes).pop();
-    let first = Array.from(min.childNodes).shift();
-
-    times.forEach((el) => {
-        el.addEventListener('touchstart', (e) => {
-            let currentPosition = getComputedStyle(el).transform;
-            let translate = currentPosition.match(/matrix.*\((.+)\)/)[1].split(', ')[5];
-            let mousePosition = e.changedTouches[0].clientY;
-            
-            el.addEventListener('touchmove', (e) => {
-                let movePosition = e.changedTouches[0].clientY;
-                let dp = mousePosition - movePosition;
-                console.log(dp);
-
-                el.style.transform = "matrix(1, 0, 0, 1, 0, " + (translate - dp) + ")";
-
-                // let movePosition = e.changedTouches[0].clientY;
-                // let dp = parseInt((mousePosition - movePosition)/64);
-                // console.log(dp)
-                
-                // el.style.transform = "matrix(1, 0, 0, 1, 0, " + (translate - (64 * dp)) + ")";
-
-                if(dp < 0) {
-                    popUnshift();
-                    console.log('popopop')
-                } else {
-                    shiftPush();
-                    console.log('shiftftftftft')
-                }
-            })
-        })
-
-
-        let popUnshift = function () {
-            Array.from(min.childNodes).unshift(last);
-        }
-
-        let shiftPush = function () {
-            Array.from(min.childNodes).push(first);
-        }
-
-    })
-
-
-
-    // let dragTime = function (e) {
-    //     console.log(currentPosition.transform)
+    // function renderTime(which, min, max) {
+    //     var reference = 0;
+        
+    //     if (which == 'h') {
+    //         reference = this.hour - ((this.selectedPattern == 12) ? 1 : 0);
+    //     } else if (which == 'm') {
+    //         reference = this.minute;
+    //     } else if (which == 'p') {
+    //         reference = this.pattern;
+    //     } else {
+    //         throw 'Invalid time reference';
+    //     }
+        
+    //     this.transformStyle[which] = 'translateY(-' + (reference * 100) + '%)';
+        
+    //     if (which == 'h' && this.selectedPattern == 12) {
+    //         reference += 1;
+    //     }
     // }
+
+    let ul = document.getElementsByTagName('ul');
+
 
 });
 </script>
@@ -486,27 +445,33 @@ onMounted(() => {
                 }
 
                 > div {
-                    position: absolute;
-                    display: flex;
-                    flex-wrap: wrap;
+                    position: relative;
 
-                    > div {
-                        width: 100%;
-                        height: 64px;
+                    ul {
+                        position: absolute;
+                        left: 50%;
+                        top: -64px;
+                        transform: translateX(-50%);
+                        list-style: none;
+                        padding: 0;
+                        margin: 0;
+                        list-style: none;
+
+                        &.updown {
+                            top: 0;
+                        }
+    
+                        li {
+                            height: 64px;
+                        }
                     }
                     &.hr {
-                        left: 0;
-                        transform: translateY(-128px);
                         width: calc(100%/3);
                     }
                     &.min {
-                        left: calc(100%/3);
-                        transform: translateY(-256px);
                         width: calc(100%/3);
                     }
                     &.dn {
-                        right: 0;
-                        transform: translateY(0px);
                         width: calc(100%/3);
                     }
                 }
