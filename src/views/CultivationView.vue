@@ -104,8 +104,6 @@
 <script setup>
 import { onMounted } from 'vue';
 
-// 콘텐츠 데이터. 아래 경우 array 안에 object 형식으로 데이터를 설계해 보았습니다.
-// 데이터 설계가 되어있으면 나중에 서버와 연동할때에 설계한대로 데이터베이스에 올리고 받을수 있습니다.
 let contents = [
     {
         host: 'NIKE',
@@ -154,8 +152,7 @@ let mouseMoveHandler = function (e) {
         widthSum += e.offsetWidth - 2;
     });
 
-    if (widthSum < window.innerWidth || dx < 0) {
-        if(prevCol.style.width)
+    if ((widthSum < window.innerWidth || dx < 0) && (prevW + dx > 200 && nextW - dx > 200)) {
         prevCol.style.width = `${prevW + dx}px`;
         nextCol.style.width = `${nextW - dx}px`;
     }

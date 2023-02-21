@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 300px;
+            height: 300px;
+            /* margin-bottom: 500px; */
+        }
+
+        div:nth-child(1) {
+            background-color: #111;
+        }
+
+        div:nth-child(2) {
+            background-color: #555;
+        }
+
+        div:nth-child(3) {
+            background-color: #888;
+        }
+
+        div:nth-child(4) {
+            background-color: #333;
+        }
+
+        div:nth-child(5) {
+            background-color: #444;
+        }
+
+        div:nth-child(6) {
+            background-color: #222;
+        }
+
+        div:nth-child(7) {
+            background-color: #000;
+        }
+
+        div:nth-child(8) {
+            background-color: #888;
+        }
+
+        div:nth-child(9) {
+            background-color: #777;
+        }
+
+        div:nth-child(10) {
+            background-color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</body>
+<script>
+    let divs = document.querySelectorAll('div');
+    let timeoutId;
+
+    window.addEventListener('scroll', () => {
+        clearTimeout(timeoutId);
+
+        timeoutId = setTimeout(() => {
+            let scrollPosition = window.scrollY;
+            let viewportHeight = window.innerHeight;
+            let visiblePercentages = [];
+
+            divs.forEach(div => {
+                let divTop = div.offsetTop;
+                let divHeight = div.offsetHeight;
+                let divBottom = divTop + divHeight;
+                let visibleTop = Math.max(divTop, scrollPosition);
+                let visibleBottom = Math.min(divBottom, scrollPosition + viewportHeight);
+                let visibleHeight = visibleBottom - visibleTop;
+                let visiblePercentage = Math.round(visibleHeight / divHeight * 100);
+                visiblePercentages.push(visiblePercentage);
+                console.log(divTop, divHeight, divBottom, visibleTop, visibleBottom, visibleHeight, visiblePercentage)
+            });
+
+            let maxIndex = visiblePercentages.indexOf(Math.max(...visiblePercentages));
+            let maxDiv = divs[maxIndex];
+            let maxDivTop = maxDiv.offsetTop;
+            let scrollToPosition = maxDivTop + maxDiv.offsetHeight / 2 - viewportHeight / 2;
+            
+            console.log(scrollPosition, viewportHeight, visiblePercentages,maxIndex, maxDiv, maxDivTop,scrollToPosition)
+
+            window.scrollTo({
+                top: scrollToPosition,
+                behavior: 'smooth'
+            });
+        }, 50);
+    });
+
+</script>
+
+</html>

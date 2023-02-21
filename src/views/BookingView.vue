@@ -47,16 +47,20 @@
                                         path(d="M8.66,18.71c-1.16-1.15-2.33-2.32-3.49-3.48c2.99-2.99,5.98-5.98,8.96-8.96c1.15,1.15,2.32,2.32,3.48,3.48C14.65,12.72,11.66,15.71,8.66,18.71z")
     .input
         input(type='submit' value='Apply')
-    .modifyTime
-        .close 
-        .setTime 
-            .time
-                .hr
-                .min
-                .dn 
-        .btn
-            input.cancel(type='submit' value='Cancel')
-            input.save(type='submit' value='Save')
+.modifyTime
+    .close 
+    .setTime 
+        .time
+            .hr
+                .h(v-for="i in 12") {{ ('0' + i).slice(-2) }}
+            .min
+                .m(v-for="i in 60") {{ ('0' + (i - 1)).slice(-2) }}
+            .dn 
+                .ampm.am AM 
+                .ampm.pm PM
+    .btn
+        input.cancel(type='submit' value='Cancel')
+        input.save(type='submit' value='Save')
 </template>
 
 <script setup>
@@ -168,11 +172,12 @@ onMounted(() => {
     
     let modify = document.querySelector('.modify');
     let modifyTime = document.querySelector('.modifyTime');
-    let times = document.querySelector('.time').childNodes;
-    let hr = modifyTime.querySelector('.hr');
+    let times = document.querySelector('.time').children;
     let min = modifyTime.querySelector('.min');
     let dn = modifyTime.querySelector('.dn');
     let close = modifyTime.querySelector('.close');
+    
+    // console.log(times)
 
     modify.addEventListener('click', () => {
         modifyTime.style.bottom = '0px';
@@ -180,77 +185,55 @@ onMounted(() => {
 
     close.addEventListener('click', () => {
         modifyTime.style.bottom = '-400px';
-    })
+    });
 
-    hr.innerHTML, min.innerHTML='';
+    // let divs = times.querySelectorAll('div');
+    // let divs = document.querySelector('.time').children;
+    // console.log(divs)
+    let timeoutId;
 
-    for (let i = 1; i <= 12; i++) {
-        if(i<10) {
-            i = '0' + i;
-        }
-        hr.innerHTML = hr.innerHTML + '<div class="hr disable">' + i + '</div>'
-    }
+    Array.from(times).forEach((el) => {
+        el.addEventListener('scroll', () => {
+            clearTimeout(timeoutId);
 
-    for (let i = 1; i <= 59; i++) {
-        if(i<10) {
-            i = '0' + i;
-        }
-        min.innerHTML = min.innerHTML + '<div class="min disable">' + i + '</div>'
-    }
-
-    dn.innerHTML = '<div class="ampm">AM</div><div class="ampm">PM</div>'
-
-    // console.log(hr.childNodes)
-    // console.log(min.childNodes)
-    // console.log(dn.childNodes)
-    let last = Array.from(min.childNodes).pop();
-    let first = Array.from(min.childNodes).shift();
-
-    times.forEach((el) => {
-        el.addEventListener('touchstart', (e) => {
-            let currentPosition = getComputedStyle(el).transform;
-            let translate = currentPosition.match(/matrix.*\((.+)\)/)[1].split(', ')[5];
-            let mousePosition = e.changedTouches[0].clientY;
-            
-            el.addEventListener('touchmove', (e) => {
-                let movePosition = e.changedTouches[0].clientY;
-                let dp = mousePosition - movePosition;
-                console.log(dp);
-
-                el.style.transform = "matrix(1, 0, 0, 1, 0, " + (translate - dp) + ")";
-
-                // let movePosition = e.changedTouches[0].clientY;
-                // let dp = parseInt((mousePosition - movePosition)/64);
-                // console.log(dp)
+            timeoutId = setTimeout(() => {
+                // let scrollPosition = window.scrollY;
+                let scrollPosition = el.scrollTop;
+                let viewportHeight = el.offsetHeight;
+                let visiblePercentages = [];
+                let eles = el.children;
+    
+                Array.from(eles).forEach(ele => {
+                    let eleTop = ele.offsetTop;
+                    let eleHeight = ele.offsetHeight;
+                    let eleBottom = eleTop + eleHeight;
+                    let visibleTop = Math.max(eleTop, scrollPosition);
+                    let visibleBottom = Math.min(eleBottom, scrollPosition + viewportHeight);
+                    let visibleHeight = visibleBottom - visibleTop;
+                    let visiblePercentage = Math.round(visibleHeight / eleHeight * 100);
+                    visiblePercentages.push(visiblePercentage);
+                    console.log(eleTop, eleHeight, eleBottom, visibleTop, visibleBottom, visibleHeight, visiblePercentage)
+                });
+    
+                let maxIndex = visiblePercentages.indexOf(Math.max(...visiblePercentages));
+                let maxDiv = eles[maxIndex];
+                let maxDivTop = maxDiv.offsetTop;
+                let scrollToPosition = maxDivTop + maxDiv.offsetHeight / 2 - viewportHeight / 2;
                 
-                // el.style.transform = "matrix(1, 0, 0, 1, 0, " + (translate - (64 * dp)) + ")";
-
-                if(dp < 0) {
-                    popUnshift();
-                    console.log('popopop')
-                } else {
-                    shiftPush();
-                    console.log('shiftftftftft')
-                }
-            })
-        })
-
-
-        let popUnshift = function () {
-            Array.from(min.childNodes).unshift(last);
-        }
-
-        let shiftPush = function () {
-            Array.from(min.childNodes).push(first);
-        }
-
+                console.log(scrollPosition, viewportHeight, visiblePercentages,maxIndex, maxDiv, maxDivTop,scrollToPosition)
+                
+                el.scrollTo({
+                    top: scrollToPosition,
+                    behavior: 'smooth'
+                });
+            }, 100);
+        });
     })
 
+    
 
 
-    // let dragTime = function (e) {
-    //     console.log(currentPosition.transform)
-    // }
+    
 
 });
 </script>
@@ -258,10 +241,11 @@ onMounted(() => {
 <style lang="less">
 .wrap {
     position: relative;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     box-sizing: border-box;
     padding: 40px 20px;
+    overflow: scroll;
 
     .back {
         svg {
@@ -406,130 +390,139 @@ onMounted(() => {
             border-radius: 4px;
         }
     }
-    .modifyTime {
-        position: absolute;
-        content: '';
-        left: 0;
-        bottom: -400px;
+}
+.modifyTime {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: -400px;
+    width: 100%;
+    height: 360px;
+    background-color: #fff;
+    border-radius: 8px 8px;
+    transition: all 0.3s;
+    padding: 16px 20px 28px 20px;
+    box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.25);
+    box-sizing: border-box;
+
+    .close {
+        width: 80px;
+        height: 3px;
+        border-radius: 2px;
+        background-color: #d9d9d9;
+        margin: 0 auto;
+        cursor: pointer;
+    }
+    .setTime {
+        position: relative;
         width: 100%;
-        height: 360px;
-        background-color: #fff;
-        border-radius: 8px 8px;
-        transition: all 0.3s;
-        padding: 16px 20px 28px 20px;
-        box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.25);
-        box-sizing: border-box;
+        height: 130px;
+        margin: 70px 0;
+        // background-color: #ddd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
 
-        .close {
-            width: 80px;
-            height: 3px;
-            border-radius: 2px;
-            background-color: #d9d9d9;
-            margin: 0 auto;
-            cursor: pointer;
+        &::before,
+        &::after {
+        content: "";
+        position: absolute;
+        height: 20%;
+        left: 0;
+        right: 0;
         }
-        .setTime {
-            position: relative;
+
+        &::before {
+            top: 0;
+            background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+            z-index: 99;
+        }
+
+        &::after {
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+        }
+
+        .time {
             width: 100%;
-            height: 130px;
-            margin: 70px 0;
-            // background-color: #ddd;
+            height: 64px;
+            position: relative;
+            font-size: 36px;
+            font-weight: 700;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            line-height: 64px;
+            text-align: center;
 
-            &::before,
+            &::before, 
             &::after {
-            content: "";
-            position: absolute;
-            height: 20%;
-            left: 0;
-            right: 0;
+                position: absolute;
+                content: '';
+                width: 100%;
+                height: 1px;
+                background-color: rgba(0,0,0,0.08);
             }
-
             &::before {
                 top: 0;
-                background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-                z-index: 99;
             }
 
             &::after {
                 bottom: 0;
-                background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
             }
 
-            .time {
-                width: 100%;
-                height: 64px;
-                position: relative;
-                font-size: 36px;
-                font-weight: 700;
+            > div {
+                position: absolute;
                 display: flex;
-                line-height: 64px;
-                text-align: center;
-
-                &::before, 
-                &::after {
-                    position: absolute;
-                    content: '';
-                    width: 100%;
-                    height: 1px;
-                    background-color: rgba(0,0,0,0.08);
-                }
-                &::before {
-                    top: 0;
-                }
-
-                &::after {
-                    bottom: 0;
-                }
+                flex-wrap: wrap;
+                overflow: scroll;
+                -ms-overflow-style: none; /* 인터넷 익스플로러 */
+                scrollbar-width: none; /* 파이어폭스 */
 
                 > div {
-                    position: absolute;
-                    display: flex;
-                    flex-wrap: wrap;
-
-                    > div {
-                        width: 100%;
-                        height: 64px;
-                    }
-                    &.hr {
-                        left: 0;
-                        transform: translateY(-128px);
-                        width: calc(100%/3);
-                    }
-                    &.min {
-                        left: calc(100%/3);
-                        transform: translateY(-256px);
-                        width: calc(100%/3);
-                    }
-                    &.dn {
-                        right: 0;
-                        transform: translateY(0px);
-                        width: calc(100%/3);
-                    }
+                    width: 100%;
+                    height: 64px;
+                }
+                &.hr {
+                    height: 192px;
+                    left: 0;
+                    // transform: translateY(-64px);
+                    width: calc(100%/3);
+                }
+                &.min {
+                    height: 192px;
+                    left: calc(100%/3);
+                    // transform: translateY(-64px);
+                    width: calc(100%/3);
+                }
+                &.dn {
+                    height: 128px;
+                    right: 0;
+                    // transform: translateY(0px);
+                    width: calc(100%/3);
+                }
+                &::-webkit-scrollbar {
+                    display: none;
                 }
             }
-
         }
-        .btn {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 50px;
 
-            input {
-                width: 113px;
-                height: 40px;
-                font-size: 16px;
-                font-weight: 400;
-                line-height: 17px;
-                background: #FFFFFF;
-                border: 0.5px solid #595959;        
-                box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.65);
-                border-radius: 4px;
-            }
+    }
+    .btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 50px;
+
+        input {
+            width: 113px;
+            height: 40px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 17px;
+            background: #FFFFFF;
+            border: 0.5px solid #595959;        
+            box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.65);
+            border-radius: 4px;
         }
     }
 }
