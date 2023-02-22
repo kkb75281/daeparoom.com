@@ -34,7 +34,8 @@
             .dates
     .select
         .selectDate 2023.10.08
-        .selectTime 21:00 PM 
+        .selectTime 
+            span 21:00 PM 
             .modify 
                 svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
                     g
@@ -122,6 +123,13 @@ onMounted(() => {
         }
 
         let allDate = document.querySelectorAll('.date');
+        let timeHr = Array.from(document.querySelectorAll('.h'));
+        let timeMin = Array.from(document.querySelectorAll('.m'));
+        let timeDn = Array.from(document.querySelectorAll('.ampm'));
+
+        timeHr[0].classList.add('selected');
+        timeMin[0].classList.add('selected');
+        timeDn[0].classList.add('selected');
 
         allDate.forEach((e) => {
             e.addEventListener('click', () => {
@@ -183,62 +191,67 @@ onMounted(() => {
         modifyTime.style.bottom = '-400px';
     });
 
-    let timeoutId;
+    Array.from(times).forEach((time) => {
+        let divsArray = Array.from(time.children);
+        let timeReset;
+        let lastScroll = 0;
+        
+        time.addEventListener('scroll', () => {
+            let timeScroll = time.scrollTop;
+            let stopDivNum = Math.round(timeScroll/64);
+            let direction = timeScroll > lastScroll ? 'down' : 'up';
 
-    Array.from(times).forEach((el) => {
-        el.addEventListener('scroll', () => {
-            clearTimeout(timeoutId);
+            
+            clearTimeout(timeReset);
+            divsArray.forEach((div) => {
+                div.classList.remove('selected');
+            });
 
-            timeoutId = setTimeout(() => {
-                // let scrollPosition = window.scrollY;
-                let scrollPosition = el.scrollTop;
-                let viewportHeight = el.offsetHeight;
-                let visiblePercentages = [];
-                let eles = el.children;
-    
-                Array.from(eles).forEach(ele => {
-                    let eleTop = ele.offsetTop;
-                    let eleHeight = ele.offsetHeight;
-                    let eleBottom = eleTop + eleHeight;
-                    let visibleTop = Math.max(eleTop, scrollPosition);
-                    let visibleBottom = Math.min(eleBottom, scrollPosition + viewportHeight);
-                    let visibleHeight = visibleBottom - visibleTop;
-                    let visiblePercentage = Math.round(visibleHeight / eleHeight * 100);
-                    visiblePercentages.push(visiblePercentage);
-                    console.log(eleTop, eleHeight, eleBottom, visibleTop, visibleBottom, visibleHeight, visiblePercentage)
-                });
-    
-                let maxIndex = visiblePercentages.indexOf(Math.max(...visiblePercentages));
-                let maxDiv = eles[maxIndex];
-                let maxDivTop = maxDiv.offsetTop;
-                let scrollToPosition = maxDivTop + maxDiv.offsetHeight / 2 - viewportHeight / 2;
-                
-                console.log(scrollPosition, viewportHeight, visiblePercentages,maxIndex, maxDiv, maxDivTop,scrollToPosition)
-                
-                el.scrollTo({
-                    top: scrollToPosition,
+            timeReset = setTimeout(() => {
+                time.scrollTo({
+                    top: 64 * stopDivNum,
                     behavior: 'smooth'
                 });
-            }, 100);
+                
+                divsArray[stopDivNum].classList.add('selected');
+            },100)
+
+
+
+            // lastScroll = timeScroll;
+
+            // if (direction === 'down') {
+            //     console.log('down');
+            // }
+
+            // if (direction === 'up') {
+            //     console.log('up');
+            // }
+
         });
-    })
+    });
 
-    
+    let selectTime = document.querySelector('.selectTime span');
+    // let selectedHr = document.getElementsByClassName('h').classList.contains('selected');
+    // let selectedMin = document.getElementsByClassName('min').classList.contains('selected');
+    // let selectedDn = document.getElementsByClassName('ampm').classList.contains('selected');
 
-
-    
-
+    // selectTime.innerHTML = selectedHr + selectedMin + selectedDn;
 });
 </script>
 
 <style lang="less">
+body {
+    overflow: hidden;
+}
 .wrap {
     position: relative;
     width: 100%;
     height: 100vh;
-    box-sizing: border-box;
     padding: 40px 20px;
-    // overflow: scroll;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: scroll;
 
     .back {
         svg {
@@ -470,31 +483,33 @@ onMounted(() => {
                 overflow: scroll;
                 -ms-overflow-style: none; /* 인터넷 익스플로러 */
                 scrollbar-width: none; /* 파이어폭스 */
+                width: calc(100%/3);
+                height: 192px;
+                top: -64px;
+                padding: 64px 0;
+                box-sizing: border-box;
 
-                > div {
-                    width: 100%;
-                    height: 64px;
-                }
                 &.hr {
-                    height: 192px;
                     left: 0;
-                    // transform: translateY(-64px);
-                    width: calc(100%/3);
                 }
                 &.min {
-                    height: 192px;
                     left: calc(100%/3);
-                    // transform: translateY(-64px);
-                    width: calc(100%/3);
                 }
                 &.dn {
-                    height: 128px;
                     right: 0;
-                    // transform: translateY(0px);
-                    width: calc(100%/3);
                 }
                 &::-webkit-scrollbar {
                     display: none;
+                }
+
+                > div {
+                    width: 100%;
+                    // height: 64px;
+                    // margin-bottom: 64px;
+                    // height: 30px;
+                    // display: flex;
+                    // align-items: center;
+                    // justify-content: center;
                 }
             }
         }
