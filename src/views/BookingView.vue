@@ -238,7 +238,7 @@ onMounted(() => {
     height: 100vh;
     box-sizing: border-box;
     padding: 40px 20px;
-    overflow: scroll;
+    // overflow: scroll;
 
     .back {
         svg {
