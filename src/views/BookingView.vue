@@ -173,12 +173,8 @@ onMounted(() => {
     let modify = document.querySelector('.modify');
     let modifyTime = document.querySelector('.modifyTime');
     let times = document.querySelector('.time').children;
-    let min = modifyTime.querySelector('.min');
-    let dn = modifyTime.querySelector('.dn');
     let close = modifyTime.querySelector('.close');
     
-    // console.log(times)
-
     modify.addEventListener('click', () => {
         modifyTime.style.bottom = '0px';
     });
@@ -187,9 +183,6 @@ onMounted(() => {
         modifyTime.style.bottom = '-400px';
     });
 
-    // let divs = times.querySelectorAll('div');
-    // let divs = document.querySelector('.time').children;
-    // console.log(divs)
     let timeoutId;
 
     Array.from(times).forEach((el) => {
