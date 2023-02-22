@@ -9,16 +9,17 @@
                             path(d="M3.78,19.61c-0.47,0-0.88-0.18-1.24-0.54C2.18,18.71,2,18.29,2,17.83V6.19c0-0.48,0.18-0.9,0.54-1.26s0.77-0.54,1.24-0.54h6.09l1.49,1.49h7.53c0.48,0,0.9,0.18,1.26,0.54c0.36,0.36,0.54,0.78,0.54,1.26H3.78v10.19l2.3-8.84H22l-2.34,8.97c-0.17,0.57-0.43,0.98-0.79,1.23c-0.36,0.25-0.84,0.37-1.44,0.37H3.78z")
             h2 Cultivation
         .ec
-            .ecBtn Edit Color
-            .ecColor
-                ul
-                    li Color1
-                        input.bgColor.bgColor1(type="color")
-                    li Color2
-                        input.bgColor.bgColor2(type="color")
-                    li Text
-                        .txColor(@click="textColorChange")
-                    input.sInput(type='submit' value='Save')
+            .ecBtn(@click='()=>{ openEditColor = !openEditColor }') Edit Color
+            EditColor(v-if="openEditColor")
+            //- .ecColor
+            //-     ul
+            //-         li Color1
+            //-             input.bgColor.bgColor1(type="color")
+            //-         li Color2
+            //-             input.bgColor.bgColor2(type="color")
+            //-         li Text
+            //-             .txColor(@click="textColorChange")
+            //-         input.sInput(type='submit' value='Save')
         .info User Name
         .mi
             .miBtn U
@@ -100,12 +101,11 @@
                     g
                         path(d="M19.07,4.93c-3.91-3.91-10.24-3.91-14.14,0s-3.91,10.24,0,14.14s10.24,3.91,14.14,0S22.98,8.83,19.07,4.93z M12.99,17.14h-2l0-4.15H6.83l0-2h4.15l0-4.15l2,0v4.15l4.15,0v2h-4.15L12.99,17.14z")
 </template>
-
+    
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
+import EditColor from './EditColor.vue';
 
-// 콘텐츠 데이터. 아래 경우 array 안에 object 형식으로 데이터를 설계해 보았습니다.
-// 데이터 설계가 되어있으면 나중에 서버와 연동할때에 설계한대로 데이터베이스에 올리고 받을수 있습니다.
 let contents = [
     {
         host: 'NIKE',
@@ -114,9 +114,9 @@ let contents = [
         title: 'Whatever Whenever',
         img: 'image1111.svg',
         text: `Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
+    Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+    Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+    Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
     },
     {
         host: 'NIKE',
@@ -125,9 +125,9 @@ Designers have to figure out a way to encourage people to fill them out. Yet, if
         title: 'blahblahblahblahblahblahsi',
         img: 'image1111.svg',
         text: `Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
+    Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+    Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+    Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
     },
     {
         host: 'NIKE',
@@ -136,35 +136,40 @@ Designers have to figure out a way to encourage people to fill them out. Yet, if
         title: 'hahahahahah',
         img: 'image1111.svg',
         text: `Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
+    Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+    Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+    Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
     }
 ];
 
-let x = 0;
-let w = 0;
-let col = null;
+let prevX, prevW, nextW = 0;
+let prevCol, nextCol = null;
 let mouseMoveHandler = function (e) {
     let ths = document.getElementsByTagName('th');
     let thsArr = Array.from(ths);
-    let dx = e.clientX - x;
+    let dx = e.clientX - prevX;
     let widthSum = 0;
 
     thsArr.forEach((e) => {
         widthSum += e.offsetWidth - 2;
     });
 
-    if (widthSum < window.innerWidth || dx < 0) {
-        col.style.width = `${w + dx}px`;
+    if ((widthSum < window.innerWidth || dx < 0) && (prevW + dx > 200 && nextW - dx > 200)) {
+        prevCol.style.width = `${prevW + dx}px`;
+        nextCol.style.width = `${nextW - dx}px`;
     }
 };
 
 let mousedown = function (e) {
-    col = e.target.parentNode;
-    let styles = window.getComputedStyle(e.target.parentNode);
-    x = e.clientX;
-    w = parseInt(styles.width, 10);
+    prevCol = e.target.parentNode;
+    nextCol = prevCol.nextSibling;
+
+    let prevStyles = window.getComputedStyle(e.target.parentNode);
+    let nextStyles = window.getComputedStyle(prevCol.nextSibling);
+
+    prevX = e.clientX;
+    prevW = parseInt(prevStyles.width, 10);
+    nextW = parseInt(nextStyles.width, 10);
     document.addEventListener('mousemove', mouseMoveHandler);
 };
 
@@ -172,34 +177,9 @@ document.addEventListener('mouseup', function () {
     document.removeEventListener('mousemove', mouseMoveHandler);
 });
 
-let cnum = 0;
+let openEditColor = ref(false);
 
-let textColorChange = function () {
-    let bodyId = document.getElementById('shell');
-    let txColor = document.querySelector('.txColor');
-    let icon = document.querySelectorAll('.icon');
-    let tableWidth = document.querySelectorAll('.resizer');
-    let miBtn = document.querySelector('.miBtn');
-    let ecColor = document.querySelector('.ecColor');
-
-    cnum++;
-    icon.forEach((e) => {
-        e.classList.toggle('contrast');
-    });
-    tableWidth.forEach((e) => {
-        if (cnum % 2 == 1) {
-            e.style.backgroundColor = 'white';
-        } else {
-            e.style.backgroundColor = 'black';
-        }
-    });
-    miBtn.classList.toggle('contrast');
-    txColor.classList.toggle('contrast');
-    bodyId.classList.toggle('contrast');
-    ecColor.classList.toggle('contrast');
-};
-
-onMounted(function() {
+onMounted(function () {
     ////////// slider
     const sliderImg = document.querySelectorAll(".slider__img");       // 보여지는 영역
     const sliderInner = document.querySelectorAll(".slider__inner");   // 움직이는 영역
@@ -306,77 +286,9 @@ onMounted(function() {
             });
         }
     }
-
-    ////////// change backgroud-color
-    let bodyId = document.getElementById('shell');
-    let ecBtn = document.querySelector('.ecBtn');
-    let ecColor = document.querySelector('.ecColor');
-    let bgColor1 = document.querySelector('.bgColor1');
-    let bgColor2 = document.querySelector('.bgColor2');
-    let miBtn = document.querySelector('.miBtn');
-    let miMenu = document.querySelector('.miMenu');
-
-    // 색상 바꾸기
-    function returnColor() {
-        bodyId.style.background =
-            "linear-gradient("
-            + "180deg, "
-            + bgColor1.value
-            + ","
-            + bgColor2.value
-            + ")";
-    }
-
-    bgColor1.addEventListener("input", returnColor);
-    bgColor2.addEventListener("input", returnColor);
-
-
-    // click > 'block' or 'none'
-    miBtn.addEventListener('click', () => {
-        if (miMenu.style.display === 'none') {
-            miMenu.style.display = 'block';
-        } else {
-            miMenu.style.display = 'none';
-        }
-    });
-
-    ecBtn.addEventListener('click', () => {
-        if (ecColor.style.display === 'none') {
-            ecColor.style.display = 'block';
-        } else {
-            ecColor.style.display = 'none';
-        }
-    });
-
-    // // icon contrast
-    // let txColor = document.querySelector('.txColor');
-    // let icon = document.querySelectorAll('.icon');
-    // let tableWidth = document.querySelectorAll('.resizer');
-    // let cnum = 0;
-
-    // let textColorChange = function() {
-    //     console.log('dsds')
-    //     cnum++;
-    //     console.log(cnum,icon)
-    //     icon.forEach((e) => {
-    //         e.classList.toggle('contrast');
-    //     });
-    //     tableWidth.forEach((e) => {
-    //         if (cnum % 2 == 1) {
-    //             e.style.backgroundColor = 'white';
-    //         } else {
-    //             e.style.backgroundColor = 'black';
-    //         }
-    //     });
-    //     miBtn.classList.toggle('contrast');
-    //     txColor.classList.toggle('contrast');
-    //     bodyId.classList.toggle('contrast');
-    //     ecColor.classList.toggle('contrast');
-    // };
-
 });
 </script>
-
+    
 <style lang="less">
 .wrap {
     width: 100vw;
@@ -423,77 +335,6 @@ onMounted(function() {
             font-size: 24px;
             font-weight: 400;
             margin-top: auto;
-        }
-
-        .ecColor {
-            position: absolute;
-            content: '';
-            left: 0;
-            bottom: -250px;
-            background-color: #fff;
-            border-radius: 4px;
-            box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25), inset -1px -1px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.65);
-            z-index: 999;
-            display: none;
-
-            &.contrast {
-                background-color: #000;
-            }
-
-            ul {
-                width: 153px;
-                box-sizing: border-box;
-                list-style: none;
-                margin: 0;
-                padding: 20px;
-
-                li {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    font-size: 20px;
-                    font-weight: 400;
-                    line-height: 22px;
-                    margin-bottom: 20px;
-
-                    .bgColor {
-                        width: 35px;
-                        height: 38px;
-                        padding: 0;
-                        margin-right: -3px;
-                        border: 0;
-                        background-color: transparent;
-                        -webkit-appearance: none;
-                        -moz-appearance: none;
-                        appearance: none;
-                        cursor: pointer;
-                    }
-
-                    .txColor {
-                        width: 28px;
-                        height: 28px;
-                        background-color: #000;
-                        border: 1px solid #000;
-                        cursor: pointer;
-
-                        &.contrast {
-                            background-color: #fff;
-                        }
-                    }
-                }
-
-                .sInput {
-                    width: 100%;
-                    height: 40px;
-                    font-size: 16px;
-                    font-weight: 400;
-                    line-height: 17px;
-                    background: #FFFFFF;
-                    border: 0.5px solid #595959;
-                    box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.65);
-                    border-radius: 4px;
-                }
-            }
         }
     }
 
