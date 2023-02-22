@@ -11,7 +11,12 @@ provide('events', events);
 provide('refId', refId);
 </script>
 <style lang="less">
+
 #shell {
+  --g1: rgba(255, 255, 255, 1);
+  --g2: rgba(0, 177, 0, 1);
+  --textColor: 'black';
+
   width: 100%;
   // min-height: calc(100vh - 2em);
   height: 100vh;
@@ -19,9 +24,12 @@ provide('refId', refId);
   padding: 0;
   box-sizing: border-box;
 
-  &.contrast {
-    color: white;
-  }
+  background: linear-gradient(0deg, var(--g1) 16%, var(--g2) 76%);
+  color: var(--textColor);
+
+  // &.contrast {
+  //   color: white;
+  // }
 }
 
 sui-input[type='submit'] {
