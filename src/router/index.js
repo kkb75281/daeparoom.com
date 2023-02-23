@@ -86,7 +86,15 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded w../views/MainView.vuevisited.
-      component: () => import('../views/BookingView.vue')
+      component: () => import('../views/booking/BookingInfoView.vue')
+    },
+    {
+      path: '/bookingCalendar',
+      name: 'booking-calendar',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded w../views/MainView.vuevisited.
+      component: () => import('../views/booking/BookingView.vue')
     },
   ],
   scrollBehavior() {
