@@ -96,6 +96,14 @@ const router = createRouter({
       // which is lazy-loaded w../views/MainView.vuevisited.
       component: () => import('../views/booking/BookingView.vue')
     },
+    {
+      path: '/kakaomap',
+      name: 'kakaomap',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded w../views/MainView.vuevisited.
+      component: () => import('../components/KakaoMap.vue')
+    },
   ],
   scrollBehavior() {
     // always scroll to top
