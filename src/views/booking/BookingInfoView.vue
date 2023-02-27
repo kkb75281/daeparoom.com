@@ -12,7 +12,11 @@
         .event
             h4 Event Name
             form.form(@submit.prevent='()=>{getEvent();return false;}')
-                sui-input(placeholder='Enter Event Name')
+                sui-input(placeholder='Enter Event Name' :value='secretCode' @input='e=>secretCode = e.target.value')
+
+                .warning 
+                    img(src="@/assets/image/warning.svg")
+                    p {{ invalid }}
         
         .event
             h4 Event Starts
@@ -72,6 +76,8 @@
 
         .location.hide
             h4 Location
+            .mapbox
+                KakaoMap
 
         .method.hide
             h4 Method
@@ -103,8 +109,60 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-// import KakaoMap from './components/KakaoMap.vue';
+import { skapi } from '@/main';
+import { onMounted, ref, inject } from 'vue';
+import { useRouter } from 'vue-router';
+import KakaoMap from '@/components/KakaoMap.vue';
+
+let secretCode = ref('');
+let router = useRouter();
+let events = inject('events');
+let refId = inject('refId');
+let invalid = ref('');
+
+async function getEvent() {
+    let secret = secretCode.value;
+    let warning = document.querySelector('.warning');
+    let next = document.querySelector('.next');
+    let res = await skapi.getRecords({
+        access_group: 0,
+        table: 'event',
+        index: {
+            name: 'code',
+            value: secret
+        },
+    }, {
+        ascending: false,
+        refresh: true
+    });
+
+    if (res?.list.length) {
+        refId.value = res.list[0].record_id;
+        events.value = res.list;
+
+        let r = await skapi.getRecords({
+            access_group: 0,
+            table: 'event'
+        }, {
+            ascending: false,
+            refresh: true
+        });
+
+        for (let e of r.list) {
+            if (e.index.value !== secret) {
+                events.value.push(e);
+            }
+        }
+
+        router.push({ name: 'bang' });
+    }
+
+    else {
+        warning.classList.add('active');
+        invalid.value = 'Enter the event name';
+        next.classList.add('disable');
+    }
+}
 
 onMounted(() => {
     let onOff = document.querySelector('.onoff');
@@ -238,6 +296,31 @@ body {
                     height: 24px;
                 }
             }
+            .warning {
+                display: flex;
+                flex-wrap: nowrap;
+                align-items: center;
+                display: none;
+                margin-top: 12px;
+
+                &.active {
+                    display: flex;
+                }
+
+                img {
+                    width: 20px;
+                    height: 20px;
+                    fill: red;
+                }
+
+                p {
+                    margin: 0;
+                    color: red;
+                    font-weight: 400;
+                    font-size: 14px;
+                    padding: 8px;
+                }
+            }
         }
         .errMsg {
             display: flex;
@@ -248,7 +331,7 @@ body {
             font-weight: 400;
 
             &.hide {
-                // display: none;
+                display: none;
             }
             svg {
                 width: 20px;
@@ -389,6 +472,10 @@ body {
             &.hide {
                 display: none;
             }
+            .mapbox {
+                width: 100%;
+                height: 230px;
+            }
         }
         .method {
             &.hide {
@@ -464,6 +551,10 @@ body {
 
         &.hide {
             display: none;
+            pointer-events: none;
+        }
+        &.disable {
+            opacity: 0.25;
         }
         svg {
             width: 50px;

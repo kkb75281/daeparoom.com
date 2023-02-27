@@ -5,7 +5,7 @@
             img(src="@/assets/image/folder_open.svg")
             h2 Sign up
 
-        form.form
+        form.form(@submit = 'skapi.signup(event, { onerror: err => alert(err.message) })' action = SignUpEmailView)
             label User Name
             br
             sui-input#email(placeholder='계정 이름' name='email')
@@ -16,7 +16,7 @@
 
             label Password
             br
-            sui-input#password(placeholder='비밀번호' name='password')
+            sui-input#password(placeholder='비밀번호' name='password' @change = 'validatePassword()')
 
             label Password Confirm
             br
@@ -31,7 +31,21 @@
 </template>
 
 <script setup>
+import { Skapi } from 'skapi-js';
+import { onMounted, ref } from 'vue';
+import SignUpEmailView from './SignUpEmailView.vue';
 
+onMounted(() => {
+    let skapi = new Skapi('ap22TX2pZEQ4JD8MwakK', '3b1bb233-aa92-46b6-83a2-ac2b501a787e');
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords don't match");
+        }
+        else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+})
 </script>
 
 <style scoped lang="less">

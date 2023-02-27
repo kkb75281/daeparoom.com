@@ -1,5 +1,5 @@
 <template lang="pug">
-#map(style="width:500px;height:400px;")
+#map.map
 </template>
 
 <script setup>
@@ -7,14 +7,14 @@ import { onMounted, ref } from 'vue';
 
 onMounted(() => {
     if(window.kakao && window.kakao.maps) {
-        loadMap();
+        setTimeout(() => { this.loadMap() }, 100)
     } else {
         loadScript();
     }    
 
     function loadScript() {
         let script = document.createElement('script');
-        script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=9923cd209720e7b744cf4da2e1256694&autoload=false";
+        script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=9923cd209720e7b744cf4da2e1256694&autoload=false&libraries=services";
         script.onload = () => window.kakao.maps.load(loadMap);
     
         document.head.appendChild(script);
@@ -27,7 +27,7 @@ onMounted(() => {
             center: new window.kakao.maps.LatLng(33.450701, 126.570667),
             level: 3,
         }
-    
+
         this.map = new window.kakao.maps.Map(container, options);
         this.loadMaker();
     }
@@ -45,4 +45,9 @@ onMounted(() => {
 
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.map {
+    width: 100%;
+    height: 100%;
+}
+</style>
