@@ -102,6 +102,7 @@
 </template>
     
 <script setup>
+import { skapi } from '@/main.js';
 import { onMounted } from 'vue';
 
 let contents = [
@@ -203,6 +204,14 @@ let textColorChange = function () {
 };
 
 onMounted(function () {
+    skapi.getFormResponse().then(r => {
+        console.log(r);
+        let userName = document.querySelector('.header .info');
+        let getName = r.name;
+
+        userName.innerHTML = getName;
+    });  
+
     ////////// slider
     const sliderImg = document.querySelectorAll(".slider__img");       // 보여지는 영역
     const sliderInner = document.querySelectorAll(".slider__inner");   // 움직이는 영역

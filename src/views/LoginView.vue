@@ -2,19 +2,19 @@
 #wrap
     div
         #title 
-            img(src="@/assets/image/folder_open.svg")
+            img(src='@/assets/image/folder_open.svg')
             h2 Cultivation
 
-        form.form
+        form.form(@submit.prevent = 'e=>skapi.login(e)' action='cultivation')
             label 이메일
             br
-            sui-input#email(placeholder='이메일 계정' name='email')
+            sui-input#email(name='email' type="email" placeholder='이메일 계정')
 
             br
 
             label 비밀번호
             br
-            sui-input#password(placeholder='비밀번호' name='password')
+            sui-input#password(name='password' type="password" placeholder='비밀번호')
 
             a(href="/login") 이메일 / 비밀번호 찾기
 
@@ -31,6 +31,7 @@
 </template>
 
 <script setup>
+import { skapi } from '@/main.js';
 
 </script>
 

@@ -9,17 +9,31 @@
             | 이메일 인증을 위한 메일이 발송되었습니다.
             br
             | 회원가입 완료를 위한 이메일 인증을 진행해 주세요.
-        p 가입 이메일 주소 : XXX@gmail.com
+        p.email 가입 이메일 주소 : 
+            span XXX@gmail.com
         h4.em 이메일을 받지 못하셨나요?
         button(@click="showMs") 이메일 다시 보내기
         br
         span.send 이메일이 재전송 되었어요!
 </template>
 <script setup>
+import { skapi } from '@/main.js';
+import { onMounted } from 'vue';
+
 function showMs() {
     let sen = document.querySelector('.send');
     sen.classList.add('active');
 }
+
+onMounted(function () {
+    skapi.getFormResponse().then(r => {
+        console.log(r);
+        // let userEmail = document.querySelector('.email span');
+        // let getEmail = r.email;
+    
+        // userEmail.innerHTML = getEmail;
+    });
+})
 </script>
 <style scoped lang="less">
 #wrap {
@@ -32,7 +46,6 @@ function showMs() {
 
     & > div {
         width: 350px;
-
     }
 }
 
