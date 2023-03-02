@@ -22,7 +22,7 @@
             br
 
             div(style="text-align:center;")
-                sui-input(type='submit' value='로그인')
+                sui-input(type='submit' value='로그인' @click = 'login')
 
         #bottom 
             p 아직 계정이 없으신가요? 
@@ -33,6 +33,20 @@
 <script setup>
 import { skapi } from '@/main.js';
 
+async function login() {
+    let params = {
+        email: email.value,
+        password: password.value
+    }
+    try{
+        let response = await skapi.login(params);
+        // login success!
+        console.log(response);
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
 </script>
 
 <style scoped lang="less">

@@ -6,7 +6,7 @@
             h2 Sign up
 
         //- form.form(@submit.prevent = '(e)=>skapi.signup(e, { response:(r)=>afterSignup(r), confimation: true, onerror: err => alert(err.message) })')
-        form.form(@submit.prevent = '(e)=>skapi.signup(e, { response: r => afterSignup(r), onerror: err => alert(err.message) })')
+        form.form(@submit.prevent = '(e)=>skapi.signup(e, { response: r => afterSignup(r), onerror: err => alertErr(err) })')
             label User Name
             br
             sui-input#name(type='name' name='name' placeholder='계정 이름')
@@ -48,12 +48,16 @@ function validatePassword() {
     }
 }
 
-function afterSignup(r){
-    console.log(r)
-    // input email값 구하고
-    // data.email = ''
+function afterSignup(r) {
+    console.log(r);
+
     // vue router로 코드로 유저를 이동
-    router.push('/signup2');
+    router.push({ name: 'signup2', params: {'emailData': email.value} });
+}
+
+function alertErr(err) {
+    alert(err.message);
+    // console.log(err.message);
 }
 
 onMounted(() => {
