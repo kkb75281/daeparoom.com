@@ -5,7 +5,8 @@
             img(src='@/assets/image/folder_open.svg')
             h2 Cultivation
 
-        form.form(@submit = 'e=>skapi.login(e)' action='cultivation')
+        //- form.form(@submit = 'e=>skapi.login(e, { onerror:handleError })' action='cultivation')
+        form.form
             label 이메일
             br
             sui-input#email(name='email' type="email" placeholder='이메일 계정')
@@ -23,7 +24,7 @@
 
             div(style="text-align:center;")
                 //- sui-input(type='submit' value='로그인')
-                sui-input(type='submit' value='로그인' @click = 'login')
+                sui-input(type='submit' value='로그인' @click.prevent='login')
 
         #bottom 
             p 아직 계정이 없으신가요? 
@@ -33,7 +34,12 @@
 
 <script setup>
 import { skapi } from '@/main.js';
-
+// function handleError(err){
+//     console.log({error: err})
+//     if(err.code === "INCORRECT_USERNAME_OR_PASSWORD") {
+//         console.log('Try Again!')
+//     }
+// }
 async function login() {
     let params = {
         email: email.value,
@@ -48,6 +54,7 @@ async function login() {
         console.log(err);
     }
 }
+
 </script>
 
 <style scoped lang="less">
