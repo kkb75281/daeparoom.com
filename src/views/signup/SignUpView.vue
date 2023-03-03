@@ -5,8 +5,8 @@
             img(src="@/assets/image/folder_open.svg")
             h2 Sign up
 
-        //- form.form(@submit.prevent = '(e)=>skapi.signup(e, { response:(r)=>afterSignup(r), confimation: true, onerror: err => alert(err.message) })')
-        form.form(@submit.prevent = '(e)=>skapi.signup(e, { response: r => afterSignup(r), onerror: err => alertErr(err) })')
+        //- form.form(@submit = '(e)=>skapi.signup(e, { response: r => afterSignup(r), confimation: true, onerror: err => alertErr(err) })')
+        form.form(@submit = '(e)=>skapi.signup(e, { response: r => afterSignup(r), onerror: err => alertErr(err) })')
             label User Name
             br
             sui-input#name(type='name' name='name' placeholder='계정 이름')
@@ -33,8 +33,6 @@
 
 <script setup>
 import { skapi } from '@/main.js';
-import { data } from '@/data.js';
-import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 let router = useRouter();
@@ -49,19 +47,16 @@ function validatePassword() {
 }
 
 function afterSignup(r) {
+    // signup 성공여부
     console.log(r);
-
+    
     // vue router로 코드로 유저를 이동
-    router.push({ name: 'signup2', params: {'emailData': email.value} });
+    router.push({ name: 'signup2', params: { email: email.value }, props: true });
 }
 
 function alertErr(err) {
     alert(err.message);
-    // console.log(err.message);
 }
-
-onMounted(() => {
-})
 </script>
 
 <style scoped lang="less">

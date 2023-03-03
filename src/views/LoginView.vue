@@ -5,7 +5,7 @@
             img(src='@/assets/image/folder_open.svg')
             h2 Cultivation
 
-        form.form(@submit.prevent = 'e=>skapi.login(e)' action='cultivation')
+        form.form(@submit = 'e=>skapi.login(e)' action='cultivation')
             label 이메일
             br
             sui-input#email(name='email' type="email" placeholder='이메일 계정')
@@ -22,6 +22,7 @@
             br
 
             div(style="text-align:center;")
+                //- sui-input(type='submit' value='로그인')
                 sui-input(type='submit' value='로그인' @click = 'login')
 
         #bottom 

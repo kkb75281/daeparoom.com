@@ -105,6 +105,17 @@
 import { skapi } from '@/main.js';
 import { onMounted } from 'vue';
 
+skapi.getConnection()
+.then(c => {
+    // connection success
+    console.log(c);
+})
+.catch(err => {
+    // connection failed
+    console.log(err);
+    throw err;
+})
+
 let contents = [
     {
         host: 'NIKE',

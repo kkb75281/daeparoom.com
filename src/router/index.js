@@ -44,13 +44,12 @@ const router = createRouter({
       component: () => import('../views/signup/SignUpView.vue')
     },
     {
-      path: '/signup2',
+      path: '/signup2/:email',
       name: 'signup2',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded w../views/MainView.vuevisited.
-      component: () => import('../views/signup/SignUpEmailView.vue'),
-      props: true
+      component: () => import('../views/signup/SignUpEmailView.vue')
     },
     {
       path: '/signup3',
