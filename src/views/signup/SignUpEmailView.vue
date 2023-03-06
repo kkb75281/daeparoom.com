@@ -86,6 +86,7 @@ button {
     background-color: #00C80D;
     padding: 3px 8px;
     border-radius: 4px;
+    filter: drop-shadow(1px 2px 4px rgba(0, 0, 0, 0.25));
     display: none;
 
     &.active {

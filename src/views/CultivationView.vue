@@ -99,6 +99,56 @@
                 g
                     g
                         path(d="M19.07,4.93c-3.91-3.91-10.24-3.91-14.14,0s-3.91,10.24,0,14.14s10.24,3.91,14.14,0S22.98,8.83,19.07,4.93z M12.99,17.14h-2l0-4.15H6.83l0-2h4.15l0-4.15l2,0v4.15l4.15,0v2h-4.15L12.99,17.14z")
+    .uploadWrap 
+        .uploadInner
+            .uploadPost 
+                h2.uploadTit Add a post
+                form.uploadInfo
+                    .input
+                        label Host
+                        br
+                        sui-input#host(type='host' name='host' placeholder='Enter a host’ name')
+
+                    .input
+                        label Title
+                        br
+                        sui-input#title(type='title' name='title' placeholder='Title of this project')
+
+                    .input
+                        label Type
+                        br
+                        sui-input#type(type='type' name='type' placeholder='Type of this project')
+                    
+                    .input
+                        label Date
+                        br
+                        sui-input#date(type='date' name='date' placeholder='YYYY.MM.DD')
+                .uploadCont
+                    .uploadImg 
+                        .deleteBtn
+                        .dragBox 
+                            //- img(src="../assets/image/add_file.svg")
+                            //- svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
+                            //-     path(d="M11.3,18h1.5v-3.2h3.2v-1.5h-3.2v-3.2h-1.5v3.2H8.1v1.5h3.2V18z M5.6,21.8c-0.4,0-0.7-0.1-1-0.4c-0.3-0.3-0.4-0.6-0.4-1V3.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h8.9l5.4,5.4v12.8c0,0.4-0.1,0.7-0.4,1c-0.3,0.3-0.6,0.4-1,0.4H5.6z M13.7,8.2h4.6l-4.6-4.6V8.2z")
+                            span Drag and Drop OR
+                            label.inputFileBtn(for="uploadFile") Selct File
+                            input#uploadFile(type="file" style="display:none;")
+                    .uploadTxt
+                        .deleteBtn
+                    .addBtn 
+                        .addImg 
+                            svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                                g
+                                    g
+                                        path(d="M4.9,21c-0.51,0-0.96-0.19-1.33-0.56C3.19,20.06,3,19.61,3,19.1V4.92c0-0.53,0.19-0.98,0.56-1.36S4.39,3,4.9,3h14.18c0.53,0,0.98,0.19,1.36,0.56S21,4.39,21,4.92V19.1c0,0.51-0.19,0.96-0.56,1.33C20.06,20.81,19.61,21,19.08,21H4.9z M5.96,17.01h12.09l-3.7-5.02l-3.17,4.11l-2.23-3.05L5.96,17.01z")
+                            p + Add Image
+                        .addTxt
+                            svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
+                                path(d="M4.7,20.7c-0.4,0-0.7-0.1-1-0.4s-0.4-0.6-0.4-1V4.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h9.7l6.3,6.3v9.7c0,0.4-0.1,0.7-0.4,1s-0.6,0.4-1,0.4H4.7z M7.1,16.6h9.7v-1.5H7.1V16.6z M7.1,12.7h9.7v-1.5H7.1V12.7z M7.1,8.9h6.7V7.4H7.1V8.9z")
+                            p + Add Text
+                .uploadBtn
+                    input.cancel(type='submit' value='Cancel')
+                    input.save(type='submit' value='Save')
 </template>
     
 <script setup>
@@ -114,6 +164,14 @@ skapi.getConnection()
     // connection failed
     console.log(err);
     throw err;
+})
+
+skapi.getProfile().then(account=>{
+    console.log(account);
+    let userName = document.querySelector('.header .info');
+    let getName = account.name;
+
+    userName.innerHTML = getName;
 })
 
 let contents = [
@@ -215,14 +273,6 @@ let textColorChange = function () {
 };
 
 onMounted(function () {
-    skapi.getFormResponse().then(r => {
-        console.log(r);
-        let userName = document.querySelector('.header .info');
-        let getName = r.name;
-
-        userName.innerHTML = getName;
-    });  
-
     ////////// slider
     const sliderImg = document.querySelectorAll(".slider__img");       // 보여지는 영역
     const sliderInner = document.querySelectorAll(".slider__inner");   // 움직이는 영역
@@ -929,6 +979,157 @@ onMounted(function () {
         display: inline-block;
         width: 48px;
         height: 48px;
+    }
+}
+
+.uploadWrap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,0.5);
+
+    .uploadInner {
+        margin-top: 160px;
+        padding: 8px 100px 48px 100px;
+        background-color: #fff;
+
+        .uploadPost {
+            font-weight: 700;
+
+            .uploadTit {
+                font-size: 36px;
+                margin-bottom: 13px;
+            }
+            .uploadInfo {
+                display: flex;
+                flex-wrap: nowrap;
+                margin-bottom: 46px;
+
+                .input {
+                    margin-right: 16px;
+                }
+            }
+            .uploadCont {
+                display: flex;
+                flex-wrap: nowrap;
+
+                & > div {
+                    position: relative;
+
+                    .deleteBtn {
+                        position: absolute;
+                        right: -1px;
+                        top: -24px;
+                        width: 24px;
+                        height: 24px;
+                        border: 1px solid #000;
+                        box-sizing: border-box;
+                        background-image: url(../assets/image/X2.svg);
+                        cursor: pointer;
+                    }
+                }
+
+                .uploadImg {
+                    width: 424px;
+                    height: 424px;
+                    border: 1px solid #000;
+                    margin-right: 20px;
+
+                    .dragBox {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: center;
+                        align-content: center;
+                        text-align: center;
+
+                        img {
+                            width: 57px;
+                            height: 57px;
+                            filter: invert(100%);
+                            margin-bottom: 16px;
+                        }
+                        span {
+                            width: 100%;
+                            margin-bottom: 24px;
+                        }
+                        .inputFileBtn {
+                            cursor: pointer;
+                            border: 1px solid #000;
+                            border-radius: 4px;
+                            width: 137px;
+                            height: 40px;
+                            line-height: 40px;
+                        }
+                    }
+                }
+                .uploadTxt {
+                    width: 283px;
+                    height: 424px;
+                    border: 1px solid #000;
+                    margin-right: 20px;
+                }
+                .addBtn {
+                    width: 200px;
+                    height: 424px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-content: space-between;
+
+                    div {
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-content: center;
+                        justify-content: center;
+                        width: 200px;
+                        height: 200px;
+                        background: #ccc;
+                        color: #fff;
+                        border-radius: 8px;
+                        cursor: pointer;
+
+                        .icon {
+                            width: 60px;
+                            height: 60px;
+                            fill: #fff; 
+                        }
+                        p {
+                            width: 100%;
+                            text-align: center;
+                            margin: 0;
+                            margin-top: 4px;
+                        }
+                    }
+                }
+            }
+            .uploadBtn {
+                margin-top: 24px;
+                text-align: right;
+
+                input {
+                    width: 113px;
+                    height: 40px;
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 17px;
+                    border: 0.5px solid #595959;
+                    box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.65);
+                    border-radius: 4px;
+
+                    &.cancel {
+                        background-color: #fff;
+                        margin-right: 16px;
+                    }
+                    &.save {
+                        background-color: #000;
+                        color: #fff;
+                    }
+                }
+            }
+        }
     }
 }
 

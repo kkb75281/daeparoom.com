@@ -5,11 +5,11 @@
             img(src='@/assets/image/folder_open.svg')
             h2 Cultivation
 
-        //- form.form(@submit = 'e=>skapi.login(e, { onerror:handleError })' action='cultivation')
-        form.form
-            label 이메일
+        //- form.form
+        form.form(@submit = '(e)=>skapi.login(e, { onerror:handleError })' action='cultivation')
+            label 이메일 또는 이름
             br
-            sui-input#email(name='email' type="email" placeholder='이메일 계정')
+            sui-input#email(name='email' type="email" placeholder='이메일 또는 이름')
 
             br
 
@@ -17,44 +17,36 @@
             br
             sui-input#password(name='password' type="password" placeholder='비밀번호')
 
-            a(href="/login") 이메일 / 비밀번호 찾기
+            a(href="/login") 로그인 정보를 잊으셨나요?
 
             br
             br
 
             div(style="text-align:center;")
-                //- sui-input(type='submit' value='로그인')
-                sui-input(type='submit' value='로그인' @click.prevent='login')
+                sui-input(type='submit' value='로그인')
+
+            .warning(:class='{active: invalidLogin}')
+                img(src="@/assets/image/warning.svg")
+                p 로그인 정보를 확인하세요.
 
         #bottom 
-            p 아직 계정이 없으신가요? 
+            p 계정이 없으신가요? 
                 a(href="/signup1") 계정 만들기
             img(src="@/assets/image/daepa_logo.svg")
 </template>
 
 <script setup>
 import { skapi } from '@/main.js';
-// function handleError(err){
-//     console.log({error: err})
-//     if(err.code === "INCORRECT_USERNAME_OR_PASSWORD") {
-//         console.log('Try Again!')
-//     }
-// }
-async function login() {
-    let params = {
-        email: email.value,
-        password: password.value
-    }
-    try{
-        let response = await skapi.login(params);
-        // login success!
-        console.log(response);
-    }
-    catch(err) {
-        console.log(err);
+import { ref } from 'vue';
+
+let invalidLogin = ref(false);
+function handleError(err){
+    console.log({error: err})
+
+    if(err.code === "INCORRECT_USERNAME_OR_PASSWORD") {
+        invalidLogin.value = true;
     }
 }
-
 </script>
 
 <style scoped lang="less">
@@ -85,40 +77,67 @@ async function login() {
     }
 }
 .form {
-  width: 100%;
-
-  label {
-    font-size: 0;
-    // font-weight: bold;
-    // margin-bottom: 4px;
-    // display: inline-block;
-  }
-
-  a {
-    font-size: 12px;
-    font-weight: 700;
-    color: #fff;
-    text-decoration: none;
-    float: right;
-    margin: 8px 0 20px 0;
-  }
-
-  sui-input {
     width: 100%;
-    font-size: 16px;
-    font-weight: 700;
-    background-color: #00C80D;
-  }
 
-  sui-input:not([type='submit']) {
-    width: 100%;
-    font-size: 16px;
-    background-color: white;
-  }
+    label {
+        font-size: 0;
+        // font-weight: bold;
+        // margin-bottom: 4px;
+        // display: inline-block;
+    }
+
+    a {
+        font-size: 12px;
+        font-weight: 700;
+        color: #fff;
+        text-decoration: none;
+        float: right;
+        margin: 8px 0 20px 0;
+    }
+
+    sui-input {
+        width: 100%;
+        font-size: 16px;
+        font-weight: 700;
+        background-color: #00C80D;
+    }
+
+    sui-input:not([type='submit']) {
+        width: 100%;
+        font-size: 16px;
+        background-color: white;
+    }
+
+    .warning {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        display: none;
+        margin-top: 12px;
+
+        &.active {
+            display: flex;
+        }
+
+        img {
+            width: 20px;
+            height: 20px;
+            fill: red;
+        }
+
+        p {
+            margin: 0;
+            color: red;
+            font-weight: 400;
+            font-size: 14px;
+            padding-left: 8px;
+        }
+    }
 }
 #bottom {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 20px;
     
     p {
         font-size: 14px;

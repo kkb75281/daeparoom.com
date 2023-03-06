@@ -5,8 +5,8 @@
             img(src="@/assets/image/folder_open.svg")
             h2 Sign up
 
-        //- form.form(@submit = '(e)=>skapi.signup(e, { response: r => afterSignup(r), confimation: true, onerror: err => alertErr(err) })')
-        form.form(@submit = '(e)=>skapi.signup(e, { response: r => afterSignup(r), onerror: err => alertErr(err) })')
+        //- form.form(@submit = '(e)=>skapi.signup(e, { response: r => afterSignup(r), onerror: err => alertErr(err) })')
+        form.form(@submit = '(e)=>skapi.signup(e, { confirmation: true, response: r => afterSignup(r), onerror: err => alertErr(err) })')
             label User Name
             br
             sui-input#name(type='name' name='name' placeholder='계정 이름')
