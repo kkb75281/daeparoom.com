@@ -5,7 +5,6 @@
             img(src='@/assets/image/folder_open.svg')
             h2 Cultivation
 
-        //- form.form
         form.form(@submit = '(e)=>skapi.login(e, { onerror:handleError })' action='cultivation')
             label 이메일 또는 이름
             br
@@ -40,6 +39,7 @@ import { skapi } from '@/main.js';
 import { ref } from 'vue';
 
 let invalidLogin = ref(false);
+
 function handleError(err){
     console.log({error: err})
 

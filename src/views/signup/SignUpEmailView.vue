@@ -17,12 +17,16 @@
         span.send 이메일이 재전송 되었어요!
 </template>
 <script setup>
+import { skapi } from '@/main.js';
 import { useRoute } from 'vue-router'
 
 let route = useRoute();
 
 function showMs() {
+    let redirectUrl = "/signup3"
     let send = document.querySelector('.send');
+
+    skapi.resendSignupConfirmation(redirectUrl);
     send.classList.add('active');
 }
 </script>
