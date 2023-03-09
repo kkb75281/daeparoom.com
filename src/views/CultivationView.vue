@@ -144,31 +144,43 @@
                                 form.textBox
                                     label input text
                                     textarea(rows="16" placeholder="Type here..." @keydown="limitRows(text)")
-                            .uploadImg(v-if="imgNum++")
-                                .deleteImg(@click='(div) => {removeBox(div)}')
-                                .dragBox 
-                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
-                                        path(d="M11.3,18h1.5v-3.2h3.2v-1.5h-3.2v-3.2h-1.5v3.2H8.1v1.5h3.2V18z M5.6,21.8c-0.4,0-0.7-0.1-1-0.4c-0.3-0.3-0.4-0.6-0.4-1V3.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h8.9l5.4,5.4v12.8c0,0.4-0.1,0.7-0.4,1c-0.3,0.3-0.6,0.4-1,0.4H5.6z M13.7,8.2h4.6l-4.6-4.6V8.2z")
-                                    span Drag and Drop OR
-                                        input#dragDropFile(type="file" @change='(e)=>dragNdrop(e)' @dragover='drag')
-                                    label.inputFileBtn(for="uploadFile") Selct File
-                                    input#uploadFile(type="file" style="display:none;" @change='(e)=>dragNdrop(e)')
-                            .uploadTxt(v-if="txtNum++")
-                                .deleteTxt(@click='(div) => {removeBox(div)}')
-                                form.textBox
-                                    label input text
-                                    textarea(rows="16" placeholder="Type here..." @keydown="limitRows(text)")
+                            template(v-for="i in uploadBoxArr")        
+                                .uploadImg(v-if="i === 'img'")
+                                    .deleteImg(@click='(div) => {removeBox(div)}')
+                                    .dragBox 
+                                        svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
+                                            path(d="M11.3,18h1.5v-3.2h3.2v-1.5h-3.2v-3.2h-1.5v3.2H8.1v1.5h3.2V18z M5.6,21.8c-0.4,0-0.7-0.1-1-0.4c-0.3-0.3-0.4-0.6-0.4-1V3.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h8.9l5.4,5.4v12.8c0,0.4-0.1,0.7-0.4,1c-0.3,0.3-0.6,0.4-1,0.4H5.6z M13.7,8.2h4.6l-4.6-4.6V8.2z")
+                                        span Drag and Drop OR
+                                            input#dragDropFile(type="file" @change='(e)=>dragNdrop(e)' @dragover='drag')
+                                        label.inputFileBtn(for="uploadFile") Selct File
+                                        input#uploadFile(type="file" style="display:none;" @change='(e)=>dragNdrop(e)')
+                                .uploadTxt(v-else="i === 'txt'")
+                                    .deleteTxt(@click='(div) => {removeBox(div)}')
+                                    form.textBox
+                                        label input text
+                                        textarea(rows="16" placeholder="Type here..." @keydown="limitRows(text)")
                             .addBtn 
-                                .addImg(@click='() => {imgNum++; imgNumNow = imgNum;}')
+                                .addImg(@click='[checkWidth(), uploadBoxArr.push(img)]')
                                     svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
                                         g
                                             g
                                                 path(d="M4.9,21c-0.51,0-0.96-0.19-1.33-0.56C3.19,20.06,3,19.61,3,19.1V4.92c0-0.53,0.19-0.98,0.56-1.36S4.39,3,4.9,3h14.18c0.53,0,0.98,0.19,1.36,0.56S21,4.39,21,4.92V19.1c0,0.51-0.19,0.96-0.56,1.33C20.06,20.81,19.61,21,19.08,21H4.9z M5.96,17.01h12.09l-3.7-5.02l-3.17,4.11l-2.23-3.05L5.96,17.01z")
                                     p Add Image
-                                .addTxt(@click='() => {txtNum++}')
+                                .addTxt(@click='[checkWidth(), uploadBoxArr.push(txt)]')
                                     svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
                                         path(d="M4.7,20.7c-0.4,0-0.7-0.1-1-0.4s-0.4-0.6-0.4-1V4.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h9.7l6.3,6.3v9.7c0,0.4-0.1,0.7-0.4,1s-0.6,0.4-1,0.4H4.7z M7.1,16.6h9.7v-1.5H7.1V16.6z M7.1,12.7h9.7v-1.5H7.1V12.7z M7.1,8.9h6.7V7.4H7.1V8.9z")
                                     p Add Text
+                    .uploadVisibleBtn 
+                        .icon.prev
+                            svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                                g
+                                    g
+                                        path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
+                        .icon.next
+                            svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                                g
+                                    g
+                                        path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")               
 </template>
     
 <script setup>
@@ -176,9 +188,9 @@ import { skapi } from '@/main.js';
 import { onMounted, ref } from 'vue';
 
 let invalidUpload = ref(false);
-let imgNum = 1;
-let txtNum = 1;
-let imgNumNow, txtNumNow;
+let img = ref('img');
+let txt = ref('txt');
+let uploadBoxArr = ref([]);
 
 skapi.getProfile().then(account=>{
     // console.log(account);
@@ -206,41 +218,20 @@ function removeBox(div) {
     parentDiv.remove();
 }
 
-// function addImgBox() {
-//     let uploadImg = `
-//         <div class="uploadImg">
-//             <div class="deleteImg"></div>
-//             <div class="dragBox">
-//                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
-//                     <path d="M11.3,18h1.5v-3.2h3.2v-1.5h-3.2v-3.2h-1.5v3.2H8.1v1.5h3.2V18z M5.6,21.8c-0.4,0-0.7-0.1-1-0.4c-0.3-0.3-0.4-0.6-0.4-1V3.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h8.9l5.4,5.4v12.8c0,0.4-0.1,0.7-0.4,1c-0.3,0.3-0.6,0.4-1,0.4H5.6z M13.7,8.2h4.6l-4.6-4.6V8.2z"/>
-//                 </svg>
-//                 <span>
-//                     Drag and Drop OR<input id="dragDropFile" type="file"></input>
-//                 </span>
-//                 <label class="inputFileBtn" for="uploadFile">Selct File</label>
-//                 <input id="uploadFile" type="file" style="display:none;"></input>
-//             </div>
-//         </div>
-//     `;
-//     let addBtn = document.querySelector('.addBtn');
+function checkWidth() {
+    let uploadVisible = document.querySelector('.uploadVisible');
+    let uploadVisibleInner = document.querySelector('.uploadVisibleInner');
+    let uploadVisibleBtn = document.querySelector('.uploadVisibleBtn');
 
-//     addBtn.insertAdjacentHTML('beforebegin', uploadImg);
-// }
+    if(uploadVisible.clientWidth < uploadVisibleInner.scrollWidth){
+        uploadVisibleBtn.classList.add('active');
+    } else {
+        uploadVisibleBtn.classList.remove('active');
+    }
 
-// function addTxtBox() {
-//     let uploadTxt = `
-//         <div class="uploadTxt">
-//             <div class="deleteTxt"></div>
-//             <form class="textBox">
-//                 <label>input text</label>
-//                 <textarea rows="16" placeholder="Type here..."></textarea>
-//             </form>
-//         </div>
-//     `;
-//     let addBtn = document.querySelector('.addBtn');
-
-//     addBtn.insertAdjacentHTML('beforebegin', uploadTxt);
-// }
+    console.log(uploadVisible.clientWidth, uploadVisibleInner.scrollWidth)
+    console.log(uploadBoxArr._rawValue)
+}
 
 function limitRows(text) {
     let currentRows = (text.value.match(/\n/g)||[]).length + 1;
@@ -502,33 +493,6 @@ onMounted(function () {
             ecColor.style.display = 'none';
         }
     });
-
-    // // icon contrast
-    // let txColor = document.querySelector('.txColor');
-    // let icon = document.querySelectorAll('.icon');
-    // let tableWidth = document.querySelectorAll('.resizer');
-    // let cnum = 0;
-
-    // let textColorChange = function() {
-    //     console.log('dsds')
-    //     cnum++;
-    //     console.log(cnum,icon)
-    //     icon.forEach((e) => {
-    //         e.classList.toggle('contrast');
-    //     });
-    //     tableWidth.forEach((e) => {
-    //         if (cnum % 2 == 1) {
-    //             e.style.backgroundColor = 'white';
-    //         } else {
-    //             e.style.backgroundColor = 'black';
-    //         }
-    //     });
-    //     miBtn.classList.toggle('contrast');
-    //     txColor.classList.toggle('contrast');
-    //     bodyId.classList.toggle('contrast');
-    //     ecColor.classList.toggle('contrast');
-    // };
-
 });
 </script>
     
@@ -1077,6 +1041,7 @@ onMounted(function () {
         display: block;
     }
     .uploadInner {
+        width: calc(100% - 200px);
         margin-top: 160px;
         padding: 8px 100px 48px 100px;
         background-color: #fff;
@@ -1090,11 +1055,13 @@ onMounted(function () {
                 margin-bottom: 0;
             }
             .uploadVisible {
+                position: relative;
+                width: 100%;
 
                 .uploadVisibleInner {
-                    width: 100%;
+                    // width: 100%;
                     padding-top: 24px;
-                    overflow: hidden;
+                    overflow: scroll;
                     display: flex;
                     flex-wrap: nowrap;
     
@@ -1146,7 +1113,7 @@ onMounted(function () {
                         }
                     }
                     .uploadCont {
-                        width: 100%;
+                        // width: 100%;
                         display: flex;
                         flex-wrap: nowrap;
         
@@ -1174,8 +1141,8 @@ onMounted(function () {
                             margin-right: 20px;
         
                             .dragBox {
-                                width: 100%;
-                                height: 100%;
+                                width: 460px;
+                                height: 460px;
                                 display: flex;
                                 flex-wrap: wrap;
                                 justify-content: center;
@@ -1236,18 +1203,22 @@ onMounted(function () {
                             margin-right: 20px;
     
                             .textBox {
+                                width: 350px;
+                                height: 460px;
+                                box-sizing: border-box;
+
                                 label {
                                     display: none;
                                 }
                                 textarea {
                                     position: absolute;
-                                    width: 100%;
-                                    height: 100%;
+                                    width: 350px;
+                                    height: 460px;
                                     box-sizing: border-box;
                                     left: 50%;
                                     top: 50%;
                                     transform: translate(-50%, -50%);
-                                    border: 0;
+                                    border: 1px solid #000;
                                     font-family: 'Archivo';
                                     font-size: 24px;
                                     font-weight: 700;
@@ -1292,6 +1263,34 @@ onMounted(function () {
                                     margin-top: 4px;
                                 }
                             }
+                        }
+                    }
+                }
+                .uploadVisibleBtn {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    width: calc(100% + 144px);
+                    display: flex;
+                    justify-content: space-between;
+                    display: none;
+
+                    &.active {
+                        display: flex;
+                    }
+                    .icon {
+                        
+                        width: 52px;
+                        height: 52px;
+                        cursor: pointer;
+
+                        &.prev {
+                            left: 50px;
+                        }
+
+                        &.next {
+                            right: 12px;
                         }
                     }
                 }
