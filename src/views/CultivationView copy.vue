@@ -169,7 +169,18 @@
                                 .addTxt(@click='(e) => {checkWidth(e)}')
                                     svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
                                         path(d="M4.7,20.7c-0.4,0-0.7-0.1-1-0.4s-0.4-0.6-0.4-1V4.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h9.7l6.3,6.3v9.7c0,0.4-0.1,0.7-0.4,1s-0.6,0.4-1,0.4H4.7z M7.1,16.6h9.7v-1.5H7.1V16.6z M7.1,12.7h9.7v-1.5H7.1V12.7z M7.1,8.9h6.7V7.4H7.1V8.9z")
-                                    p Add Text          
+                                    p Add Text
+                .uploadVisibleBtn 
+                    .prev(@click='(e) => {uploadArrow(e)}')
+                        svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                            g
+                                g
+                                    path(d="M12,20l-8-8l8-8l1.37,1.35l-5.64,5.67H20v1.96H7.73l5.64,5.64L12,20z")
+                    .next(@click='(e) => {uploadArrow(e)}')
+                        svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                            g
+                                g
+                                    path(d="M12,4l8,8l-8,8l-1.37-1.35l5.64-5.67H4v-1.96h12.27l-5.64-5.64L12,4z")               
 </template>
     
 <script setup>
@@ -182,6 +193,7 @@ let txt = ref('txt');
 let uploadBoxArr = ref([]);
 
 skapi.getProfile().then(account=>{
+    // console.log(account);
     let userName = document.querySelector('.header .info');
     let getName = account.name;
 
@@ -202,40 +214,59 @@ function drag() {
 }
 
 function removeBox(div) {
+    let uploadVisible = document.querySelector('.uploadVisible');
+    let uploadVisibleBtn = document.querySelector('.uploadVisibleBtn');
+    let totalDivWidth = 390;
     let parentDiv = div.srcElement.parentNode;
 
     parentDiv.remove();
+
+    if(uploadVisible.clientWidth < totalDivWidth){
+        uploadVisibleBtn.classList.add('active');
+    } else {
+        uploadVisibleBtn.classList.remove('active');
+    }
 }
 
 function checkWidth(e) {
     let uploadVisible = document.querySelector('.uploadVisible');
-    let uploadVisibleInner = document.querySelector('.uploadVisibleInner');
     let uploadDiv = document.querySelectorAll('.uploadDiv');
-    let addBtn = document.querySelector('.addBtn');
+    let uploadVisibleBtn = document.querySelector('.uploadVisibleBtn');
     let totalDivWidth = 390;
 
     if(e.target.className == 'addImg'){
         totalDivWidth += 480;
         uploadBoxArr.value.push('img');
-        // uploadVisibleInner.scrollTo({left: -100, behavior: "smooth"});
     } else {
         totalDivWidth += 370;
         uploadBoxArr.value.push('txt')
     }
 
     Array.from(uploadDiv).forEach((div) => {
+        console.log(div.offsetWidth)
         totalDivWidth += (div.offsetWidth + 20);
     })
 
-    // if(uploadVisible.clientWidth < totalDivWidth){
-    //     // uploadVisibleInner.scrollLeft = addBtn.getBoundingClientRect().right;
-    //     // uploadVisibleInner.scrollLeft = totalDivWidth;
-    //     uploadVisibleInner.scrollTo(400, 0);
-    //     console.log(addBtn.getBoundingClientRect())
-    //     console.log(uploadVisible.clientWidth)
-    //     console.log(totalDivWidth)
-    //     // let addDivMoving = totalDivWidth - uploadVisible.clientWidth
-    // }
+    if(uploadVisible.clientWidth < totalDivWidth){
+        uploadVisibleBtn.classList.add('active');
+    } else {
+        uploadVisibleBtn.classList.remove('active');
+    }
+
+    console.log(totalDivWidth)
+}
+
+function uploadArrow(e) {
+    let uploadVisibleInner = document.querySelector('.uploadVisibleInner');
+    let addBtn = document.querySelector('.addBtn');
+    let addBtnPosition = addBtn.getBoundingClientRect()
+
+    if(e.target.parentNode.classList.value == 'prev'){
+        uploadVisibleInner.style.transform = "translateX(" + 0 + "px)";
+    } else {
+        uploadVisibleInner.style.transform = "translateX(" - addBtnPosition.right + "px)";
+    }
+    uploadVisibleInner.style.transition = "all 400ms";
 }
 
 function limitRows(text) {
@@ -1065,8 +1096,6 @@ onMounted(function () {
                 width: 100%;
 
                 .uploadVisibleInner {
-                    overflow-x: scroll;
-                    overflow-y: hidden;
                     padding-top: 24px;
                     display: flex;
                     flex-wrap: nowrap;
@@ -1269,6 +1298,34 @@ onMounted(function () {
                                 }
                             }
                         }
+                    }
+                }
+            }
+            .uploadVisibleBtn {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: calc(100% + 144px);
+                display: flex;
+                justify-content: space-between;
+                display: none;
+
+                &.active {
+                    display: flex;
+                }
+                > div {
+                    
+                    width: 52px;
+                    height: 52px;
+                    cursor: pointer;
+
+                    &.prev {
+                        left: 50px;
+                    }
+
+                    &.next {
+                        right: 12px;
                     }
                 }
             }
