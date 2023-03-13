@@ -104,77 +104,95 @@
             .uploadPost 
                 h2.uploadTit Add a post
                 .uploadVisible
-                    .uploadVisibleInner
-                        .uploadInfo
-                            form.uploadInput
-                                .input
-                                    label Host
-                                    br
-                                    sui-input#host(type='host' name='host' placeholder='Enter a host’ name')
+                    form.uploadData(@submit='submitForm')
+                            .uploadInfo
+                                .uploadInput
+                                    .input
+                                        label Host
+                                        br
+                                        sui-input#host(type='host' name='host' placeholder='Enter a host’ name')
 
-                                .input
-                                    label Title
-                                    br
-                                    sui-input#title(type='title' name='title' placeholder='Title of this project')
+                                    .input
+                                        label Title
+                                        br
+                                        sui-input#title(type='title' name='title' placeholder='Title of this project')
 
-                                .input
-                                    label Type
-                                    br
-                                    sui-input#type(type='type' name='type' placeholder='Type of this project')
-                                
-                                .input
-                                    label Date
-                                    br
-                                    sui-input#date(type='date' name='date' placeholder='YYYY.MM.DD')
-                            .uploadBtn
-                                input.save(type='submit' value='Save')
-                                input.cancel(type='submit' value='Cancel' @click='()=>{ invalidUpload = !invalidUpload }')
-                        .uploadCont
-                            .uploadImg.uploadDiv
-                                .deleteImg(@click='(div) => {removeBox(div)}')
-                                .dragBox 
-                                    svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
-                                        path(d="M11.3,18h1.5v-3.2h3.2v-1.5h-3.2v-3.2h-1.5v3.2H8.1v1.5h3.2V18z M5.6,21.8c-0.4,0-0.7-0.1-1-0.4c-0.3-0.3-0.4-0.6-0.4-1V3.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h8.9l5.4,5.4v12.8c0,0.4-0.1,0.7-0.4,1c-0.3,0.3-0.6,0.4-1,0.4H5.6z M13.7,8.2h4.6l-4.6-4.6V8.2z")
-                                    span Drag and Drop OR
-                                        input#dragDropFile(type="file" @change='(e)=>dragNdrop(e)' @dragover='drag')
-                                    label.inputFileBtn(for="uploadFile") Selct File
-                                    input#uploadFile(type="file" style="display:none;" @change='(e)=>dragNdrop(e)')
-                            .uploadTxt.uploadDiv
-                                .deleteTxt(@click='(div) => {removeBox(div)}')
-                                form.textBox
-                                    label input text
-                                    textarea(rows="16" placeholder="Type here..." @keydown="limitRows(text)")
-                            template(v-for="i in uploadBoxArr")        
-                                .uploadImg.uploadDiv(v-if="i === 'img'")
+                                    .input
+                                        label Type
+                                        br
+                                        sui-input#type(type='type' name='type' placeholder='Type of this project')
+                                    
+                                    .input
+                                        label Date
+                                        br
+                                        sui-input#date(type='date' name='date' placeholder='YYYY.MM.DD')
+                                .uploadBtn
+                                    input.save(type='submit' value='Save')
+                                    input.cancel(type='submit' value='Cancel' @click='()=>{ invalidUpload = !invalidUpload }')
+                            .uploadCont
+                                .uploadImg.uploadDiv
                                     .deleteImg(@click='(div) => {removeBox(div)}')
                                     .dragBox 
                                         svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
                                             path(d="M11.3,18h1.5v-3.2h3.2v-1.5h-3.2v-3.2h-1.5v3.2H8.1v1.5h3.2V18z M5.6,21.8c-0.4,0-0.7-0.1-1-0.4c-0.3-0.3-0.4-0.6-0.4-1V3.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h8.9l5.4,5.4v12.8c0,0.4-0.1,0.7-0.4,1c-0.3,0.3-0.6,0.4-1,0.4H5.6z M13.7,8.2h4.6l-4.6-4.6V8.2z")
                                         span Drag and Drop OR
-                                            input#dragDropFile(type="file" @change='(e)=>dragNdrop(e)' @dragover='drag')
+                                            input#dragDropFile(type="file" name="drop_file" @change='(e)=>dragNdrop(e)' @dragover='drag')
                                         label.inputFileBtn(for="uploadFile") Selct File
-                                        input#uploadFile(type="file" style="display:none;" @change='(e)=>dragNdrop(e)')
-                                .uploadTxt.uploadDiv(v-else="i === 'txt'")
+                                        input#uploadFile(type="file" name="drop_file" style="display:none;" @change='(e)=>dragNdrop(e)')
+                                .uploadTxt.uploadDiv
                                     .deleteTxt(@click='(div) => {removeBox(div)}')
-                                    form.textBox
+                                    .textBox
                                         label input text
-                                        textarea(rows="16" placeholder="Type here..." @keydown="limitRows(text)")
-                            .addBtn 
-                                .addImg(@click='(e) => {checkWidth(e)}')
-                                    svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
-                                        g
+                                        textarea(rows="16" name="write_text" placeholder="Type here..." @keydown="(text,e) => {limitRows(text,e)}")
+                                template(v-for="i in uploadBoxArr")        
+                                    .uploadImg.uploadDiv(v-if="i === 'img'")
+                                        .deleteImg(@click='(div) => {removeBox(div)}')
+                                        .dragBox 
+                                            svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
+                                                path(d="M11.3,18h1.5v-3.2h3.2v-1.5h-3.2v-3.2h-1.5v3.2H8.1v1.5h3.2V18z M5.6,21.8c-0.4,0-0.7-0.1-1-0.4c-0.3-0.3-0.4-0.6-0.4-1V3.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h8.9l5.4,5.4v12.8c0,0.4-0.1,0.7-0.4,1c-0.3,0.3-0.6,0.4-1,0.4H5.6z M13.7,8.2h4.6l-4.6-4.6V8.2z")
+                                            span Drag and Drop OR
+                                                input#dragDropFile(type="file" name="drop_file" @change='(e)=>dragNdrop(e)' @dragover='drag')
+                                            label.inputFileBtn(for="uploadFile") Selct File
+                                            input#uploadFile(type="file" name="drop_file" style="display:none;" @change='(e)=>dragNdrop(e)')
+                                    .uploadTxt.uploadDiv(v-else="i === 'txt'")
+                                        .deleteTxt(@click='(div) => {removeBox(div)}')
+                                        .textBox
+                                            label input text
+                                            textarea(rows="16" name="write_text" placeholder="Type here..." @keydown="(text,e) => {limitRows(text,e)}")
+                                .addBtn 
+                                    .addImg(@click='(e) => {checkWidth(e)}')
+                                        svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
                                             g
-                                                path(d="M4.9,21c-0.51,0-0.96-0.19-1.33-0.56C3.19,20.06,3,19.61,3,19.1V4.92c0-0.53,0.19-0.98,0.56-1.36S4.39,3,4.9,3h14.18c0.53,0,0.98,0.19,1.36,0.56S21,4.39,21,4.92V19.1c0,0.51-0.19,0.96-0.56,1.33C20.06,20.81,19.61,21,19.08,21H4.9z M5.96,17.01h12.09l-3.7-5.02l-3.17,4.11l-2.23-3.05L5.96,17.01z")
-                                    p Add Image
-                                .addTxt(@click='(e) => {checkWidth(e)}')
-                                    svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
-                                        path(d="M4.7,20.7c-0.4,0-0.7-0.1-1-0.4s-0.4-0.6-0.4-1V4.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h9.7l6.3,6.3v9.7c0,0.4-0.1,0.7-0.4,1s-0.6,0.4-1,0.4H4.7z M7.1,16.6h9.7v-1.5H7.1V16.6z M7.1,12.7h9.7v-1.5H7.1V12.7z M7.1,8.9h6.7V7.4H7.1V8.9z")
-                                    p Add Text          
+                                                g
+                                                    path(d="M4.9,21c-0.51,0-0.96-0.19-1.33-0.56C3.19,20.06,3,19.61,3,19.1V4.92c0-0.53,0.19-0.98,0.56-1.36S4.39,3,4.9,3h14.18c0.53,0,0.98,0.19,1.36,0.56S21,4.39,21,4.92V19.1c0,0.51-0.19,0.96-0.56,1.33C20.06,20.81,19.61,21,19.08,21H4.9z M5.96,17.01h12.09l-3.7-5.02l-3.17,4.11l-2.23-3.05L5.96,17.01z")
+                                        p Add Image
+                                    .addTxt(@click='(e) => {checkWidth(e)}')
+                                        svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
+                                            path(d="M4.7,20.7c-0.4,0-0.7-0.1-1-0.4s-0.4-0.6-0.4-1V4.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h9.7l6.3,6.3v9.7c0,0.4-0.1,0.7-0.4,1s-0.6,0.4-1,0.4H4.7z M7.1,16.6h9.7v-1.5H7.1V16.6z M7.1,12.7h9.7v-1.5H7.1V12.7z M7.1,8.9h6.7V7.4H7.1V8.9z")
+                                        p Add Text   
+                            .mUploadSave
+                                input.save(type='submit' value='Save')  
+            .mUploadClose(@click='()=>{ invalidUpload = !invalidUpload }')
+                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
+                    g
+                        g
+                            g
+                                polygon(points="20,5.78 18.22,4 12,10.22 5.78,4 4,5.78 10.22,12 4,18.22 5.78,20 12,13.78 18.22,20 20,18.22 13.78,12 			")
 </template>
     
 <script setup>
 import { skapi } from '@/main.js';
 import { onMounted, ref } from 'vue';
+
+skapi.getRecords({
+    table: {
+        name: 'uploadData',
+        access_group: 'public'
+    }
+}).then(result=>{
+    console.log({ result })
+})
+
 
 let invalidUpload = ref(false);
 let img = ref('img');
@@ -207,9 +225,20 @@ function removeBox(div) {
     parentDiv.remove();
 }
 
+async function submitForm(e){
+    let setting = {
+        table: {
+            name: 'uploadData',
+            access_group: 'public'
+        }
+    }
+    let result = await skapi.postRecord(e, setting);
+    console.log({ result });
+}
+
 function checkWidth(e) {
     let uploadVisible = document.querySelector('.uploadVisible');
-    let uploadVisibleInner = document.querySelector('.uploadVisibleInner');
+    let uploadData = document.querySelector('.uploadData');
     let uploadDiv = document.querySelectorAll('.uploadDiv');
     let addBtn = document.querySelector('.addBtn');
     let totalDivWidth = 390;
@@ -217,8 +246,8 @@ function checkWidth(e) {
     if(e.target.className == 'addImg'){
         totalDivWidth += 480;
         uploadBoxArr.value.push('img');
-        // uploadVisibleInner.scrollTo({left: -100, behavior: "smooth"});
-    } else {
+        // uploadData.scrollTo({left: -100, behavior: "smooth"});
+    } else if(e.target.className == 'addTxt') {
         totalDivWidth += 370;
         uploadBoxArr.value.push('txt')
     }
@@ -228,9 +257,9 @@ function checkWidth(e) {
     })
 
     // if(uploadVisible.clientWidth < totalDivWidth){
-    //     // uploadVisibleInner.scrollLeft = addBtn.getBoundingClientRect().right;
-    //     // uploadVisibleInner.scrollLeft = totalDivWidth;
-    //     uploadVisibleInner.scrollTo(400, 0);
+    //     // uploadData.scrollLeft = addBtn.getBoundingClientRect().right;
+    //     // uploadData.scrollLeft = totalDivWidth;
+    //     uploadData.scrollTo(400, 0);
     //     console.log(addBtn.getBoundingClientRect())
     //     console.log(uploadVisible.clientWidth)
     //     console.log(totalDivWidth)
@@ -238,12 +267,13 @@ function checkWidth(e) {
     // }
 }
 
-function limitRows(text) {
-    let currentRows = (text.value.match(/\n/g)||[]).length + 1;
-    let maxRows = text.rows;
-    if(currentRows === maxRows){
-        return false;
-    }
+function limitRows(text, e) {
+    console.log(document.form.write_text.value.length)
+    // let currentRows = (text.value.match(/\n/g)||[]).length + 1;
+    // let maxRows = text.rows;
+    // if(e.which === 16 && currentRows === maxRows){
+    //     return false;
+    // }
 }
 
 let contents = [
@@ -375,6 +405,10 @@ onMounted(function () {
         let trCon = table.querySelectorAll('.con');
         let mclose = document.querySelector('.mclose');
         let mfooter = document.querySelector('.mfooter');
+        let uploadWrap = document.querySelector('.uploadWrap');
+        let uploadBtn = document.querySelector('.uploadBtn');
+        let mUploadSave = document.querySelector('.mUploadSave');
+        let mUploadClose = document.querySelector('.mUploadClose');
 
         for (let i = 1; i < rows.length; i += 2) {
             let currentRow = rows[i];
@@ -414,6 +448,14 @@ onMounted(function () {
             });
         }
 
+        mfooter.addEventListener('click', () => {
+            uploadWrap.classList.add('active');
+        })
+
+        uploadBtn.classList.add('hide');
+        mUploadSave.classList.add('active');
+        mUploadClose.classList.add('active');
+
         mclose.addEventListener("click", function () {
             mclose.style.display = "none";
             mfooter.style.display = "block";
@@ -438,6 +480,9 @@ onMounted(function () {
         let trTit = document.querySelectorAll('.tit');
         let trCon = document.querySelectorAll('.con');
         let close = document.querySelectorAll('.close');
+        let mUploadSave = document.querySelector('.mUploadSave');
+
+        mUploadSave.classList.remove('active')
 
         for (let i = 0; i < trTit.length; i++) {
             trTit[i].addEventListener('click', () => {
@@ -1064,13 +1109,13 @@ onMounted(function () {
                 overflow: hidden;
                 width: 100%;
 
-                .uploadVisibleInner {
+                .uploadData {
+                    display: flex;
+                    flex-wrap: nowrap;
                     overflow-x: scroll;
                     overflow-y: hidden;
                     padding-top: 24px;
-                    display: flex;
-                    flex-wrap: nowrap;
-    
+
                     .uploadInfo {
                         display: flex;
                         flex-wrap: wrap;
@@ -1095,7 +1140,10 @@ onMounted(function () {
                         .uploadBtn {
                             margin-top: 24px;
                             text-align: right;
-        
+
+                            &.hide {
+                                display: none;
+                            }
                             input {
                                 width: 113px;
                                 height: 40px;
@@ -1270,7 +1318,43 @@ onMounted(function () {
                             }
                         }
                     }
+                    .mUploadSave {
+                        padding-top: 40px;
+                        width: 100%;
+                        display: none;
+
+                        &.active {
+                            display: block;
+                        }
+                        input {
+                            width: 100%;
+                            height: 40px;
+                            font-size: 16px;
+                            font-weight: 400;
+                            line-height: 17px;
+                            border: 0.5px solid #595959;
+                            box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.65);
+                            border-radius: 4px;
+                            cursor: pointer;
+                            background-color: #000;
+                            color: #fff;
+                        }
+                    }
                 }
+            }
+        }
+        .mUploadClose {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            display: none;
+
+            &.active {
+                display: block;
+            }
+            svg {
+                width: 20px;
+                height: 20px;
             }
         }
     }
@@ -1293,7 +1377,6 @@ onMounted(function () {
             display: block;
         }
     }
-
     .tableWrap {
         .table {
             thead {
@@ -1408,13 +1491,150 @@ onMounted(function () {
             }
         }
     }
-
     .footer {
         display: none;
     }
-
     .mfooter {
         display: block;
+    }
+    .uploadWrap {
+        width: 100%;
+        height: 100%;
+        overflow-x: visible;
+        overflow-y: scroll;
+
+        .uploadInner {
+            width: 100%;
+            margin-top: 0;
+            padding: 80px 20px;
+            box-sizing: border-box;
+
+            .uploadPost {
+                .uploadTit {
+                    position: relative;
+                    margin: 0;
+                    margin-bottom: 12px;
+
+                    &::before {
+                        position: absolute;
+                        content: '';
+                        left: 50%;
+                        bottom: 0;
+                        transform: translateX(-50%);
+                        width: calc(100% + 40px);
+                        height: 1px;
+                        background-color: #000;
+                    }
+                }
+                .uploadVisible {
+                    position: relative;
+                    overflow: visible;
+
+                    .uploadVisibleInner {
+                        width: 100%;
+                        flex-wrap: wrap;
+                        overflow: visible;
+                        box-sizing: border-box;
+
+                        .uploadInfo {
+                            width: 100%;
+                            height: 100%;
+                            margin: 0;
+
+                            .uploadInput {
+                                .input {
+                                    width: 100%;
+
+                                    &:last-child {
+                                        margin-bottom: 0;
+                                    }
+                                }
+                            }
+                        }
+                        .uploadCont {
+                            position: relative;
+                            width: 100%;
+                            flex-wrap: wrap;
+                            box-sizing: border-box;
+                            padding: 75px 0 50px 0;
+
+                            &::before {
+                                position: absolute;
+                                content: '';
+                                left: 50%;
+                                bottom: 0;
+                                transform: translateX(-50%);
+                                width: calc(100% + 40px);
+                                height: 1px;
+                                background-color: #000;
+                            }
+                            > div {
+                                margin-bottom: 50px;
+
+                                &:last-child {
+                                    margin-bottom: 0;
+                                }
+                            }
+                            .uploadImg {
+                                width: 350px;
+                                height: 350px;
+                                margin-right: 0;
+            
+                                .dragBox {
+                                    width: 350px;
+                                    height: 350px;
+            
+                                    img {
+                                        width: 350px;
+                                        height: 350px;
+                                    }
+                                    span {
+                                        #dragDropFile {
+                                            width: 350px;
+                                            height: 350px;
+                                        }
+                                    }
+                                }
+                            }
+                            .uploadTxt {
+                                height: 40px;
+                                margin-right: 0;
+        
+                                .textBox {
+                                    height: 40px;
+
+                                    textarea {
+                                        height: 40px;
+                                    }
+                                }
+                            }
+                            .addBtn {
+                                width: 100%;
+                                height: 160px;
+                                flex-wrap: nowrap;
+                                justify-content: space-between;
+            
+                                div {
+                                    flex-wrap: wrap;
+                                    width: 160px;
+                                    height: 160px;
+                                    .icon {
+                                        width: 64px;
+                                        height: 64px;
+                                    }
+                                    p {
+                                        width: 100%;
+                                        text-align: center;
+                                        margin: 0;
+                                        margin-top: 4px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 </style>
