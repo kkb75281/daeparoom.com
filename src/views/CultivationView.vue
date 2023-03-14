@@ -144,21 +144,21 @@
                                     .textBox
                                         label input text
                                         textarea(form="uploadData" rows="16" name="write_text" placeholder="Type here...")
-                                template(v-for="(i, idx) in uploadBoxArr")        
+                                template(v-for="(i, index) in uploadBoxArr")
                                     .uploadImg.uploadDiv(v-if="i === 'img'")
                                         .deleteImg(@click='(div) => {removeBox(div)}')
                                         .dragBox 
                                             svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
                                                 path(d="M11.3,18h1.5v-3.2h3.2v-1.5h-3.2v-3.2h-1.5v3.2H8.1v1.5h3.2V18z M5.6,21.8c-0.4,0-0.7-0.1-1-0.4c-0.3-0.3-0.4-0.6-0.4-1V3.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h8.9l5.4,5.4v12.8c0,0.4-0.1,0.7-0.4,1c-0.3,0.3-0.6,0.4-1,0.4H5.6z M13.7,8.2h4.6l-4.6-4.6V8.2z")
                                             span Drag and Drop OR
-                                                input#dragDropFile(type="file" name="drop_file" @change='(e)=>dragNdrop(e)' @dragover='drag')
+                                                input#dragDropFile(type="file" :name="`drop_file${index+1}`" @change='(e)=>dragNdrop(e)' @dragover='drag')
                                             label.inputFileBtn(for="uploadFile") Selct File
-                                            input#uploadFile(type="file" name="drop_file" style="display:none;" @change='(e)=>dragNdrop(e)')
+                                            input#uploadFile(type="file" :name="`drop_file${index+1}`" style="display:none;" @change='(e)=>dragNdrop(e)')
                                     .uploadTxt.uploadDiv(v-else="i === 'txt'")
                                         .deleteTxt(@click='(div) => {removeBox(div)}')
                                         .textBox
                                             label input text
-                                            textarea(form="uploadData" rows="16" name="write_text" placeholder="Type here...")
+                                            textarea(form="uploadData" rows="16" :name="`write_text${index+1}`" placeholder="Type here...")
                                 .addBtn 
                                     .addImg(@click='(e) => {checkWidth(e)}')
                                         svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
@@ -208,19 +208,18 @@ skapi.getRecords({
 
 function dragNdrop(e) {
     let fileName = URL.createObjectURL(e.target.files[0]);
-    let dragBox = document.querySelector(".dragBox");
-    let previewImg = document.createElement("img");
-    previewImg.classList.add("previewImg");
+    let dragBox = document.querySelectorAll(".dragBox");
 
-    if(previewImg.length > 1 ) {
-        Array.from()
-    }
+    Array.from(dragBox).forEach((box, idx) => {
+        Array.from(box.children).forEach((div) => {
+            div.style.opacity = 0;
+        })
 
-    Array.from(dragBox.children).forEach((div) => {
-        div.style.opacity = 0;
+        let previewImg = document.createElement("img");
+        previewImg.setAttribute("src", fileName);
+        previewImg.classList.add("previewImg");
+        box.appendChild(previewImg);
     })
-    previewImg.setAttribute("src", fileName);
-    dragBox.appendChild(previewImg);
 }
 
 function drag() {
