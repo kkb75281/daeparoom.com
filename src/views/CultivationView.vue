@@ -144,7 +144,7 @@
                                     .textBox
                                         label input text
                                         textarea(rows="16" name="write_text" placeholder="Type here..." @keydown="(text,e) => {limitRows(text,e)}")
-                                template(v-for="i in uploadBoxArr")        
+                                template(v-for="(i, idx) in uploadBoxArr")        
                                     .uploadImg.uploadDiv(v-if="i === 'img'")
                                         .deleteImg(@click='(div) => {removeBox(div)}')
                                         .dragBox 
@@ -184,16 +184,7 @@
 import { skapi } from '@/main.js';
 import { onMounted, ref } from 'vue';
 
-skapi.getRecords({
-    table: {
-        name: 'uploadData',
-        access_group: 'public'
-    }
-}).then(result=>{
-    console.log({ result })
-})
-
-
+let contents = [];
 let invalidUpload = ref(false);
 let img = ref('img');
 let txt = ref('txt');
@@ -206,12 +197,29 @@ skapi.getProfile().then(account=>{
     userName.innerHTML = getName;
 })
 
+skapi.getRecords({
+    table: {
+        name: 'uploadData',
+        access_group: 'public'
+    }
+}).then(result=>{
+    console.log(result)
+})
+
 function dragNdrop(e) {
     let fileName = URL.createObjectURL(e.target.files[0]);
     let dragBox = document.querySelector(".dragBox");
     let previewImg = document.createElement("img");
+    previewImg.classList.add("previewImg");
+
+    if(previewImg.length > 1 ) {
+        Array.from()
+    }
+
+    Array.from(dragBox.children).forEach((div) => {
+        div.style.opacity = 0;
+    })
     previewImg.setAttribute("src", fileName);
-    dragBox.innerHTML = "";
     dragBox.appendChild(previewImg);
 }
 
@@ -243,13 +251,13 @@ function checkWidth(e) {
     let addBtn = document.querySelector('.addBtn');
     let totalDivWidth = 390;
 
-    if(e.target.className == 'addImg'){
+    if(e.target.className == 'addImg') {
         totalDivWidth += 480;
         uploadBoxArr.value.push('img');
         // uploadData.scrollTo({left: -100, behavior: "smooth"});
     } else if(e.target.className == 'addTxt') {
         totalDivWidth += 370;
-        uploadBoxArr.value.push('txt')
+        uploadBoxArr.value.push('txt');
     }
 
     Array.from(uploadDiv).forEach((div) => {
@@ -276,41 +284,41 @@ function limitRows(text, e) {
     // }
 }
 
-let contents = [
-    {
-        host: 'NIKE',
-        type: ['Illustration', 'Interactive Art'],
-        date: '2022.04',
-        title: 'Whatever Whenever',
-        img: 'image1111.svg',
-        text: `Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-    Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-    Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-    Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
-    },
-    {
-        host: 'NIKE',
-        type: ['Illustration', 'Interactive Art'],
-        date: '2022.04',
-        title: 'blahblahblahblahblahblahsi',
-        img: 'image1111.svg',
-        text: `Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-    Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-    Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-    Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
-    },
-    {
-        host: 'NIKE',
-        type: ['Illustration', 'Interactive Art'],
-        date: '2022.04',
-        title: 'hahahahahah',
-        img: 'image1111.svg',
-        text: `Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-    Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-    Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-    Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
-    }
-];
+// let contents = [
+//     {
+//         host: 'NIKE',
+//         type: ['Illustration', 'Interactive Art'],
+//         date: '2022.04',
+//         title: 'Whatever Whenever',
+//         img: 'image1111.svg',
+//         text: `Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+//     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+//     Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+//     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
+//     },
+//     {
+//         host: 'NIKE',
+//         type: ['Illustration', 'Interactive Art'],
+//         date: '2022.04',
+//         title: 'blahblahblahblahblahblahsi',
+//         img: 'image1111.svg',
+//         text: `Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+//     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+//     Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+//     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
+//     },
+//     {
+//         host: 'NIKE',
+//         type: ['Illustration', 'Interactive Art'],
+//         date: '2022.04',
+//         title: 'hahahahahah',
+//         img: 'image1111.svg',
+//         text: `Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+//     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+//     Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+//     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
+//     }
+// ];
 
 let prevX, prevW, nextW = 0;
 let prevCol, nextCol = null;
@@ -1194,6 +1202,7 @@ onMounted(function () {
                             margin-right: 20px;
         
                             .dragBox {
+                                position: relative;
                                 width: 460px;
                                 height: 460px;
                                 display: flex;
@@ -1235,6 +1244,15 @@ onMounted(function () {
                                         transform: translate(-50%, -50%);
                                         opacity: 0;
                                     }
+                                }
+                                .previewImg {
+                                    position: absolute;
+                                    width: 460px;
+                                    height: 460px;
+                                    left: 50%;
+                                    top: 50%;
+                                    transform: translate(-50%, -50%);
+                                    z-index: 9999;
                                 }
                                 .inputFileBtn {
                                     cursor: pointer;
@@ -1530,7 +1548,7 @@ onMounted(function () {
                     position: relative;
                     overflow: visible;
 
-                    .uploadVisibleInner {
+                    .uploadData {
                         width: 100%;
                         flex-wrap: wrap;
                         overflow: visible;
