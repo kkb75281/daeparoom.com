@@ -9,16 +9,25 @@
             | 이메일 인증을 위한 메일이 발송되었습니다.
             br
             | 회원가입 완료를 위한 이메일 인증을 진행해 주세요.
-        p 가입 이메일 주소 : XXX@gmail.com
+        p.email 가입 이메일 주소 : 
+            span {{ route.params.email }}  
         h4.em 이메일을 받지 못하셨나요?
         button(@click="showMs") 이메일 다시 보내기
         br
         span.send 이메일이 재전송 되었어요!
 </template>
 <script setup>
+import { skapi } from '@/main.js';
+import { useRoute } from 'vue-router'
+
+let route = useRoute();
+
 function showMs() {
-    let sen = document.querySelector('.send');
-    sen.classList.add('active');
+    let redirectUrl = "/signup3"
+    let send = document.querySelector('.send');
+
+    skapi.resendSignupConfirmation(redirectUrl);
+    send.classList.add('active');
 }
 </script>
 <style scoped lang="less">
@@ -32,7 +41,6 @@ function showMs() {
 
     & > div {
         width: 350px;
-
     }
 }
 
@@ -82,6 +90,7 @@ button {
     background-color: #00C80D;
     padding: 3px 8px;
     border-radius: 4px;
+    filter: drop-shadow(1px 2px 4px rgba(0, 0, 0, 0.25));
     display: none;
 
     &.active {

@@ -5,22 +5,23 @@
             img(src="@/assets/image/folder_open.svg")
             h2 Sign up
 
-        form.form
+        //- form.form(@submit = '(e)=>skapi.signup(e, { response: r => afterSignup(r), onerror: err => alertErr(err) })')
+        form.form(@submit = '(e)=>skapi.signup(e, { confirmation: "/signup3", response: r => afterSignup(r), onerror: err => alertErr(err) })')
             label User Name
             br
-            sui-input#email(placeholder='계정 이름' name='email')
+            sui-input#name(type='name' name='name' placeholder='계정 이름')
 
             label Email
             br
-            sui-input#password(placeholder='이메일' name='password')
+            sui-input#email(type='email' name='email' placeholder='이메일')
 
             label Password
             br
-            sui-input#password(placeholder='비밀번호' name='password')
+            sui-input#password(type='password' name='password' placeholder='비밀번호')
 
             label Password Confirm
             br
-            sui-input#password(placeholder='비밀번호 확인' name='password' style="margin-bottom: 10px;")
+            sui-input#confirm_password(type='password' placeholder='비밀번호 확인' @change = 'validatePassword' style='margin-bottom: 10px;')
 
             div(style="text-align:center; margin: 30px 0;")
                 sui-input(type='submit' value='계정 만들기')
@@ -31,7 +32,31 @@
 </template>
 
 <script setup>
+import { skapi } from '@/main.js';
+import { useRouter } from 'vue-router';
 
+let router = useRouter();
+
+function validatePassword() {
+    if (password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords don't match");
+    }
+    else {
+        confirm_password.setCustomValidity('');
+    }
+}
+
+function afterSignup(r) {
+    // signup 성공여부
+    console.log(r);
+    
+    // vue router로 코드로 유저를 이동
+    router.push({ name: 'signup2', params: { email: email.value }, props: true });
+}
+
+function alertErr(err) {
+    alert(err.message);
+}
 </script>
 
 <style scoped lang="less">

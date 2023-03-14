@@ -1,6 +1,6 @@
 <template lang="pug">
 #wrap 
-    div
+    form(action = 'login')
         h1 축하드립니다!
         h2 
             | 당신은 __번째

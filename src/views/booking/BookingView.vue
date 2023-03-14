@@ -1,6 +1,6 @@
 <template lang="pug">
 .wrap
-    a.back(href="/")
+    a.back(href="/booking")
         svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
             g
                 g
@@ -34,7 +34,8 @@
             .dates
     .select
         .selectDate 2023.10.08
-        .selectTime 21:00 PM 
+        .selectTime 
+            span 21:00 PM 
             .modify 
                 svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
                     g
@@ -122,6 +123,13 @@ onMounted(() => {
         }
 
         let allDate = document.querySelectorAll('.date');
+        let timeHr = Array.from(document.querySelectorAll('.h'));
+        let timeMin = Array.from(document.querySelectorAll('.m'));
+        let timeDn = Array.from(document.querySelectorAll('.ampm'));
+
+        timeHr[0].classList.add('reserved');
+        timeMin[0].classList.add('reserved');
+        timeDn[0].classList.add('reserved');
 
         allDate.forEach((e) => {
             e.addEventListener('click', () => {
@@ -151,7 +159,7 @@ onMounted(() => {
                     d = '0' + d;
                 }
 
-                let selectedDate = currentYear + '. ' + m + '. ' + d;
+                let selectedDate = currentYear + '.' + m + '.' + d;
                 selectDate.innerHTML = selectedDate;
             });
         });
@@ -174,6 +182,8 @@ onMounted(() => {
     let modifyTime = document.querySelector('.modifyTime');
     let times = document.querySelector('.time').children;
     let close = modifyTime.querySelector('.close');
+    let timeSave = document.querySelector('.modifyTime .btn .save');
+    let timeCancel = document.querySelector('.modifyTime .btn .cancel');
     
     modify.addEventListener('click', () => {
         modifyTime.style.bottom = '0px';
@@ -183,62 +193,58 @@ onMounted(() => {
         modifyTime.style.bottom = '-400px';
     });
 
-    let timeoutId;
 
-    Array.from(times).forEach((el) => {
-        el.addEventListener('scroll', () => {
-            clearTimeout(timeoutId);
+    Array.from(times).forEach((time) => {
+        let divsArray = Array.from(time.children);
+        let timeReset;
+        
+        time.addEventListener('scroll', () => {
+            let timeScroll = time.scrollTop;
+            let stopDivNum = Math.round(timeScroll/64);
+            
+            clearTimeout(timeReset);
+            divsArray.forEach((div) => {
+                div.classList.remove('reserved');
+            });
 
-            timeoutId = setTimeout(() => {
-                // let scrollPosition = window.scrollY;
-                let scrollPosition = el.scrollTop;
-                let viewportHeight = el.offsetHeight;
-                let visiblePercentages = [];
-                let eles = el.children;
-    
-                Array.from(eles).forEach(ele => {
-                    let eleTop = ele.offsetTop;
-                    let eleHeight = ele.offsetHeight;
-                    let eleBottom = eleTop + eleHeight;
-                    let visibleTop = Math.max(eleTop, scrollPosition);
-                    let visibleBottom = Math.min(eleBottom, scrollPosition + viewportHeight);
-                    let visibleHeight = visibleBottom - visibleTop;
-                    let visiblePercentage = Math.round(visibleHeight / eleHeight * 100);
-                    visiblePercentages.push(visiblePercentage);
-                    console.log(eleTop, eleHeight, eleBottom, visibleTop, visibleBottom, visibleHeight, visiblePercentage)
-                });
-    
-                let maxIndex = visiblePercentages.indexOf(Math.max(...visiblePercentages));
-                let maxDiv = eles[maxIndex];
-                let maxDivTop = maxDiv.offsetTop;
-                let scrollToPosition = maxDivTop + maxDiv.offsetHeight / 2 - viewportHeight / 2;
-                
-                console.log(scrollPosition, viewportHeight, visiblePercentages,maxIndex, maxDiv, maxDivTop,scrollToPosition)
-                
-                el.scrollTo({
-                    top: scrollToPosition,
+            timeReset = setTimeout(() => {
+                time.scrollTo({
+                    top: 64 * stopDivNum,
                     behavior: 'smooth'
                 });
-            }, 100);
+                
+                divsArray[stopDivNum].classList.add('reserved');
+            },100)
         });
-    })
+    });
 
-    
+    timeSave.addEventListener('click', () => {
+        let selectTime = document.querySelector('.selectTime span');
+        let reserved = document.querySelectorAll('.reserved');
+        let reservedArr = Array.from(reserved);
+        
+        selectTime.innerHTML = reservedArr[0].innerText + ":" + reservedArr[1].innerText + " " + reservedArr[2].innerText;
+        modifyTime.style.bottom = '-400px';
+    });
 
-
-    
-
+    timeCancel.addEventListener('click', () => {
+        modifyTime.style.bottom = '-400px';
+    });
 });
 </script>
 
 <style lang="less">
+body {
+    overflow: hidden;
+}
 .wrap {
     position: relative;
     width: 100%;
     height: 100vh;
-    box-sizing: border-box;
     padding: 40px 20px;
-    // overflow: scroll;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: scroll;
 
     .back {
         svg {
@@ -257,6 +263,7 @@ onMounted(() => {
             .year {
                 font-size: 20px;
                 margin-right: 12px;
+                margin-left: 10px;
             }
             .month {
                 font-size: 28px;
@@ -334,7 +341,7 @@ onMounted(() => {
         
         > div {
             width: 100%;
-            padding-top: 40px;
+            padding-top: 30px;
             vertical-align: bottom;
             text-align-last: left;
             position: relative;
@@ -394,7 +401,7 @@ onMounted(() => {
     background-color: #fff;
     border-radius: 8px 8px;
     transition: all 0.3s;
-    padding: 16px 20px 28px 20px;
+    padding: 16px 20px 40px 20px;
     box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.25);
     box-sizing: border-box;
 
@@ -410,7 +417,7 @@ onMounted(() => {
         position: relative;
         width: 100%;
         height: 130px;
-        margin: 70px 0;
+        margin: 70px 0 58px 0;
         // background-color: #ddd;
         display: flex;
         justify-content: center;
@@ -470,31 +477,33 @@ onMounted(() => {
                 overflow: scroll;
                 -ms-overflow-style: none; /* 인터넷 익스플로러 */
                 scrollbar-width: none; /* 파이어폭스 */
+                width: calc(100%/3);
+                height: 192px;
+                top: -64px;
+                padding: 64px 0;
+                box-sizing: border-box;
 
-                > div {
-                    width: 100%;
-                    height: 64px;
-                }
                 &.hr {
-                    height: 192px;
                     left: 0;
-                    // transform: translateY(-64px);
-                    width: calc(100%/3);
                 }
                 &.min {
-                    height: 192px;
                     left: calc(100%/3);
-                    // transform: translateY(-64px);
-                    width: calc(100%/3);
                 }
                 &.dn {
-                    height: 128px;
                     right: 0;
-                    // transform: translateY(0px);
-                    width: calc(100%/3);
                 }
                 &::-webkit-scrollbar {
                     display: none;
+                }
+
+                > div {
+                    width: 100%;
+                    // height: 64px;
+                    // margin-bottom: 64px;
+                    // height: 30px;
+                    // display: flex;
+                    // align-items: center;
+                    // justify-content: center;
                 }
             }
         }
@@ -504,7 +513,7 @@ onMounted(() => {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 50px;
+        padding: 0 45px;
 
         input {
             width: 113px;
