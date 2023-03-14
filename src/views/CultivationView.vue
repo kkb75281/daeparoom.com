@@ -104,7 +104,7 @@
             .uploadPost 
                 h2.uploadTit Add a post
                 .uploadVisible
-                    form.uploadData(@submit='submitForm')
+                    form#uploadData.uploadData(@submit='submitForm')
                             .uploadInfo
                                 .uploadInput
                                     .input
@@ -128,7 +128,7 @@
                                         sui-input#date(type='date' name='date' placeholder='YYYY.MM.DD')
                                 .uploadBtn
                                     input.save(type='submit' value='Save')
-                                    input.cancel(type='submit' value='Cancel' @click='()=>{ invalidUpload = !invalidUpload }')
+                                    input.cancel(type='button' value='Cancel' @click='()=>{ invalidUpload = !invalidUpload }')
                             .uploadCont
                                 .uploadImg.uploadDiv
                                     .deleteImg(@click='(div) => {removeBox(div)}')
@@ -143,7 +143,7 @@
                                     .deleteTxt(@click='(div) => {removeBox(div)}')
                                     .textBox
                                         label input text
-                                        textarea(rows="16" name="write_text" placeholder="Type here..." @keydown="(text,e) => {limitRows(text,e)}")
+                                        textarea(form="uploadData" rows="16" name="write_text" placeholder="Type here...")
                                 template(v-for="(i, idx) in uploadBoxArr")        
                                     .uploadImg.uploadDiv(v-if="i === 'img'")
                                         .deleteImg(@click='(div) => {removeBox(div)}')
@@ -158,7 +158,7 @@
                                         .deleteTxt(@click='(div) => {removeBox(div)}')
                                         .textBox
                                             label input text
-                                            textarea(rows="16" name="write_text" placeholder="Type here..." @keydown="(text,e) => {limitRows(text,e)}")
+                                            textarea(form="uploadData" rows="16" name="write_text" placeholder="Type here...")
                                 .addBtn 
                                     .addImg(@click='(e) => {checkWidth(e)}')
                                         svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
@@ -1326,12 +1326,14 @@ onMounted(function () {
                                 .icon {
                                     width: 40px;
                                     height: 40px;
+                                    user-select: none;
                                 }
                                 p {
                                     width: 100%;
                                     text-align: center;
                                     margin: 0;
                                     margin-top: 4px;
+                                    user-select: none;
                                 }
                             }
                         }
