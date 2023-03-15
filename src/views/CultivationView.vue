@@ -132,7 +132,7 @@
                             .uploadCont
                                 .uploadImg.uploadDiv
                                     .deleteImg(@click='(div) => {removeBox(div)}')
-                                    .dragBox 
+                                    .dragBox.dragBox0
                                         svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
                                             path(d="M11.3,18h1.5v-3.2h3.2v-1.5h-3.2v-3.2h-1.5v3.2H8.1v1.5h3.2V18z M5.6,21.8c-0.4,0-0.7-0.1-1-0.4c-0.3-0.3-0.4-0.6-0.4-1V3.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h8.9l5.4,5.4v12.8c0,0.4-0.1,0.7-0.4,1c-0.3,0.3-0.6,0.4-1,0.4H5.6z M13.7,8.2h4.6l-4.6-4.6V8.2z")
                                         span Drag and Drop OR
@@ -143,11 +143,15 @@
                                     .deleteTxt(@click='(div) => {removeBox(div)}')
                                     .textBox
                                         label input text
-                                        textarea(form="uploadData" rows="16" name="write_text" placeholder="Type here...")
+                                        textarea(form="uploadData" rows="16" name="write_text" placeholder="Type here..." @click='()=>{ writeTextBox = !writeTextBox }')
+                                        .logo(v-if="writeTextBox")
+                                            svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
+                                                path(d="M4.7,20.7c-0.4,0-0.7-0.1-1-0.4s-0.4-0.6-0.4-1V4.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h9.7l6.3,6.3v9.7c0,0.4-0.1,0.7-0.4,1s-0.6,0.4-1,0.4H4.7z M7.1,16.6h9.7v-1.5H7.1V16.6z M7.1,12.7h9.7v-1.5H7.1V12.7z M7.1,8.9h6.7V7.4H7.1V8.9z")
+                                            span Text Area
                                 template(v-for="(i, index) in uploadBoxArr")
                                     .uploadImg.uploadDiv(v-if="i === 'img'")
                                         .deleteImg(@click='(div) => {removeBox(div)}')
-                                        .dragBox 
+                                        .dragBox
                                             svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
                                                 path(d="M11.3,18h1.5v-3.2h3.2v-1.5h-3.2v-3.2h-1.5v3.2H8.1v1.5h3.2V18z M5.6,21.8c-0.4,0-0.7-0.1-1-0.4c-0.3-0.3-0.4-0.6-0.4-1V3.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h8.9l5.4,5.4v12.8c0,0.4-0.1,0.7-0.4,1c-0.3,0.3-0.6,0.4-1,0.4H5.6z M13.7,8.2h4.6l-4.6-4.6V8.2z")
                                             span Drag and Drop OR
@@ -158,7 +162,11 @@
                                         .deleteTxt(@click='(div) => {removeBox(div)}')
                                         .textBox
                                             label input text
-                                            textarea(form="uploadData" rows="16" :name="`write_text${index+1}`" placeholder="Type here...")
+                                            textarea(form="uploadData" rows="16" :name="`write_text${index+1}`" placeholder="Type here..." @click='()=>{ writeTextBox = !writeTextBox }')
+                                            .logo(v-if="writeTextBox")
+                                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
+                                                    path(d="M4.7,20.7c-0.4,0-0.7-0.1-1-0.4s-0.4-0.6-0.4-1V4.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h9.7l6.3,6.3v9.7c0,0.4-0.1,0.7-0.4,1s-0.6,0.4-1,0.4H4.7z M7.1,16.6h9.7v-1.5H7.1V16.6z M7.1,12.7h9.7v-1.5H7.1V12.7z M7.1,8.9h6.7V7.4H7.1V8.9z")
+                                                span Text Area
                                 .addBtn 
                                     .addImg(@click='(e) => {checkWidth(e)}')
                                         svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
@@ -186,6 +194,7 @@ import { onMounted, ref } from 'vue';
 
 let contents = [];
 let invalidUpload = ref(false);
+let writeTextBox = ref(true);
 let img = ref('img');
 let txt = ref('txt');
 let uploadBoxArr = ref([]);
@@ -253,7 +262,9 @@ function checkWidth(e) {
     if(e.target.className == 'addImg') {
         totalDivWidth += 480;
         uploadBoxArr.value.push('img');
-        // uploadData.scrollTo({left: -100, behavior: "smooth"});
+        uploadData.scrollTo({left: -480, top: 0, behavior: "smooth"});
+        // uploadData.style.transform = "translateX(-480px)";
+        // uploadData.scrollLeft(480 + "px");
     } else if(e.target.className == 'addTxt') {
         totalDivWidth += 370;
         uploadBoxArr.value.push('txt');
@@ -282,42 +293,6 @@ function limitRows(text, e) {
     //     return false;
     // }
 }
-
-// let contents = [
-//     {
-//         host: 'NIKE',
-//         type: ['Illustration', 'Interactive Art'],
-//         date: '2022.04',
-//         title: 'Whatever Whenever',
-//         img: 'image1111.svg',
-//         text: `Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-//     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-//     Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-//     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
-//     },
-//     {
-//         host: 'NIKE',
-//         type: ['Illustration', 'Interactive Art'],
-//         date: '2022.04',
-//         title: 'blahblahblahblahblahblahsi',
-//         img: 'image1111.svg',
-//         text: `Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-//     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-//     Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-//     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
-//     },
-//     {
-//         host: 'NIKE',
-//         type: ['Illustration', 'Interactive Art'],
-//         date: '2022.04',
-//         title: 'hahahahahah',
-//         img: 'image1111.svg',
-//         text: `Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-//     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-//     Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-//     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
-//     }
-// ];
 
 let prevX, prevW, nextW = 0;
 let prevCol, nextCol = null;
@@ -1216,11 +1191,10 @@ onMounted(function () {
                                     object-fit: cover;
                                 }
                                 svg {
-                                    width: 57px;
-                                    height: 57px;
-                                    // filter: invert(1);
-                                    // fill: #000;
+                                    width: 80px;
+                                    height: 80px;
                                     margin-bottom: 16px;
+                                    opacity: 0.08;
                                 }
                                 span {
                                     position: relative;
@@ -1293,6 +1267,20 @@ onMounted(function () {
                                     font-size: 24px;
                                     font-weight: 700;
                                     resize: none;
+                                }
+                                .logo {
+                                    position: absolute;
+                                    width: 72.73px;
+                                    height: 80px;
+                                    left: 50%;
+                                    top: 40%;
+                                    transform: translate(-50%, -50%);
+                                    z-index: 999;
+
+                                    svg {
+                                        opacity: 0.08;
+                                        margin-bottom: 6px;
+                                    }
                                 }
                             }
                         }
