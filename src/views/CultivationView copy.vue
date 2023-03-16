@@ -132,7 +132,7 @@
                             .uploadCont
                                 .uploadImg.uploadDiv
                                     .deleteImg(@click='(div) => {removeBox(div)}')
-                                    .dragBox
+                                    .dragBox.dragBox0
                                         svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
                                             path(d="M11.3,18h1.5v-3.2h3.2v-1.5h-3.2v-3.2h-1.5v3.2H8.1v1.5h3.2V18z M5.6,21.8c-0.4,0-0.7-0.1-1-0.4c-0.3-0.3-0.4-0.6-0.4-1V3.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h8.9l5.4,5.4v12.8c0,0.4-0.1,0.7-0.4,1c-0.3,0.3-0.6,0.4-1,0.4H5.6z M13.7,8.2h4.6l-4.6-4.6V8.2z")
                                         span Drag and Drop OR
@@ -143,7 +143,7 @@
                                     .deleteTxt(@click='(div) => {removeBox(div)}')
                                     .textBox
                                         label input text
-                                        textarea#textarea(form="uploadData" rows="16" maxlength="256" name="write_text" placeholder="Type here..." @keydown='checkText')
+                                        textarea(form="uploadData" rows="16" name="write_text" placeholder="Type here..." @click='()=>{ writeTextBox = !writeTextBox }')
                                         .logo(v-if="writeTextBox")
                                             svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
                                                 path(d="M4.7,20.7c-0.4,0-0.7-0.1-1-0.4s-0.4-0.6-0.4-1V4.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h9.7l6.3,6.3v9.7c0,0.4-0.1,0.7-0.4,1s-0.6,0.4-1,0.4H4.7z M7.1,16.6h9.7v-1.5H7.1V16.6z M7.1,12.7h9.7v-1.5H7.1V12.7z M7.1,8.9h6.7V7.4H7.1V8.9z")
@@ -162,8 +162,8 @@
                                         .deleteTxt(@click='(div) => {removeBox(div)}')
                                         .textBox
                                             label input text
-                                            textarea(form="uploadData" rows="16" :name="`write_text${index+1}`" placeholder="Type here..." @keydown='checkText')
-                                            .logo
+                                            textarea(form="uploadData" rows="16" :name="`write_text${index+1}`" placeholder="Type here..." @click='()=>{ writeTextBox = !writeTextBox }')
+                                            .logo(v-if="writeTextBox")
                                                 svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
                                                     path(d="M4.7,20.7c-0.4,0-0.7-0.1-1-0.4s-0.4-0.6-0.4-1V4.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h9.7l6.3,6.3v9.7c0,0.4-0.1,0.7-0.4,1s-0.6,0.4-1,0.4H4.7z M7.1,16.6h9.7v-1.5H7.1V16.6z M7.1,12.7h9.7v-1.5H7.1V12.7z M7.1,8.9h6.7V7.4H7.1V8.9z")
                                                 span Text Area
@@ -190,7 +190,7 @@
     
 <script setup>
 import { skapi } from '@/main.js';
-import { onMounted, ref, nextTick } from 'vue';
+import { onMounted, ref } from 'vue';
 
 let contents = [];
 let invalidUpload = ref(false);
@@ -252,36 +252,35 @@ async function submitForm(e){
     console.log({ result });
 }
 
-async function checkWidth(e) {
-    let uploadData = document.getElementById('uploadData');
+function checkWidth(e) {
+    let uploadVisible = document.querySelector('.uploadVisible');
+    let uploadData = document.querySelector('.uploadData');
+    let uploadDiv = document.querySelectorAll('.uploadDiv');
+    let addBtn = document.querySelector('.addBtn');
+    let totalDivWidth = 390;
 
     if(e.target.className == 'addImg') {
+        totalDivWidth += 480;
         uploadBoxArr.value.push('img');
-        await nextTick();
-        uploadData.scrollLeft += 480;
+        uploadData.scrollTo({left: -480, top: 0, behavior: "smooth"});
+        // uploadData.style.transform = "translateX(-480px)";
+        // uploadData.scrollLeft(480 + "px");
     } else if(e.target.className == 'addTxt') {
+        totalDivWidth += 370;
         uploadBoxArr.value.push('txt');
-        await nextTick();
-        uploadData.scrollLeft += 370;
     }
+
+    Array.from(uploadDiv).forEach((div) => {
+        totalDivWidth += (div.offsetWidth + 20);
+    })
 }
 
-function checkText() {
-    let textarea = document.getElementById('textarea'); 
-    let bgTxtLogo = document.querySelector('.textBox .logo')
-    let count = textarea.value.length + 1;
-    // let lanEng = /[a-zA-Z0-9]/g;
-
-    if(count = 0) {
-        writeTextBox.value = true;
-    } else if(count >= 1) {
-        writeTextBox.value = false;
-    } else if(count > 256) {
-        textarea.value.substring(0, 256);
-    }
-
-    // if(lanEng.test(textarea.value)) {
-    //     count += 1;
+function limitRows(text, e) {
+    console.log(document.form.write_text.value.length)
+    // let currentRows = (text.value.match(/\n/g)||[]).length + 1;
+    // let maxRows = text.rows;
+    // if(e.which === 16 && currentRows === maxRows){
+    //     return false;
     // }
 }
 
@@ -1267,11 +1266,7 @@ onMounted(function () {
                                     top: 40%;
                                     transform: translate(-50%, -50%);
                                     z-index: 999;
-                                    opacity: 1;
 
-                                    &.hide {
-                                        opacity: 0;
-                                    }
                                     svg {
                                         opacity: 0.08;
                                         margin-bottom: 6px;
