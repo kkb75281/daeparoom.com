@@ -131,26 +131,25 @@
                                     input.cancel(type='button' value='Cancel' @click='()=>{ invalidUpload = !invalidUpload }')
                             .uploadCont
                                 template(v-for="(i, index) in uploadBoxArr")
-                                    .uploadImg.uploadDiv(v-if="i === 'img'" :class="[`uploadImg${index}`]")
+                                    .uploadImg.uploadDiv(v-if="i === 'img'")
                                         .deleteImg(@click='(div) => {removeBox(div)}')
                                         .dragBox
-                                            .logo
-                                                svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
-                                                    path(d="M11.3,18h1.5v-3.2h3.2v-1.5h-3.2v-3.2h-1.5v3.2H8.1v1.5h3.2V18z M5.6,21.8c-0.4,0-0.7-0.1-1-0.4c-0.3-0.3-0.4-0.6-0.4-1V3.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h8.9l5.4,5.4v12.8c0,0.4-0.1,0.7-0.4,1c-0.3,0.3-0.6,0.4-1,0.4H5.6z M13.7,8.2h4.6l-4.6-4.6V8.2z")
-                                                span Drag and Drop OR
-                                            .inputFile
-                                                label.inputFileBtn(:for="[`dragDropFile${index}`]") Selct File
-                                                input(:class="[`dragDropFile${index}`]" type="file" :name="`drop_file${index}`" @change='(e)=>dragNdrop(e)') 
-                                        img.previewImg
-                                    .uploadTxt.uploadDiv(v-else="i === 'txt'" :class="[`uploadTxt${index}`]")
+                                            svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
+                                                path(d="M11.3,18h1.5v-3.2h3.2v-1.5h-3.2v-3.2h-1.5v3.2H8.1v1.5h3.2V18z M5.6,21.8c-0.4,0-0.7-0.1-1-0.4c-0.3-0.3-0.4-0.6-0.4-1V3.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h8.9l5.4,5.4v12.8c0,0.4-0.1,0.7-0.4,1c-0.3,0.3-0.6,0.4-1,0.4H5.6z M13.7,8.2h4.6l-4.6-4.6V8.2z")
+                                            span Drag and Drop OR
+                                                input#dragDropFile(type="file" :name="`drop_file${index}`" @change='(e)=>dragNdrop(e)' @dragover='drag')
+                                            label.inputFileBtn(for="uploadFile") Selct File
+                                            input#uploadFile(type="file" :name="`drop_file${index}`" style="display:none;" @change='(e)=>dragNdrop(e)')
+                                            .previewImg
+                                    .uploadTxt.uploadDiv(v-else="i === 'txt'")
                                         .deleteTxt(@click='(div) => {removeBox(div)}')
                                         .textBox
+                                            label input text
+                                            textarea.textarea(form="uploadData" rows="16" :name="`write_text${index}`" placeholder="Type here..." @keydown='(box) => {checkText(box)}')
                                             .logo
                                                 svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve")
                                                     path(d="M4.7,20.7c-0.4,0-0.7-0.1-1-0.4s-0.4-0.6-0.4-1V4.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h9.7l6.3,6.3v9.7c0,0.4-0.1,0.7-0.4,1s-0.6,0.4-1,0.4H4.7z M7.1,16.6h9.7v-1.5H7.1V16.6z M7.1,12.7h9.7v-1.5H7.1V12.7z M7.1,8.9h6.7V7.4H7.1V8.9z")
                                                 span Text Area
-                                            label input text
-                                            textarea.textarea(form="uploadData" rows="16" :name="`write_text${index}`" placeholder="Type here..." @keydown='(box) => {checkText(box)}')
                                 .addBtn 
                                     .addImg(@click='(e) => {checkWidth(e)}')
                                         svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
@@ -205,21 +204,24 @@ async function submitForm(e){
             access_group: 'public'
         }
     }
-    console.log(skapi.session);
     let result = await skapi.postRecord(e, setting);
     console.log({ result });
 }
 
 function dragNdrop(e) {
-    let inputFile = e.target;
-    let dragBox = inputFile.parentNode.parentNode;
-    let previewImg = dragBox.nextSibling;
     let fileName = URL.createObjectURL(e.target.files[0]);
+    let dragBox = document.querySelectorAll(".dragBox");
 
-    console.log(e.target)
-    dragBox.style.opacity = 0;
-    previewImg.setAttribute("src", fileName);
-    previewImg.style.zIndex = 999;
+    Array.from(dragBox).forEach((box, idx) => {
+        Array.from(box.children).forEach((div) => {
+            div.style.opacity = 0;
+        })
+
+        let previewImg = box.lastChild;
+        console.log(previewImg)
+        previewImg.setAttribute("src", fileName);
+        box.lastChild.style.opacity = 1;
+    })
 }
 
 function drag() {
@@ -253,9 +255,9 @@ function checkText(box) {
     
     if(textNum > 0) {
         box.target.value = box.target.value.substring(0, 256);
-        box.target.parentNode.firstChild.classList.add('hide');
+        box.target.nextSibling.classList.add('hide');
     } else {
-        box.target.parentNode.firstChild.classList.remove('hide');
+        box.target.nextSibling.classList.remove('hide');
     }
 }
 
@@ -1155,43 +1157,25 @@ onMounted(function () {
                                     height: 460px;
                                     object-fit: cover;
                                 }
-                                .logo {
-                                    display: flex;
-                                    flex-wrap: wrap;
-                                    align-items: center;
-                                    justify-content: center;
+                                svg {
+                                    width: 80px;
+                                    height: 80px;
                                     margin-bottom: 16px;
-
-                                    svg {
-                                        width: 80px;
-                                        height: 80px;
-                                        margin-bottom: 16px;
-                                        opacity: 0.08;
-                                    }
-                                    span {
-                                        width: 100%;
-                                    }
+                                    opacity: 0.08;
                                 }
-                                .inputFile {
-                                    display: flex;
-                                    flex-wrap: wrap;
-                                    align-items: center;
-                                    justify-content: center;
-                                    text-align: center;
+                                span {
+                                    position: relative;
                                     width: 100%;
+                                    margin-bottom: 24px;
                                     transition: all 0.3s;
-
-                                    .inputFileBtn {
-                                        cursor: pointer;
-                                        border: 1px solid #000;
-                                        border-radius: 4px;
-                                        width: 137px;
-                                        height: 40px;
-                                        text-align: center;
-                                        line-height: 40px;
-                                        z-index: 1;
+        
+                                    &.draging {
+                                        opacity: 0.5;
                                     }
-                                    input {
+                                    &.dragImgBox {
+                                        opacity: 1;
+                                    }
+                                    #dragDropFile {
                                         position: absolute;
                                         width: 460px;
                                         height: 460px;
@@ -1201,18 +1185,27 @@ onMounted(function () {
                                         opacity: 0;
                                     }
                                 }
-                            }
-                            .previewImg {
-                                position: absolute;
-                                width: 460px;
-                                height: 460px;
-                                left: 50%;
-                                top: 50%;
-                                transform: translate(-50%, -50%);
-                                z-index: -1;
+                                .previewImg {
+                                    position: absolute;
+                                    width: 460px;
+                                    height: 460px;
+                                    left: 50%;
+                                    top: 50%;
+                                    transform: translate(-50%, -50%);
+                                    z-index: -1;
 
-                                &.show {
-                                    z-index: 9999;
+                                    &.show {
+                                        z-index: 9999;
+                                    }
+                                }
+                                .inputFileBtn {
+                                    cursor: pointer;
+                                    border: 1px solid #000;
+                                    border-radius: 4px;
+                                    width: 137px;
+                                    height: 40px;
+                                    line-height: 40px;
+                                    z-index: 1;
                                 }
                             }
                         }
