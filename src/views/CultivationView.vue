@@ -248,8 +248,7 @@ async function checkWidth(e) {
 
 function checkText(box) {
     let textNum = box.target.value.length + 1;
-
-    console.log(textNum)
+    // console.log(textNum)
     
     if(textNum > 0) {
         box.target.value = box.target.value.substring(0, 256);
