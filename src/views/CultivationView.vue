@@ -197,7 +197,7 @@ skapi.getRecords({
         access_group: 'public'
     }
 }).then(result=>{
-    console.log(result)
+    console.log(result);
 })
 
 async function submitForm(e){
@@ -236,7 +236,7 @@ function dragDivs(e) {
     uploadDiv.forEach((div) => {
         div.addEventListener('drag', (e) => {
             let index = uploadDiv.indexOf(div);
-            console.log(e)
+            console.log(e);
         })
     })
 }
@@ -440,7 +440,6 @@ onMounted(function () {
     } else {
         console.log('PC');
 
-        ////////// show content
         let trTit = document.querySelectorAll('.tit');
         let trCon = document.querySelectorAll('.con');
         let close = document.querySelectorAll('.close');
@@ -467,7 +466,6 @@ onMounted(function () {
         })
     }
 
-    ////////// change backgroud-color
     let bodyId = document.getElementById('shell');
     let ecBtn = document.querySelector('.ecBtn');
     let ecColor = document.querySelector('.ecColor');
@@ -476,7 +474,6 @@ onMounted(function () {
     let miBtn = document.querySelector('.miBtn');
     let miMenu = document.querySelector('.miMenu');
 
-    // 색상 바꾸기
     function returnColor() {
         bodyId.style.background =
             "linear-gradient("
