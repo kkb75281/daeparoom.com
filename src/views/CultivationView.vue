@@ -176,6 +176,7 @@
 <script setup>
 import { skapi } from '@/main.js';
 import { onMounted, ref, nextTick } from 'vue';
+import draggable from 'vuedraggable';
 
 let contents = [];
 let invalidUpload = ref(false);
@@ -360,8 +361,6 @@ onMounted(function () {
         let mUploadSave = document.querySelector('.mUploadSave');
         let mUploadClose = document.querySelector('.mUploadClose');
         let dragBoxSpan = document.querySelector('.dragBox .logo span');
-        let textBoxLogo = document.querySelector('.textBox .logo');
-        let textArea = document.querySelectorAll('.textarea');
 
         for (let i = 1; i < rows.length; i += 2) {
             let currentRow = rows[i];
@@ -403,10 +402,8 @@ onMounted(function () {
 
         mfooter.addEventListener('click', () => {
             uploadWrap.classList.add('active');
-        })
-
+        });
         uploadBtn.classList.add('hide');
-        textBoxLogo.classList.add('hide');
         dragBoxSpan.classList.add('hide');
         mUploadSave.classList.add('active');
         mUploadClose.classList.add('active');
@@ -428,11 +425,15 @@ onMounted(function () {
             });
         });
 
-        Array.from(textArea).forEach((area)=>{
-            area.addEventListener('keyup', (obj) => {
-                obj.target.style.height = 'auto';
-                obj.target.parentNode.parentNode.style.height = (obj.target.scrollHeight + 10) + 'px';
-                obj.target.style.height = (obj.target.scrollHeight + 10) + 'px';
+        document.addEventListener('keyup', () => {
+            let textArea = document.querySelectorAll('.textarea');
+
+            Array.from(textArea).forEach((area)=>{
+                area.addEventListener('keyup', (obj) => {
+                    obj.target.style.height = 'auto';
+                    obj.target.parentNode.parentNode.style.height = (obj.target.scrollHeight + 10) + 'px';
+                    obj.target.style.height = (obj.target.scrollHeight) + 'px';
+                })
             })
         })
 
@@ -1583,47 +1584,57 @@ onMounted(function () {
                                 height: 1px;
                                 background-color: #000;
                             }
-                            > div {
-                                margin-bottom: 50px;
-
-                                &:last-child {
-                                    margin-bottom: 0;
+                            .uploadDivs {
+                                flex-wrap: wrap;
+                                
+                                > div {
+                                    margin-bottom: 50px;
+    
+                                    &:last-child {
+                                        margin-bottom: 0;
+                                    }
                                 }
-                            }
-                            .uploadImg {
-                                width: 350px;
-                                height: 350px;
-                                margin-right: 0;
-            
-                                .dragBox {
+                                .uploadImg {
                                     width: 350px;
                                     height: 350px;
-            
-                                    img {
+                                    margin-right: 0;
+                
+                                    .dragBox {
                                         width: 350px;
                                         height: 350px;
-                                    }
-                                    span {
-                                        #dragDropFile {
+                
+                                        img {
                                             width: 350px;
                                             height: 350px;
                                         }
+                                        span {
+                                            #dragDropFile {
+                                                width: 350px;
+                                                height: 350px;
+                                            }
+                                        }
                                     }
                                 }
-                            }
-                            .uploadTxt {
-                                height: 40px;
-                                margin-right: 0;
-        
-                                .textBox {
+                                .uploadTxt {
+                                    // height: 40px;
                                     height: 40px;
-
-                                    textarea {
+                                    margin-right: 0;
+                                    
+                                    .textBox {
                                         height: 40px;
-                                        -ms-overflow-style: none;
+                                        padding: 2px;
 
-                                        &::-webkit-scrollbar{
-                                            display:none;
+                                        .logo {
+                                            display: none;
+                                        }
+                                        
+                                        textarea {
+                                            height: 35px;
+                                            -ms-overflow-style: none;
+    
+                                            &::-webkit-scrollbar{
+                                                display:none;
+                                            }
                                         }
                                     }
                                 }
@@ -1631,6 +1642,7 @@ onMounted(function () {
                             .addBtn {
                                 width: 100%;
                                 height: 160px;
+                                margin-top: 42px;
                                 flex-wrap: nowrap;
                                 justify-content: space-between;
             
