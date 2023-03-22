@@ -1,61 +1,115 @@
 <template>
-    <div>
-        <div v-for="(image, index) in images" :key="index">
-            <div class="frame" :style="{ backgroundColor: image.frame.color }">
-                <img :src="image.src" alt="">
-            </div>
-            <button @click="deleteImage(index)">Delete</button>
-        </div>
-        <button @click="addImage">Add Image</button>
+    <div class="row">
+      <div class="col-2">
+        <button class="btn btn-secondary button" @click="sort">
+          To original order
+        </button>
+      </div>
+  
+      <div class="col-6">
+        <h3>Transition</h3>
+        <draggable
+          class="list-group"
+          tag="ul"
+          v-model="list"
+          v-bind="dragOptions"
+          @start="isDragging = true"
+          @end="isDragging = false"
+        >
+          <transition-group type="transition" name="flip-list">
+            <li
+              class="list-group-item"
+              v-for="element in list"
+              :key="element.order"
+            >
+              <i
+                :class="
+                  element.fixed ? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'
+                "
+                @click="element.fixed = !element.fixed"
+                aria-hidden="true"
+              ></i>
+              {{ element.name }}
+            </li>
+          </transition-group>
+        </draggable>
+      </div>
     </div>
 </template>
-  
+    
 <script>
+import draggable from "vuedraggable";
+
+const message = [
+    "vue.draggable",
+    "draggable",
+    "component",
+    "for",
+    "vue.js 2.0",
+    "based",
+    "on",
+    "Sortablejs"
+];
+
 export default {
+    name: "transition-example",
+    display: "Transition",
+    order: 6,
+    components: {
+        draggable
+    },
     data() {
         return {
-            images: [],
-            frames: [
-                { id: 1, color: '#ff0000' },
-                { id: 2, color: '#00ff00' },
-                { id: 3, color: '#0000ff' }
-            ]
+            list: message.map((name, index) => {
+                return { name, order: index + 1 };
+            })
         };
     },
     methods: {
-        addImage() {
-            const fileInput = document.createElement('input');
-            fileInput.type = 'file';
-            fileInput.accept = 'image/*';
-            fileInput.onchange = () => {
-                const file = fileInput.files[0];
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const newImage = { id: this.images.length + 1, src: e.target.result };
-                    const newFrame = this.frames[Math.floor(Math.random() * this.frames.length)];
-                    const imageWithFrame = { ...newImage, frame: newFrame };
-                    this.images.push(imageWithFrame);
-                };
-                reader.readAsDataURL(file);
+        sort() {
+            this.list = this.list.sort((a, b) => a.order - b.order);
+        }
+    },
+    computed: {
+        dragOptions() {
+            return {
+                animation: 0,
+                group: "description",
+                disabled: false,
+                ghostClass: "ghost"
             };
-            fileInput.click();
-        },
-        deleteImage(index) {
-            this.images.splice(index, 1);
         }
     }
 };
 </script>
-  
+    
 <style>
-.frame {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-    height: 200px;
-    margin: 10px;
-    border: 2px solid #000000;
+.button {
+    margin-top: 35px;
+}
+
+.flip-list-move {
+    transition: transform 0.5s;
+}
+
+.no-move {
+    transition: transform 0s;
+}
+
+.ghost {
+    opacity: 0.5;
+    background: #c8ebfb;
+}
+
+.list-group {
+    min-height: 20px;
+}
+
+.list-group-item {
+    cursor: move;
+}
+
+.list-group-item i {
+    cursor: pointer;
 }
 </style>
-  

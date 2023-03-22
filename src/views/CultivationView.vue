@@ -51,10 +51,11 @@
                     tr.tit
                         td {{ c.host }}
                         td “{{ c.title }}”
-                        td(style="font-size:16px;")
-                            template(v-for="(t, idx) in c.type")
-                                | {{ t }},
-                                br(v-if="idx < c.type.length - 1")
+                        //- td(style="font-size:16px;")
+                        //-     template(v-for="(t, idx) in c.type")
+                        //-         | {{ t }},
+                        //-         br(v-if="idx < c.type.length - 1")
+                        td {{ c.type }}
                         td {{ c.date }}
                     tr.con
                         td(colspan="4" style='overflow: hidden;')
@@ -197,7 +198,30 @@ skapi.getRecords({
         access_group: 'public'
     }
 }).then(result=>{
-    console.log(result);
+    // console.log(result.list);
+    for(let i=0; i<result.list.length; i++) {
+        let tableCont = {
+            host: result.list[i].data.host,
+            type: result.list[i].data.type,
+            date: result.list[i].data.date,
+            title: result.list[i].data.title,
+        };
+        contents.push(tableCont);
+    }
+    console.log(contents)
+    // let contents = [
+    //     {
+    //         host: 'NIKE',
+    //         type: ['Illustration', 'Interactive Art'],
+    //         date: '2022.04',
+    //         title: 'Whatever Whenever',
+    //         img: 'image1111.svg',
+    //         text: `Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+    //     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
+    //     Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
+    //     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
+    //     },
+    // ]
 })
 
 async function submitForm(e){
@@ -210,6 +234,7 @@ async function submitForm(e){
     console.log(skapi.session);
     let result = await skapi.postRecord(e, setting);
     console.log({ result });
+    // invalidUpload.value = false;
 }
 
 function dragNdrop(e) {
