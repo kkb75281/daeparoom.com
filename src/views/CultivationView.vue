@@ -47,8 +47,8 @@
                     th Date
             tbody
                 // 반복적인 콘텐츠 렌더링이 필요한 경우 콘텐츠들을 데이터화 하여 v-for 및 v-if 를 사용하여 렌더링합니다. 
-                template(v-for="c in contents")
-                    tr.tit
+                template(v-for="(c,i) in contents")
+                    tr.tit(@click="(e) => {showCont(e)}")
                         td {{ c.host }}
                         td “{{ c.title }}”
                         //- td(style="font-size:16px;")
@@ -62,12 +62,10 @@
                             .slider__wrap
                                 .slider__img
                                     .slider__inner
-                                        .slider.image-column
-                                            // 조건에 따라 달라지는 URL(이미지)인 경우, 이미지를 public 폴더에 넣어서 사용합니다.
-                                            img(:src='"/image/" + c.img')
-                                        .slider.text-column {{ c.text }}
-                                        .slider.image-column
-                                            img(:src='"/image/" + c.img')
+                                        //- template
+                                        //-     .slider.image-column
+                                        //-         img(:src="c.drop_image0.url")
+                                        //-     .slider.text-column {{ c.write_text1 }}
                                 .slider__btn
                                     .icon.prev
                                         svg(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
@@ -142,7 +140,7 @@
                                                     span Drag and Drop OR
                                                 .inputFile
                                                     label.inputFileBtn(:for="[`dragDropFile${index}`]") Selct File
-                                                    input(:class="[`dragDropFile${index}`]" type="file" :name="`drop_file${index}`" @change='(e)=>dragNdrop(e)') 
+                                                    input(:class="[`dragDropFile${index}`]" type="file" :name="`upload${index}_img`" @change='(e)=>dragNdrop(e)') 
                                             img.previewImg
                                         .uploadTxt.uploadDiv(v-else="i === 'txt'" :class="[`uploadTxt${index}`]" @mousedown='(e) => dragDivs(e)')
                                             .deleteTxt(@click='(div) => {removeBox(div)}')
@@ -152,7 +150,7 @@
                                                         path(d="M4.7,20.7c-0.4,0-0.7-0.1-1-0.4s-0.4-0.6-0.4-1V4.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h9.7l6.3,6.3v9.7c0,0.4-0.1,0.7-0.4,1s-0.6,0.4-1,0.4H4.7z M7.1,16.6h9.7v-1.5H7.1V16.6z M7.1,12.7h9.7v-1.5H7.1V12.7z M7.1,8.9h6.7V7.4H7.1V8.9z")
                                                     span Text Area
                                                 label input text
-                                                textarea.textarea(form="uploadData" rows="1" :name="`write_text${index}`" placeholder="Type here..." @keydown='(box) => {checkText(box)}')
+                                                textarea.textarea(form="uploadData" rows="1" :name="`upload${index}_txt`" placeholder="Type here..." @keydown='(box) => {checkText(box)}')
                                 .addBtn 
                                     .addImg(@click='(e) => {checkWidth(e)}')
                                         svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
@@ -179,7 +177,7 @@ import { skapi } from '@/main.js';
 import { onMounted, ref, nextTick } from 'vue';
 import draggable from 'vuedraggable';
 
-let contents = [];
+let contents = ref([]);
 let invalidUpload = ref(false);
 let img = ref('img');
 let txt = ref('txt');
@@ -198,30 +196,26 @@ skapi.getRecords({
         access_group: 'public'
     }
 }).then(result=>{
-    // console.log(result.list);
+    console.log(result);
     for(let i=0; i<result.list.length; i++) {
         let tableCont = {
             host: result.list[i].data.host,
             type: result.list[i].data.type,
             date: result.list[i].data.date,
             title: result.list[i].data.title,
+            image: [],
+            text: []
         };
-        contents.push(tableCont);
+        
+        let resultData = result.list[i].data;
+        let dataKeys = Object.keys(result.list[i].data);
+        let filter = dataKeys.filter((string) => string.length > 10).sort();
+        let imgtxtArr = [];
+        console.log(resultData)
+
+        contents.value.push(tableCont);
     }
-    console.log(contents)
-    // let contents = [
-    //     {
-    //         host: 'NIKE',
-    //         type: ['Illustration', 'Interactive Art'],
-    //         date: '2022.04',
-    //         title: 'Whatever Whenever',
-    //         img: 'image1111.svg',
-    //         text: `Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-    //     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.
-    //     Are you looking for a Nike logo font that will make your design stand out? If so, then you have come to the right place. Among the most popular typefaces available for Photoshop is the Nike font pack. You can also use the font pack to generate text in other applications. It is a typeface that is suitable for use on websites and in games due to its high accessibility and 22 styles. This typeface will be of great use in the development of websites and games due to the strength of its accessibility. The Nike font can be found here.
-    //     Designers have to figure out a way to encourage people to fill them out. Yet, if you add one form field too many, you can expect your conversion rate to plummet. How do some signup forms strike this balance? We’ll take a look at 20 inspiring signup forms and find out what makes them work.`
-    //     },
-    // ]
+
 })
 
 async function submitForm(e){
@@ -235,6 +229,11 @@ async function submitForm(e){
     let result = await skapi.postRecord(e, setting);
     console.log({ result });
     // invalidUpload.value = false;
+}
+
+function showCont(e) {
+    let nextDivCont = e.target.parentNode.nextElementSibling;
+    nextDivCont.classList.toggle('active');
 }
 
 function dragNdrop(e) {
@@ -465,18 +464,11 @@ onMounted(function () {
     } else {
         console.log('PC');
 
-        let trTit = document.querySelectorAll('.tit');
         let trCon = document.querySelectorAll('.con');
         let close = document.querySelectorAll('.close');
         let mUploadSave = document.querySelector('.mUploadSave');
 
         mUploadSave.classList.remove('active')
-
-        for (let i = 0; i < trTit.length; i++) {
-            trTit[i].addEventListener('click', () => {
-                trCon[i].classList.toggle('active');
-            });
-        }
 
         for (let i = 0; i < close.length; i++) {
             close[i].addEventListener('click', () => {
