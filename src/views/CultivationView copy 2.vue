@@ -135,7 +135,7 @@
                                                 span Drag and Drop OR
                                             .inputFile
                                                 label.inputFileBtn(:for="[`dragDropFile${index}`]") Selct File
-                                                input(:class="[`dragDropFile${index}`]" type="file" :name="`upload_file`" @change='(e)=>dragNdrop(e)') 
+                                                input(:class="[`dragDropFile${index}`]" type="file" :name="`upload${index}_img`" @change='(e)=>dragNdrop(e)') 
                                         img.previewImg
                                     .uploadTxt.uploadDiv(v-else="i === 'txt'" :class="[`uploadTxt${index}`]" @mousedown='(e) => dragDivs(e)')
                                         .deleteTxt(@click='(div) => {removeBox(div)}')
@@ -145,7 +145,7 @@
                                                     path(d="M4.7,20.7c-0.4,0-0.7-0.1-1-0.4s-0.4-0.6-0.4-1V4.7c0-0.4,0.1-0.7,0.4-1s0.6-0.4,1-0.4h9.7l6.3,6.3v9.7c0,0.4-0.1,0.7-0.4,1s-0.6,0.4-1,0.4H4.7z M7.1,16.6h9.7v-1.5H7.1V16.6z M7.1,12.7h9.7v-1.5H7.1V12.7z M7.1,8.9h6.7V7.4H7.1V8.9z")
                                                 span Text Area
                                             label input text
-                                            textarea.textarea(form="uploadData" rows="1" :name="`upload_file`" placeholder="Type here..." @keydown='(box) => {checkText(box)}')
+                                            textarea.textarea(form="uploadData" rows="1" :name="`upload${index}_txt`" placeholder="Type here..." @keydown='(box) => {checkText(box)}')
                             .addBtn 
                                 .addImg(@click='(e) => {checkWidth(e)}')
                                     svg.icon(version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve")
@@ -239,7 +239,7 @@ async function submitForm(e){
     console.log(skapi.session);
     let result = await skapi.postRecord(e, setting);
     console.log({ result });
-    invalidUpload.value = false;
+    // invalidUpload.value = false;
 }
 
 function showCont(e) {
