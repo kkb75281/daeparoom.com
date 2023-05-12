@@ -9,19 +9,19 @@
         form.form(@submit = '(e)=>skapi.signup(e, { confirmation: "/signup3", response: r => afterSignup(r), onerror: err => alertErr(err) })')
             label User Name
             br
-            sui-input#name(type='name' name='name' placeholder='계정 이름')
+            sui-input#name(type='text' name='name' placeholder='계정 이름')
 
             label Email
             br
-            sui-input#email(type='email' name='email' placeholder='이메일')
+            sui-input#email(type='text' name='email' placeholder='이메일')
 
             label Password
             br
-            sui-input#password(type='password' name='password' placeholder='비밀번호')
+            sui-input#password(type='text' name='password' placeholder='비밀번호')
 
             label Password Confirm
             br
-            sui-input#confirm_password(type='password' placeholder='비밀번호 확인' @change = 'validatePassword' style='margin-bottom: 10px;')
+            sui-input#confirm_password(type='text' placeholder='비밀번호 확인' @change = 'validatePassword' style='margin-bottom: 10px;')
 
             div(style="text-align:center; margin: 30px 0;")
                 sui-input(type='submit' value='계정 만들기')
